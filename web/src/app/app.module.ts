@@ -55,8 +55,6 @@ import {EprService} from './service/epr.service';
 import {ResponseInterceptor} from './service/response-interceptor';
 import { ExplorerMainComponent } from './modules/explorer/explorer-main/explorer-main.component';
 import {EprRoutingModule} from './modules/epr-routing.module';
-import {ImageViewerModule} from '@hallysonh/ngx-imageviewer';
-import {NguiMapModule} from '@ngui/map';
 import {AuthGuard} from './service/auth-guard';
 import {AuthService} from './service/auth.service';
 import {Oauth2Service} from './service/oauth2.service';
@@ -68,10 +66,7 @@ import {LogoutComponent} from './security/logout/logout.component';
 import {AuthGuardOauth2} from './service/auth-guard-oauth2';
 import {OAuthModule} from 'angular-oauth2-oidc';
 //  https://github.com/Teradata/covalent-echarts/issues/50
-import { CovalentBaseEchartsModule } from '@covalent/echarts/base';
-import { CovalentBarEchartsModule } from '@covalent/echarts/bar';
-import { CovalentLineEchartsModule } from '@covalent/echarts/line';
-import { CovalentTooltipEchartsModule } from '@covalent/echarts/tooltip';
+
 import {AppConfigService} from './service/app-config.service';
 import {LoadingComponent} from './security/loading/loading.component';
 
@@ -157,16 +152,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CovalentChipsModule,
     CovalentNotificationsModule,
     CovalentMenuModule,
-    CovalentBaseEchartsModule,
-    CovalentBarEchartsModule,
-    CovalentLineEchartsModule,
-    CovalentTooltipEchartsModule,
     CovalentLoadingModule,
-
-      ImageViewerModule,
-     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyDC8GmtqZiQXc16qf1v870NKy-phjv-1N0'}),
-    //  NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key='}),
-
     EprRoutingModule,
       AppRoutingModule,
 
