@@ -61,7 +61,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- hawtio -->
+        <!-- hawtio
 
         <dependency>
             <groupId>io.hawt</groupId>
@@ -73,7 +73,7 @@
             <artifactId>hawtio-core</artifactId>
             <version>${hawtio.version}</version>
         </dependency>
-
+-->
         <!-- <dependency>
             <groupId>io.hawt</groupId>
             <artifactId>hawtio-insight-log</artifactId>

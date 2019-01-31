@@ -21,9 +21,8 @@
                                 <td-message label="GET {{base}}/{{'{'}}id{{'}'}}" icon="info"></td-message>
                         </div>
                         <mat-card>
-                            <mat-card-title>FHIR Search Form</mat-card-title>
+                            <mat-card-title>FHIR Get Resource</mat-card-title>
                             <mat-card-content>
-                                Use the table above to add search fields (above) to this form.
                                 <td-dynamic-forms #dynform1	 [elements]="elements_id">
                                   <ng-template let-element ngFor [ngForOf]="elements_id">
                                     <ng-template let-control="control" [tdDynamicFormsError]="element.name">

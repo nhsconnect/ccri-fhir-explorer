@@ -96,7 +96,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
 	public elements_id :ITdDynamicElementConfig[] = [
   {
-      label: '',
+      label: 'resource id',
       name: 'patientid',
       type: TdDynamicElement.Input,
       required: true
