@@ -24,14 +24,6 @@ public class ExplorerApp {
         SpringApplication.run(ExplorerApp.class, args);
     }
 
-    @Bean
-    ServletRegistrationBean servletRegistrationBean() {
-        ServletRegistrationBean servlet = new ServletRegistrationBean
-                (new CamelHttpTransportServlet(), "/*");
-        servlet.setName("jmxmonitor");
-        servlet.setLoadOnStartup(2);
-        return servlet;
-    }
 
     @Bean
     CamelContextConfiguration contextConfiguration() {
