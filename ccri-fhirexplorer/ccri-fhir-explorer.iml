@@ -60,7 +60,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: net.minidev:json-smart:2.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.minidev:accessors-smart:1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.ow2.asm:asm:5.0.4" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.assertj:assertj-core:3.11.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-core:2.23.4" level="project" />
@@ -78,6 +77,18 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:5.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:5.1.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.hawt:hawtio-springboot:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: io.hawt:hawtio-system:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jolokia:jolokia-core:1.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20171018" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:2.1.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator-autoconfigure:2.1.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.hawt:hawtio-core:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: io.hawt:hawtio-util:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-spring-boot-starter:2.23.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-spring-boot:2.23.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-core-starter:2.23.1" level="project" />
@@ -112,7 +123,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.woodstox:woodstox-core:5.0.3" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.7" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.9.7" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:20.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-core:1.5.21" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-models:1.5.21" level="project" />
@@ -123,6 +133,5 @@
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.21.0-GA" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-parser:1.0.37" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-ext:1.7.25" level="project" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
   </component>
 </module>

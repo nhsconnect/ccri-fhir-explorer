@@ -15,11 +15,8 @@ public class ExplorerApp {
     public static void main(String[] args) {
 
         System.setProperty("hawtio.authenticationEnabled", "false");
-        System.setProperty("hawtio.role","MANAGER");
-        System.setProperty("explorer.security.enabled","false");
-
-        //System.setProperty("server.servlet.context-path", "/ccri");
-        System.setProperty("explorer.contextPath","/");
+        System.setProperty("management.security.enabled","false");
+        System.setProperty("management.contextPath","");
 
         SpringApplication.run(ExplorerApp.class, args);
     }
