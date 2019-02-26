@@ -23,7 +23,7 @@ export class LoadingComponent implements OnInit {
               private _loadingService: TdLoadingService) { }
 
   ngOnInit() {
-      console.log('INIT');
+      console.log('LoadingComponent');
 
       this._loadingService.register('overlayStarSyntax');
 
