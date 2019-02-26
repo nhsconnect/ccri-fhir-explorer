@@ -27,7 +27,7 @@ export class LoadingComponent implements OnInit {
 
       this._loadingService.register('overlayStarSyntax');
 
-      if (this.appConfig.getConfig() !== undefined) {
+      if (this.appConfig.getConfig() === undefined) {
         this.appConfig.getInitEventEmitter().subscribe(result => {
           // console.log(this.appConfig.getConfig());
           if (this.appConfig.getConfig() !== undefined) {
