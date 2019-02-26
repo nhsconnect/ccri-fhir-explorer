@@ -318,7 +318,15 @@ export class ResourceComponent implements OnInit, AfterViewInit {
          };
          this.elements.push(nodeR);
          break;
-
+     case 'uri' :
+         const nodeU: ITdDynamicElementConfig = {
+             'label': param.name + ' - ' + param.documentation,
+             'name' : param.type + '-' + seq + '-1-' + param.name,
+             'type': TdDynamicElement.Input,
+             'required': true,
+         };
+         this.elements.push(nodeU);
+         break;
        default:
          console.log('MISSING - ' + param.type);
      }
@@ -419,7 +427,11 @@ export class ResourceComponent implements OnInit, AfterViewInit {
                   if (this.form.value[this.elements[i].name] !== undefined) {
                       query = query + this.form.value[this.elements[i].name]; }
                   break;
-
+              case 'uri':
+                  query = query + '=';
+                  if (this.form.value[this.elements[i].name] !== undefined) {
+                      query = query + this.form.value[this.elements[i].name]; }
+                  break;
           }
 
 
