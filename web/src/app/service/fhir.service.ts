@@ -215,11 +215,20 @@ return this.http.post<any>(url, body, { headers : httpHeaders});
 
 public post(resource: string , body: any): Observable<any> {
 
-const headers: HttpHeaders = this.getEPRHeaders(false);
-headers.append('Content-Type', 'application/fhir+json');
-headers.append('Prefer', 'return=representation');
-return this.http.post<any>(this.getFHIRServerBase() + resource, body, { headers : headers});
+    let headers: HttpHeaders = this.getEPRHeaders(false);
+    headers = headers.append('Content-Type', 'application/fhir+json');
+    headers = headers.append('Prefer', 'return=representation');
+    return this.http.post<any>(this.getFHIRServerBase() + resource, body, { headers : headers});
 }
+
+    public postContentType(resource: string , body: any, contentType): Observable<any> {
+        console.log('ContentType = '+contentType);
+        let headers: HttpHeaders = this.getEPRHeaders(false);
+        headers = headers.append('Content-Type', contentType);
+        headers = headers.append('Accept', 'application/fhir+json');
+
+        return this.http.post<any>(this.getFHIRServerBase() + resource, body, { headers : headers});
+    }
 
 public put(resource: string, body: any): Observable<any> {
 

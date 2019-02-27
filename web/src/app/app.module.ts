@@ -4,8 +4,8 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  CovalentChipsModule,
-  CovalentDialogsModule, CovalentExpansionPanelModule,
+  CovalentChipsModule, CovalentDataTableModule,
+  CovalentDialogsModule, CovalentExpansionPanelModule, CovalentFileModule,
   CovalentJsonFormatterModule,
   CovalentLayoutModule, CovalentLoadingModule,
   CovalentMediaModule, CovalentMenuModule,
@@ -69,6 +69,7 @@ import {OAuthModule} from 'angular-oauth2-oidc';
 
 import {AppConfigService} from './service/app-config.service';
 import {LoadingComponent} from './security/loading/loading.component';
+import {CovalentCodeEditorModule} from "@covalent/code-editor";
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -153,6 +154,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CovalentNotificationsModule,
     CovalentMenuModule,
     CovalentLoadingModule,
+    CovalentDataTableModule,
+    CovalentCodeEditorModule,
+    CovalentFileModule,
     EprRoutingModule,
       AppRoutingModule,
 

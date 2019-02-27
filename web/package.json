@@ -27,6 +27,7 @@
     "@angular/platform-server": "^7.2.6",
     "@angular/router": "^7.2.6",
     "@auth0/angular-jwt": "^2.1.0",
+    "@covalent/code-editor": "^2.0.4",
     "@covalent/core": "^2.0.1",
     "@covalent/dynamic-forms": "^2.0.1",
     "@covalent/highlight": "^2.0.1",

@@ -180,7 +180,7 @@ vis
 
 @covalent/core/common
 
-@angular/material/toolbar
+@angular/material/sidenav
 
 @angular/core
 MIT
@@ -649,9 +649,9 @@ MIT
 
 @angular/material/autocomplete
 
-@angular/material/sidenav
-
 @angular/material/divider
+
+@angular/material/toolbar
 
 @angular/material/card
 
@@ -660,6 +660,9 @@ MIT
 @angular/material/progress-bar
 
 @angular/material/tabs
+
+@covalent/code-editor
+MIT
 
 @angular/material/menu
 
@@ -800,6 +803,10 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
+@angular/material/table
+
+@angular/material/radio
 
 @covalent/http
 MIT

@@ -20,7 +20,12 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@covalent/code-editor/assets/monaco",
+                "output": "/assets/monaco"
+              }
             ],
             "styles": [
               "node_modules/@covalent/core/common/platform.scss",

@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {AfterViewInit, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FhirService, Formats} from '../../../service/fhir.service';
 import {MatSelect} from '@angular/material';
 import {ITdDynamicElementConfig, TdDynamicElement, TdDynamicFormsComponent} from '@covalent/dynamic-forms';
+import {OperationOutcomeDataSource} from "../../../data-source/operation-outcome-source";
 
 
 
@@ -11,6 +12,7 @@ export interface QueryOptions {
     type: string;
     documentation: string;
 }
+
 
 /*
 
@@ -38,7 +40,10 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     public query = undefined;
     
     public id_query = undefined;
+
+    public operationOutcome: fhir.OperationOutcome[];
     
+    public json = true;
 
     public rest: any;
 
@@ -54,36 +59,18 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     expanded = false;
 
+    input: string;
+
+    model: any;
+
+    resourceType: string;
+
     entries: any[];
 
-    allergies: fhir.AllergyIntolerance[];
-    carePlans: fhir.CarePlan[];
-    consents: fhir.Consent[];
-    impressions: fhir.ClinicalImpression[];
-    conditions: fhir.Condition[];
-    documents: fhir.DocumentReference[];
-    encounters: fhir.Encounter[];
-    goals: fhir.Goal[];
-    services: fhir.HealthcareService[];
-    immunisations: fhir.Immunization[];
-    locations: fhir.Location[];
-    medications: fhir.Medication[];
-    medicationAdministrations: fhir.MedicationAdministration[];
-    medicationStatements: fhir.MedicationStatement[];
-    medicationDispenses: fhir.MedicationDispense[];
-    observations: fhir.Observation[];
-    organisations: fhir.Organization[];
 
-    prescriptions: fhir.MedicationRequest[];
-    forms: fhir.QuestionnaireResponse[];
+    dataSource : OperationOutcomeDataSource;
 
-    procedures: fhir.Procedure[];
-    patients: fhir.Patient[];
-    practitioners: fhir.Practitioner[];
-
-    referrals: fhir.ReferralRequest[];
-    risks: fhir.RiskAssessment[];
-    roles: fhir.PractitionerRole[];
+    displayedColumns = ['severity', 'code', 'diagnostic'];
 
   public currentResource = '';
 
@@ -118,17 +105,17 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     this.clearDown();
 
 
-      const resource = this.route.snapshot.paramMap.get('resourceType');
+      this.resourceType = this.route.snapshot.paramMap.get('resourceType');
 
       if (this.fhirSrv.conformance !== undefined ) {
-          this.buildOptions(resource);
+          this.buildOptions(this.resourceType);
       } else {
           this.fhirSrv.getConformance();
 
           this.fhirSrv.getConformanceChange().subscribe(
               conformance => {
                   if (this.fhirSrv.conformance !== undefined) {
-                      this.buildOptions(resource);
+                      this.buildOptions(this.resourceType);
                   }
               }
           );
@@ -180,31 +167,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
   }
 
   clearDown() {
-    this.entries = [];
-    this.medicationStatements = [];
-    this.medicationDispenses = [];
-      this.medicationAdministrations = [];
-    this.prescriptions = [];
-    this.medications = [];
-    this.conditions = [];
-    this.procedures = [];
-    this.observations = [];
-    this.encounters = [];
-    this.allergies = [];
-    this.patients = [];
-    this.practitioners = [];
-    this.organisations = [];
-    this.roles = [];
-    this.services = [];
-    this.immunisations = [];
-    this.forms = [];
-    this.risks = [];
-    this.goals = [];
-    this.impressions = [];
-    this.consents = [];
-    this.carePlans = [];
-    this.documents = [];
-    this.referrals = [];
+
   }
 
   onExpand() {
@@ -214,6 +177,12 @@ export class ResourceComponent implements OnInit, AfterViewInit {
   onCollapse() {
       this.expanded = false;
   }
+
+  swapFormat(json: boolean) {
+        this.json = json;
+  }
+
+    public loadComplete: EventEmitter<any> = new EventEmitter();
 
   onAdd(param) {
     const seq: string = (this.elements.length + 1).toString(10);
@@ -348,10 +317,6 @@ export class ResourceComponent implements OnInit, AfterViewInit {
               this.resource = bundle;
               this.resourceString = JSON.stringify(bundle, null, 2);
               break;
-            case 'epr' :
-              this.resource = bundle;
-              this.getResources();
-              break;
             case 'xml':
               const reader = new FileReader();
               reader.addEventListener('loadend', (e) => {
@@ -365,6 +330,39 @@ export class ResourceComponent implements OnInit, AfterViewInit {
               this.progressBar = false;
           });
   }
+
+    selectEvent(file: FileList | File): void {
+        if (file instanceof File) {
+            let reader = new FileReader();
+            reader.readAsText(file);
+            this.loadComplete.subscribe( (data) => {
+                    //this.buildBundle(data);
+                    this.input = data;
+                    if (file.name.toLowerCase().includes('.xml')) {
+                        this.json = false;
+                    }
+                    if (file.name.toLowerCase().includes('.json')) {
+                        this.json = true;
+                    }
+                }
+            );
+            const me = this;
+            reader.onload = (event: Event) => {
+                if (reader.result instanceof ArrayBuffer) {
+                    // console.log('array buffer');
+
+                    me.loadComplete.emit(reader.result);
+                } else {
+                    // console.log('not a buffer');
+                    me.loadComplete.emit(reader.result);
+                }
+            };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+
+        }
+    }
 
     ngAfterViewInit() {
      // console.log('after init');
@@ -486,10 +484,6 @@ export class ResourceComponent implements OnInit, AfterViewInit {
                           this.resource = bundle;
                           this.resourceString = JSON.stringify(bundle, null, 2);
                           break;
-                      case 'epr' :
-                        this.resource = bundle;
-                        this.getResources();
-                        break;
                       case 'xml':
                           const reader = new FileReader();
                           reader.addEventListener('loadend', (e) => {
@@ -544,150 +538,37 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
   }
 
-  getResources()  {
 
 
-    if (this.resource.entry !== undefined) {
-      for (const entry  of this.resource.entry) {
-
-        const resource = entry.resource;
-
-          switch (resource.resourceType) {
-            case 'AllergyIntolerance' :
-              const allergyIntolerance: fhir.AllergyIntolerance = <fhir.AllergyIntolerance> resource;
-              this.allergies.push(allergyIntolerance);
-              break;
-            case 'CarePlan' :
-              const carePlan: fhir.CarePlan = <fhir.CarePlan> resource;
-              this.carePlans.push(carePlan);
-              break;
-            case 'Consent' :
-                const consent: fhir.Consent = <fhir.Consent> resource;
-              this.consents.push(consent);
-              break;
-            case 'ClinicalImpression' :
-                const clinicalImpression: fhir.ClinicalImpression = <fhir.ClinicalImpression> resource;
-              this.impressions.push(clinicalImpression);
-              break;
-            case 'Condition' :
-                const condition: fhir.Condition = <fhir.Condition> resource;
-              this.conditions.push(condition);
-              break;
-              case 'DocumentReference' :
-                  const document: fhir.DocumentReference = <fhir.DocumentReference> resource;
-                  this.documents.push(document);
-                  break;
-            case 'Encounter' :
-                const encounter: fhir.Encounter = <fhir.Encounter> resource;
-              this.encounters.push(encounter);
-              break;
-            case 'Goal':
-                const goal: fhir.Goal = <fhir.Goal> resource;
-
-              this.goals.push(goal);
-              break;
-            case 'HealthcareService':
-                const service: fhir.HealthcareService = <fhir.HealthcareService> resource;
-              this.services.push(service);
-              break;
-            case 'Immunization' :
-                const immunisation: fhir.Immunization = <fhir.Immunization> resource;
-              this.immunisations.push(immunisation);
-              break;
-            case 'Location':
-                const location: fhir.Location = <fhir.Location> resource;
-
-              this.locations.push(location);
-              break;
-            case 'List' :
-                const list: fhir.List = <fhir.List> resource;
-              if (list.entry !== undefined) {
-                if (list.code !== undefined && list.code.coding.length > 0) {
-                  this.entries.push({
-                    'resource': 'List'
-                    , 'code': list.code.coding[0].code
-                    , 'display': 'Entries ' + list.entry.length
-                  });
-                } else {
-                  this.entries.push({
-                    'resource': 'List'
-                    , 'display': 'Entries ' + list.entry.length
-                  });
-                }
-
-
-              }
-              break;
-            case 'Medication' :
-                const medication: fhir.Medication = <fhir.Medication> resource;
-              this.medications.push(medication);
-              break;
-              case 'MedicationAdministration' :
-                  const medicationAdministration: fhir.MedicationAdministration = <fhir.MedicationAdministration> resource;
-                  this.medicationAdministrations.push(medicationAdministration);
-                  break;
-            case 'MedicationRequest' :
-                const medicationRequest: fhir.MedicationRequest = <fhir.MedicationRequest> resource;
-              this.prescriptions.push(medicationRequest);
-              break;
-            case 'MedicationDispense' :
-                const medicationDispense: fhir.MedicationDispense = <fhir.MedicationDispense> resource;
-              this.medicationDispenses.push(medicationDispense);
-              break;
-            case 'MedicationStatement' :
-                const medicationStatement: fhir.MedicationStatement = <fhir.MedicationStatement> resource;
-              this.medicationStatements.push(medicationStatement);
-              break;
-            case 'Observation' :
-                const observation: fhir.Observation = <fhir.Observation> resource;
-              this.observations.push(observation);
-              break;
-            case 'Procedure' :
-                const procedure: fhir.Procedure = <fhir.Procedure> resource;
-              this.procedures.push(procedure);
-              break;
-            case 'Patient' :
-                const patient: fhir.Patient = <fhir.Patient> resource;
-              this.patients.push(patient);
-              break;
-            case 'Practitioner':
-                const practitioner: fhir.Practitioner = <fhir.Practitioner> resource;
-              this.practitioners.push(practitioner);
-              break;
-            case 'PractitionerRole':
-                const practitionerRole: fhir.PractitionerRole = <fhir.PractitionerRole> resource;
-              this.roles.push(practitionerRole);
-              break;
-            case 'Organization':
-                const organization: fhir.Organization = <fhir.Organization> resource;
-              this.organisations.push(organization);
-              break;
-            case 'QuestionnaireResponse' :
-                const form: fhir.QuestionnaireResponse = <fhir.QuestionnaireResponse> resource;
-              this.forms.push(form);
-              break;
-              case 'ReferralRequest':
-              //    console.log('Referral Request');
-                  const referral: fhir.ReferralRequest = <fhir.ReferralRequest> resource;
-                  this.referrals.push(referral);
-                  break;
-            case 'RiskAssessment':
-              const risk: fhir.RiskAssessment = <fhir.RiskAssessment> resource;
-              this.risks.push(risk);
-              break;
-
-            default :
-              console.log('**** missing ' + resource.resourceType);
-              this.entries.push(resource.resourceType);
-          }
-        }
-      }
-
-
+    onResoureSelected(event) {
 
   }
 
-    onResoureSelected(event) {
+  validate() {
+      let content='application/fhir+json';
+      if (!this.json) {
+          content='application/fhir+xml';
+      }
+      this.operationOutcome = [];
+
+      //console.log(this.model);
+    this.fhirSrv.postContentType('/' + this.resourceType + '/$validate', this.model, content).subscribe( result => {
+        console.log(result);
+        if (result.entry !== undefined) {
+            const bundle = <fhir.Bundle> result;
+            for (let entry of bundle.entry) {
+                if (entry.resource.resourceType === 'OperationOutcome') {
+                    console.log('Add to bundle');
+                    this.operationOutcome.push(<fhir.OperationOutcome> entry.resource);
+                }
+            }
+        }
+        if (result.resourceType === 'OperationOutcome') {
+            console.log('single outcome');
+            this.operationOutcome.push(<fhir.OperationOutcome> result);
+        }
+        this.dataSource = new OperationOutcomeDataSource(this.fhirSrv, undefined, this.operationOutcome);
+    });
 
   }
 
