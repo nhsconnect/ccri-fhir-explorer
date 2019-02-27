@@ -67,6 +67,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     entries: any[];
 
+    files: any;
 
     dataSource : OperationOutcomeDataSource;
 

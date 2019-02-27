@@ -167,15 +167,15 @@
                                   </mat-card-subtitle>
                                   <mat-divider></mat-divider>
                                   <mat-card-content>
-                                      <span *ngIf="outcomeat === 'jsonf'">
+                                      <span *ngIf="format === 'jsonf'">
                                           <td-json-formatter [data]="resource" key="response" [levelsOpen]="8">
                                           </td-json-formatter>
                                       </span>
-                                       <span *ngIf="outcomeat === 'json'">
+                                       <span *ngIf="format === 'json'">
                                           <td-highlight lang="json" [content]="resourceString">
                                           </td-highlight>
                                       </span>
-                                     <span *ngIf="outcomeat === 'xml'">
+                                     <span *ngIf="format === 'xml'">
                                           <td-highlight lang="xml" [content]="resourceString">
                                           </td-highlight>
                                       </span>
@@ -199,7 +199,7 @@
                                                     <mat-card>
                                                         <mat-card-content>
                                                             <div class="row">
-                                                                <td-file-input class="push-left-sm push-right-sm" #fileInput (select)="selectEvent($event)" color="primary" [(ngModel)]="files" [disabled]="disabled">
+                                                                <td-file-input class="push-left-sm push-right-sm" #fileInput (select)="selectEvent($event)" color="primary" [(ngModel)]="files" >
                                                                     <mat-icon>folder</mat-icon>
                                                                     <span class="text-upper">Browse...</span>
                                                                   </td-file-input>
@@ -247,7 +247,7 @@
 
                                                                 <ng-container matColumnDef="resource">
                                                                   <th mat-header-cell *matHeaderCellDef width="5%">FHIR</th>
-                                                                  <td mat-cell *matCellDef="let outcome">  <button mat-icon-button color="accent"  matTooltip="View FHIR resource" (click)="select(outcome)"><mat-icon>code</mat-icon></button>  </td>
+                                                                  <td mat-cell *matCellDef="let outcome">  <button mat-icon-button color="accent"  matTooltip="View FHIR resource" ><mat-icon>code</mat-icon></button>  </td>
                                                                 </ng-container>
 
 
