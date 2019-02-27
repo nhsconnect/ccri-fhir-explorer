@@ -39,7 +39,7 @@
                                 </mat-card-content>
                             <mat-card-actions>
                                 <td-message *ngIf="query!==undefined" [label]="query" color="blue" icon="search"></td-message>
-                                <a mat-raised-button [disabled]="!(dynform.valid && (elements_id.length >0))" color="accent" class="text-upper" (click)="onSearch_id()">
+                                <a mat-raised-button [disabled]="!(dynform1.valid && (elements_id.length >0))" color="accent" class="text-upper" (click)="onSearch_id()">
                                   <span>Search</span></a>
                                 <a mat-button [disabled]="(elements.length === 0)" color="accent" class="text-upper" (click)="onClear()">
                                   <span>Clear</span></a>
@@ -115,7 +115,7 @@
                         <mat-card>
                             <mat-card-title>FHIR Search Form</mat-card-title>
                             <mat-card-content>
-                                Use the table above to add search fields (above) to this outcome.
+                                Use the table above to add search fields (above) to this form.
                                 <td-dynamic-forms #dynform [elements]="elements">
                                   <ng-template let-element ngFor [ngForOf]="elements">
                                     <ng-template let-control="control" [tdDynamicFormsError]="element.name">
