@@ -219,41 +219,39 @@
 
                                                         </mat-card-actions>
                                                         <span *ngIf="operationOutcome !== undefined">
+                                                            <span *ngIf="operationOutcome.issue !== undefined">
                                                             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
 
-                                                                <ng-container matColumnDef="id">
-                                                                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                                                                  <td mat-cell *matCellDef="let outcome"> {{outcome.id}} </td>
-                                                                </ng-container>
 
                                                                 <ng-container matColumnDef="severity">
                                                                   <th mat-header-cell *matHeaderCellDef> Severity </th>
-                                                                  <td mat-cell *matCellDef="let outcome">
-                                                                      <span *ngIf="outcome.issue !== undefined"> {{outcome.issue[0].severity}} </span></td>
+                                                                  <td mat-cell *matCellDef="let issue">
+                                                                       {{issue.severity}}</td>
                                                                 </ng-container>
 
                                                                 <ng-container matColumnDef="code">
                                                                   <th mat-header-cell *matHeaderCellDef> Code </th>
-                                                                  <td mat-cell *matCellDef="let outcome"> <span *ngIf="outcome.issue !== undefined"> {{outcome.issue[0].code}} </span> </td>
+                                                                  <td mat-cell *matCellDef="let issue">
+                                                                      {{issue.code}} </td>
                                                                 </ng-container>
 
                                                                 <ng-container matColumnDef="diagnostic">
                                                                   <th mat-header-cell *matHeaderCellDef width="80%"> Diagnositics </th>
-                                                                  <td mat-cell *matCellDef="let outcome">
-                                                                      <span *ngIf="outcome.issue !== undefined">  {{outcome.issue[0].diagnostics}} </span>
+                                                                  <td mat-cell *matCellDef="let issue">
+                                                                        {{issue.diagnostics}}
                                                                   </td>
                                                                 </ng-container>
 
-                                                                <ng-container matColumnDef="resource">
-                                                                  <th mat-header-cell *matHeaderCellDef width="5%">FHIR</th>
-                                                                  <td mat-cell *matCellDef="let outcome">  <button mat-icon-button color="accent"  matTooltip="View FHIR resource" ><mat-icon>code</mat-icon></button>  </td>
-                                                                </ng-container>
 
 
                                                                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                                                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                                                               </table>
+                                                            </span>
+                                                             <span *ngIf="operationOutcome.issue === undefined ">
+                                                             <td-message label="Info" sublabel="No validation issues returned" color="accent" icon="info"></td-message>
+                                                             </span>
 
                                                         </span>
                                                     </mat-card>

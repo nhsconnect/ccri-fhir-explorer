@@ -3,7 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FhirService, Formats} from '../../../service/fhir.service';
 import {MatSelect} from '@angular/material';
 import {ITdDynamicElementConfig, TdDynamicElement, TdDynamicFormsComponent} from '@covalent/dynamic-forms';
-import {OperationOutcomeDataSource} from "../../../data-source/operation-outcome-source";
+import {
+
+    OperationOutcomeIssueDataSource
+} from "../../../data-source/operation-outcome-issue-source";
 
 
 
@@ -41,13 +44,11 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     
     public id_query = undefined;
 
-    public operationOutcome: fhir.OperationOutcome[];
+    public operationOutcome: fhir.OperationOutcome;
     
     public json = true;
 
     public rest: any;
-
-    private _routerSub ;
 
     public base: string;
 
@@ -65,11 +66,9 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     resourceType: string;
 
-    entries: any[];
-
     files: any;
 
-    dataSource : OperationOutcomeDataSource;
+    dataSource : OperationOutcomeIssueDataSource;
 
     displayedColumns = ['severity', 'code', 'diagnostic'];
 
@@ -103,7 +102,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
   ngOnInit() {
      // console.log('Resource Init called'+ this.router.url);
 
-    this.clearDown();
+
 
 
       this.resourceType = this.route.snapshot.paramMap.get('resourceType');
@@ -130,7 +129,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
               this.resource = undefined;
               this.resourceString = undefined;
               this.query = undefined;
-              this.clearDown();
+
               this.onClear();
               this.buildOptions(resourceType);
           }
@@ -167,9 +166,17 @@ export class ResourceComponent implements OnInit, AfterViewInit {
           }) */
   }
 
-  clearDown() {
+    onClear() {
+        this.elements = [];
+        this.json = true;
+        this.model = undefined;
+        this.input = undefined;
+        this.operationOutcome = undefined;
 
-  }
+        if (this.form !== undefined) {
+            this.form.refresh();
+        }
+    }
 
   onExpand() {
       this.expanded = true;
@@ -308,7 +315,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
   onMore(linkUrl: string) {
       this.progressBar = true;
-      this.clearDown();
+
       this.fhirSrv.getResults(linkUrl).subscribe(bundle => {
           switch ( this.format ) {
             case 'jsonf':
@@ -442,7 +449,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
   }
   onSearch() {
 
-    this.clearDown();
+
       // console.log(this.form.valid);
       if (this.form.valid && this.elements.length > 0) {
           this.resource = undefined;
@@ -466,12 +473,6 @@ export class ResourceComponent implements OnInit, AfterViewInit {
             // console.log(id_query);
         }
     }
-  onClear() {
-      this.elements = [];
-      if (this.form !== undefined) {
-        this.form.refresh();
-      }
-  }
 
   getResults() {
       if (this.query !== undefined && (this.query !== '')) {
@@ -550,7 +551,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
       if (!this.json) {
           content='application/fhir+xml';
       }
-      this.operationOutcome = [];
+      this.operationOutcome = undefined;
 
       //console.log(this.model);
     this.fhirSrv.postContentType('/' + this.resourceType + '/$validate', this.model, content).subscribe( result => {
@@ -560,15 +561,15 @@ export class ResourceComponent implements OnInit, AfterViewInit {
             for (let entry of bundle.entry) {
                 if (entry.resource.resourceType === 'OperationOutcome') {
                     console.log('Add to bundle');
-                    this.operationOutcome.push(<fhir.OperationOutcome> entry.resource);
+                    this.operationOutcome = <fhir.OperationOutcome> entry.resource;
                 }
             }
         }
         if (result.resourceType === 'OperationOutcome') {
             console.log('single outcome');
-            this.operationOutcome.push(<fhir.OperationOutcome> result);
+            this.operationOutcome = <fhir.OperationOutcome> result;
         }
-        this.dataSource = new OperationOutcomeDataSource(this.fhirSrv, undefined, this.operationOutcome);
+        this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
     });
 
   }
