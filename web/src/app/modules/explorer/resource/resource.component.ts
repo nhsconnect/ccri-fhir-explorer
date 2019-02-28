@@ -554,7 +554,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
       this.operationOutcome = undefined;
 
       //console.log(this.model);
-    this.fhirSrv.postContentType('/' + this.resourceType + '/$validate', this.model, content).subscribe( result => {
+    this.fhirSrv.postContentType('/' + this.currentResource + '/$validate', this.model, content).subscribe( result => {
         console.log(result);
         if (result.entry !== undefined) {
             const bundle = <fhir.Bundle> result;
@@ -570,6 +570,16 @@ export class ResourceComponent implements OnInit, AfterViewInit {
             this.operationOutcome = <fhir.OperationOutcome> result;
         }
         this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
+    }, error => {
+        console.log('ERROR');
+        console.log(error);
+        if (error.error !== undefined) {
+            if (error.error.resourceType === 'OperationOutcome') {
+                console.log('single outcome');
+                this.operationOutcome = <fhir.OperationOutcome>error.error;
+                this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
+            }
+        }
     });
 
   }
