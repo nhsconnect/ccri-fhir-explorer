@@ -113,20 +113,27 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 
     ExplorerMainComponent,
 
-      TerminologyMainComponent,
+    TerminologyMainComponent,
+
     ValueSetDetailComponent,
-      ValueSetsComponent,
+    ValueSetsComponent,
+
     QuestionnaireSummaryComponent,
-      QuestionnaireComponent,
-      QuestionnaireItemComponent,
+    QuestionnaireComponent,
+    QuestionnaireItemComponent,
+
     CodeSystemComponent,
     CodeSystemDetailComponent,
+
     NamingSystemComponent,
     NamingSystemDetailComponent,
-      ConceptMapsComponent,
+
+    ConceptMapsComponent,
     ConceptMapDetailComponent,
+
     MessageDefinitionComponent,
     MessageDefinitionDetailComponent,
+
     GraphDefinitionComponent,
     GraphDefinitionDetailComponent,
     GraphDefinitionLinkComponent
