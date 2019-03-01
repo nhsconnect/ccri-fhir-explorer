@@ -73,7 +73,7 @@ import {TerminologyMainComponent} from "./modules/terminology/terminology-main/t
 import {GraphDefinitionLinkComponent} from "./modules/terminology/graph-definition-link/graph-definition-link.component";
 import {GraphDefinitionDetailComponent} from "./modules/terminology/graph-definition-detail/graph-definition-detail.component";
 import {ValueSetDetailComponent} from "./modules/terminology/value-set-detail/value-set-detail.component";
-import {QuestionnaireSummaryComponent} from "./modules/terminology/questionnaire-summary/questionnaire-summary.component";
+import {QuestionnaireSummaryComponent} from "./modules/terminology/questionnaire/questionnaire-summary.component";
 import {CodeSystemComponent} from "./modules/terminology/code-system/code-system.component";
 import {CodeSystemDetailComponent} from "./modules/terminology/code-system-detail/code-system-detail.component";
 import {NamingSystemComponent} from "./modules/terminology/naming-system/naming-system.component";
@@ -84,7 +84,7 @@ import {MessageDefinitionDetailComponent} from "./modules/terminology/message-de
 import {GraphDefinitionComponent} from "./modules/terminology/graph-definition/graph-definition.component";
 import {ValueSetsComponent} from "./modules/terminology/value-sets/value-sets.component";
 import {ConceptMapsComponent} from "./modules/terminology/concept-maps/concept-maps.component";
-import {QuestionnaireComponent} from "./modules/terminology/questionnaire/questionnaire.component";
+import {QuestionnaireComponent} from "./modules/terminology/questionnaire-detail/questionnaire.component";
 import {QuestionnaireItemComponent} from "./modules/terminology/questionnaire-item/questionnaire-item.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ResourceDialogComponent} from "./dialog/resource-dialog/resource-dialog.component";

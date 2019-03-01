@@ -220,6 +220,12 @@
 
                                                         </mat-card-actions>
                                                         <span *ngIf="operationOutcome !== undefined">
+                                                              <span *ngIf="operationOutcome.issue === undefined ">
+                                                             <td-message label="Info" sublabel="No validation issues returned" color="accent" icon="info"></td-message>
+                                                             </span>
+                                                             <span *ngIf="error !== undefined ">
+                                                                <td-message label="Error!" [sublabel]="error.message" color="warn" icon="error"></td-message>
+                                                             </span>
                                                             <span *ngIf="operationOutcome.issue !== undefined">
                                                             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -250,9 +256,7 @@
                                                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                                                               </table>
                                                             </span>
-                                                             <span *ngIf="operationOutcome.issue === undefined ">
-                                                             <td-message label="Info" sublabel="No validation issues returned" color="accent" icon="info"></td-message>
-                                                             </span>
+
 
                                                         </span>
                                                     </mat-card>

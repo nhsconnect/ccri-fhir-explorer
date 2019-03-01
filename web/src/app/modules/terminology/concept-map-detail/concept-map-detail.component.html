@@ -10,20 +10,6 @@
                fxLayoutGap="10px"
                fxLayoutGap.xs="0">
             <div class="mat-body-1" fxFlex="50%">
-                <b>Name</b> {{namingSystem.name}}
-            </div>
-            <div class="mat-body-1" fxFlex="50%">
-              <b>Kind</b> {{namingSystem.kind}}
-            </div>
-          </div>
-
-          <div class="mat-card-content"
-               fxLayout
-               fxLayout.xs="column"
-               fxLayoutAlign="center"
-               fxLayoutGap="10px"
-               fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="50%">
                 <b>Name</b> {{conceptMap.name}}
             </div>
             <div class="mat-body-1" fxFlex="50%">
@@ -59,8 +45,8 @@
        </mat-card-actions>
     </mat-card>
 </span>
+<!--
 <mat-card>
-
   <div class="mat-card-content"
        fxLayout
        fxLayout.xs="column"
@@ -89,4 +75,50 @@
       </div>
     </div>
   </div>
+</mat-card>
+-->
+<mat-card>
+
+    <div class="mat-card-content"
+         fxLayout
+         fxLayout.xs="column"
+         fxLayoutAlign="center"
+         fxLayoutGap="10px"
+         fxLayoutGap.xs="0">
+        <div class="mat-body-1" fxFlex="100%">
+            <table  border="0" cellpadding="0" cellspacing="0">
+                <tr *ngFor="let concept of conceptMap.group">
+                    <td><p>
+                        From code system: <b>{{concept.source}}</b><br>
+                        To code system:  <b>{{concept.target}}</b>
+                    </p>
+                        <table cellpadding="0" cellspacing="0">
+                            <tr *ngFor="let element of concept.element; index as i" cellpadding="0" cellspacing="0">
+                                <td cellpadding="0" cellspacing="0">
+                                    <table  border="0" cellpadding="0" cellspacing="0">
+                                        <thead *ngIf="i==0">
+                                        <th><b>Code</b></th>
+                                        <th><b>Equivalence</b></th>
+                                        <th><b>Target Code</b></th>
+                                        <th><b>	Comments</b></th>
+                                        </thead>
+                                        <tr *ngFor="let target of element.target" cellpadding="0" cellspacing="0">
+                                            <td> {{element.code}}</td>
+                                            <td>{{target.equivalence}}</td>
+                                            <td>{{target.code}}</td>
+                                            <td>{{target.comment}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
 </mat-card>

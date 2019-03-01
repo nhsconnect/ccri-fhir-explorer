@@ -111,7 +111,15 @@ export class FhirService {
             this.storeBaseUrl(retStr);
           }
         }
+      if (retStr === undefined) {
+          if (location.href.includes('data.developer.nhs.uk')) {
+              return 'https://data.developer.nhs.uk/ccri-fhir/STU3';
+          }
+          if (location.href.includes('data.developer-test.nhs.uk')) {
+              return 'https://data.developer-test.nhs.uk/ccri-fhir/STU3';
+          }
 
+      }
       return retStr;
 }
 
@@ -242,17 +250,17 @@ return this.http.put<fhir.Endpoint>(url, body, { 'headers': headers});
 
 public get(search: string): Observable<fhir.Bundle> {
 
-const url: string = this.getBaseUrl() + search;
-let headers = new HttpHeaders(
-);
+    const url: string = this.getBaseUrl() + search;
+    let headers = new HttpHeaders(
+    );
 
-if (this.format === 'xml') {
-headers = headers.append( 'Content-Type',  'application/fhir+xml' );
-headers = headers.append('Accept', 'application/fhir+xml');
-return this.http.get(url, { headers, responseType : 'blob' as 'blob'});
-} else {
-return this.http.get<any>(url, {'headers': headers});
-}
+    if (this.format === 'xml') {
+    headers = headers.append( 'Content-Type',  'application/fhir+xml' );
+    headers = headers.append('Accept', 'application/fhir+xml');
+    return this.http.get(url, { headers, responseType : 'blob' as 'blob'});
+    } else {
+    return this.http.get<any>(url, {'headers': headers});
+    }
 }
 
 public getNRLSResource(search: string): Observable<any> {

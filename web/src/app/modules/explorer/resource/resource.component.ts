@@ -76,6 +76,8 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     overlayStarSyntax: boolean = false;
 
+    error: any;
+
   public currentResource = '';
 
   @ViewChild('field') field: MatSelect;
@@ -559,6 +561,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
           content='application/fhir+xml';
       }
       this.operationOutcome = undefined;
+      this.error=undefined;
 
       //console.log(this.model);
       this._loadingService.register('overlayStarSyntax');
@@ -581,11 +584,11 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
     }, error => {
         this._loadingService.resolve('overlayStarSyntax');
-        console.log('ERROR');
-        console.log(error);
+
+        this.error=error;
         if (error.error !== undefined) {
             if (error.error.resourceType === 'OperationOutcome') {
-                console.log('single outcome');
+
                 this.operationOutcome = <fhir.OperationOutcome>error.error;
                 this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
             }
