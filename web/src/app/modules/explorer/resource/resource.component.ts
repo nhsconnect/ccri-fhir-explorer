@@ -7,6 +7,8 @@ import {
 
     OperationOutcomeIssueDataSource
 } from "../../../data-source/operation-outcome-issue-source";
+import {Observable} from "rxjs";
+import {TdLoadingService} from "@covalent/core";
 
 
 
@@ -72,6 +74,8 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     displayedColumns = ['severity', 'code', 'diagnostic'];
 
+    overlayStarSyntax: boolean = false;
+
   public currentResource = '';
 
   @ViewChild('field') field: MatSelect;
@@ -99,7 +103,8 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     constructor(private router: Router,
                 private fhirSrv: FhirService,
-                private route: ActivatedRoute) { }
+                private route: ActivatedRoute,
+                private _loadingService: TdLoadingService) { }
 
   ngOnInit() {
      // console.log('Resource Init called'+ this.router.url);
@@ -556,7 +561,9 @@ export class ResourceComponent implements OnInit, AfterViewInit {
       this.operationOutcome = undefined;
 
       //console.log(this.model);
+      this._loadingService.register('overlayStarSyntax');
     this.fhirSrv.postContentType('/' + this.currentResource + '/$validate', this.model, content).subscribe( result => {
+        this._loadingService.resolve('overlayStarSyntax');
         console.log(result);
         if (result.entry !== undefined) {
             const bundle = <fhir.Bundle> result;
@@ -573,6 +580,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         }
         this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
     }, error => {
+        this._loadingService.resolve('overlayStarSyntax');
         console.log('ERROR');
         console.log(error);
         if (error.error !== undefined) {

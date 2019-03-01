@@ -194,8 +194,9 @@
                                         <div class="md-padding">
                                             <span *ngIf="extension.extension.length>1">
                                                 <b>Operation Definition</b> {{extension.extension[1].valueReference.reference}}
-                                                <div>
+
                                                     <div *ngIf="extension.extension[0].valueString === 'validate'">
+                                                        <div *tdLoading="'overlayStarSyntax'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
                                                     <mat-card>
                                                         <mat-card-content>
                                                             <div class="row">
@@ -255,8 +256,9 @@
 
                                                         </span>
                                                     </mat-card>
+                                                         </div>
                                             </div>
-                                                </div>
+
                                             </span>
                                         </div>
                     </td-expansion-panel>
