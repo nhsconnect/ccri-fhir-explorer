@@ -38,9 +38,7 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let conceptMap"> <b>{{conceptMap.name}}</b>
-        <br>
-        {{conceptMap.url}}
-      </td>
+
     </ng-container>
 
     <ng-container matColumnDef="url">
@@ -54,7 +52,7 @@
     </ng-container>
 
     <ng-container matColumnDef="publisher" >
-      <th mat-header-cell *matHeaderCellDef> Publisher </th>
+      <th mat-header-cell *matHeaderCellDef width="15%"> Publisher </th>
       <td mat-cell *matCellDef="let conceptMap"> {{conceptMap.publisher}} </td>
     </ng-container>
 

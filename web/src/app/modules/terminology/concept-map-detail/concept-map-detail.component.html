@@ -36,13 +36,15 @@
                </div>
           </div>
           <div class="mat-card-content" ><b>Description</b> {{conceptMap.description}}</div>
-
+            <div class="mat-card-content" *ngIf="conceptMap.sourceReference !== null">
+                <b>Source ValueSet</b> {{conceptMap.sourceReference.reference}}
+            </div>
+             <div class="mat-card-content" *ngIf="conceptMap.targetReference !== null">
+                <b>Target ValueSet</b> {{conceptMap.targetReference.reference}}
+            </div>
 
         </mat-card-content>
-       <mat-card-actions>
-          <button mat-button placement="top" (click)="view(conceptMap)"  color="accent"><mat-icon>code</mat-icon>
-              View FHIR Resource</button>
-       </mat-card-actions>
+
     </mat-card>
 </span>
 <!--
@@ -78,7 +80,7 @@
 </mat-card>
 -->
 <mat-card>
-
+    <mat-card-content>
     <div class="mat-card-content"
          fxLayout
          fxLayout.xs="column"
@@ -120,5 +122,9 @@
         </div>
 
     </div>
-
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button placement="top" (click)="view(conceptMap)"  color="accent"><mat-icon>code</mat-icon>
+            View FHIR Resource</button>
+    </mat-card-actions>
 </mat-card>
