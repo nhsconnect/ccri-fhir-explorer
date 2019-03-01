@@ -87,6 +87,7 @@ import {ConceptMapsComponent} from "./modules/terminology/concept-maps/concept-m
 import {QuestionnaireComponent} from "./modules/terminology/questionnaire/questionnaire.component";
 import {QuestionnaireItemComponent} from "./modules/terminology/questionnaire-item/questionnaire-item.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {ResourceDialogComponent} from "./dialog/resource-dialog/resource-dialog.component";
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -107,6 +108,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     PingComponent,
     LoadingComponent,
     LogoutComponent,
+
+    ResourceDialogComponent,
 
     ExplorerMainComponent,
 
@@ -131,7 +134,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 
   ],
   entryComponents: [
-
+    ResourceDialogComponent
 
   ],
   imports: [
