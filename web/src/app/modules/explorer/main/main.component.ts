@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FhirService} from "../../../service/fhir.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-main',
@@ -8,7 +9,8 @@ import {FhirService} from "../../../service/fhir.service";
 })
 export class MainComponent implements OnInit {
 
-  constructor(private FHIRSrv: FhirService) { }
+  constructor(private FHIRSrv: FhirService,
+              private route: ActivatedRoute) { }
 
   public conformance: fhir.CapabilityStatement;
 
@@ -20,6 +22,16 @@ export class MainComponent implements OnInit {
     this.FHIRSrv.getConformance();
 
     this.serverBase = this.FHIRSrv.getFHIRServerBase();
+
+    this.route.url.subscribe( url => {
+     // console.log('activated route url ='+url);
+
+        let conformance = this.FHIRSrv.getConformance();
+        if (conformance !== undefined) {
+          //console.log(conformance);
+          this.conformance=conformance;
+        }
+      });
 
 
     this.FHIRSrv.getConformanceChange().subscribe(capabilityStatement =>

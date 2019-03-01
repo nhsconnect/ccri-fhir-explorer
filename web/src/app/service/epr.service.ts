@@ -9,24 +9,13 @@ export class EprService {
   public routes: Object[] = [
     {
       icon: 'home',
-      route: '/',
+      route: '/exp',
       title: 'FHIR Explorer',
     }
     , {
-      icon: 'search',
-      route: '/ed',
-      title: 'Patient Find' +
-        '',
-    }
-    , {
-      icon: 'hotel',
-      route: '/ed/caseload',
-      title: 'Caseload',
-    }
-    , {
-      icon: 'dashboard',
-      route: '/ed/capacity',
-      title: 'Emergency Planning',
+      icon: 'translate',
+      route: '/term',
+      title: 'Reference Services',
     }
   ];
 

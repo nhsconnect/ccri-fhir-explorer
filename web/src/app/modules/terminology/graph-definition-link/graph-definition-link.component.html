@@ -1,0 +1,76 @@
+<mat-card>
+  <mat-card-content>
+
+  <div class="mat-card-content"
+       fxLayout
+       fxLayout.xs="column"
+       fxLayoutAlign="center"
+       fxLayoutGap="10px"
+       fxLayoutGap.xs="0">
+    <div class="mat-body-1" fxFlex="75%">
+      <b>Path</b>&nbsp;&nbsp; <mat-chip>{{link.path}}</mat-chip>
+    </div>
+    <div class="mat-body-1" fxFlex="25%">
+      <span *ngIf="link.max !== undefined || link.min !== undefined">
+      <mat-chip-list>
+        <mat-chip>
+          Min-{{link.min}}</mat-chip>
+        <mat-chip>
+          Max-{{link.max}}</mat-chip>
+      </mat-chip-list>
+        </span>
+    </div>
+  </div>
+  <div class="mat-card-content">
+  <b>Description</b> {{link.description}}
+  </div>
+ <span *ngIf="link.target !== undefined">
+    <span *ngFor="let target of link.target">
+
+       <div class="mat-card-content"
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="10px"
+            fxLayoutGap.xs="0">
+         <div class="mat-body-1" fxFlex="30%">
+           <span *ngIf="level>0">
+             <a mat-stroked-button [color]="getColour(level)"> {{target.type}}</a>
+           </span>
+           <span *ngIf="level===0">
+                 <a mat-raised-button target="_blank" [href]="getProfile(target.profile, target.type)" [color]="getColour(level)"> {{target.type}}</a>
+             </span>
+            </div>
+           <div class="mat-body-1" fxFlex="70%">
+             <span *ngIf="target.profile !== undefined"><b>Profile</b> {{ target.profile }}</span>
+                <span *ngIf="target.compartment != undefined">
+                      <span *ngFor="let compartment of target.compartment">
+                         <a mat-raised-button color="primary"> {{compartment.code}}</a>
+                         &nbsp;<b>Rule</b> {{compartment.rule}}
+                      </span>
+                </span>
+           </div>
+       </div>
+         <span *ngIf="target.link != undefined">
+            <span *ngFor="let sublink of target.link">
+                   <div class="mat-card-content"
+                        fxLayout
+                        fxLayout.xs="column"
+                        fxLayoutAlign="center"
+                        fxLayoutGap="10px"
+                        fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="{{getLeft()}}">
+
+            </div>
+            <div class="mat-body-1" fxFlex="{{getRight()}}">
+                <app-graph-definition-link [link]="sublink" [level]="level+1"></app-graph-definition-link>
+            </div>
+          </div>
+
+             </span>
+          </span>
+    </span>
+ </span>
+
+  </mat-card-content>
+</mat-card>

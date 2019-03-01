@@ -9,7 +9,7 @@ import {
   CovalentJsonFormatterModule,
   CovalentLayoutModule, CovalentLoadingModule,
   CovalentMediaModule, CovalentMenuModule,
-  CovalentMessageModule, CovalentNotificationsModule,
+  CovalentMessageModule, CovalentNotificationsModule, CovalentSearchModule,
   CovalentStepsModule
 } from '@covalent/core';
 import {CovalentHttpModule} from '@covalent/http';
@@ -65,11 +65,28 @@ import {PingComponent} from './security/ping/ping.component';
 import {LogoutComponent} from './security/logout/logout.component';
 import {AuthGuardOauth2} from './service/auth-guard-oauth2';
 import {OAuthModule} from 'angular-oauth2-oidc';
-//  https://github.com/Teradata/covalent-echarts/issues/50
-
 import {AppConfigService} from './service/app-config.service';
 import {LoadingComponent} from './security/loading/loading.component';
 import {CovalentCodeEditorModule} from "@covalent/code-editor";
+import {TerminologyRoutingModule} from "./modules/terminology-routing.module";
+import {TerminologyMainComponent} from "./modules/terminology/terminology-main/terminology-main.component";
+import {GraphDefinitionLinkComponent} from "./modules/terminology/graph-definition-link/graph-definition-link.component";
+import {GraphDefinitionDetailComponent} from "./modules/terminology/graph-definition-detail/graph-definition-detail.component";
+import {ValueSetDetailComponent} from "./modules/terminology/value-set-detail/value-set-detail.component";
+import {QuestionnaireSummaryComponent} from "./modules/terminology/questionnaire-summary/questionnaire-summary.component";
+import {CodeSystemComponent} from "./modules/terminology/code-system/code-system.component";
+import {CodeSystemDetailComponent} from "./modules/terminology/code-system-detail/code-system-detail.component";
+import {NamingSystemComponent} from "./modules/terminology/naming-system/naming-system.component";
+import {NamingSystemDetailComponent} from "./modules/terminology/naming-system-detail/naming-system-detail.component";
+import {ConceptMapDetailComponent} from "./modules/terminology/concept-map-detail/concept-map-detail.component";
+import {MessageDefinitionComponent} from "./modules/terminology/message-definition/message-definition.component";
+import {MessageDefinitionDetailComponent} from "./modules/terminology/message-definition-detail/message-definition-detail.component";
+import {GraphDefinitionComponent} from "./modules/terminology/graph-definition/graph-definition.component";
+import {ValueSetsComponent} from "./modules/terminology/value-sets/value-sets.component";
+import {ConceptMapsComponent} from "./modules/terminology/concept-maps/concept-maps.component";
+import {QuestionnaireComponent} from "./modules/terminology/questionnaire/questionnaire.component";
+import {QuestionnaireItemComponent} from "./modules/terminology/questionnaire-item/questionnaire-item.component";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -92,6 +109,24 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     LogoutComponent,
 
     ExplorerMainComponent,
+
+      TerminologyMainComponent,
+    ValueSetDetailComponent,
+      ValueSetsComponent,
+    QuestionnaireSummaryComponent,
+      QuestionnaireComponent,
+      QuestionnaireItemComponent,
+    CodeSystemComponent,
+    CodeSystemDetailComponent,
+    NamingSystemComponent,
+    NamingSystemDetailComponent,
+      ConceptMapsComponent,
+    ConceptMapDetailComponent,
+    MessageDefinitionComponent,
+    MessageDefinitionDetailComponent,
+    GraphDefinitionComponent,
+    GraphDefinitionDetailComponent,
+    GraphDefinitionLinkComponent
 
 
   ],
@@ -138,6 +173,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     MatGridListModule,
     MatGridListModule,
 
+    DragDropModule,
+
     CovalentLayoutModule,
     CovalentStepsModule,
     // (optional) Additional Covalent Modules imports
@@ -157,7 +194,12 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CovalentDataTableModule,
     CovalentCodeEditorModule,
     CovalentFileModule,
+    CovalentSearchModule,
+
+      // Routing
+
     EprRoutingModule,
+      TerminologyRoutingModule,
       AppRoutingModule,
 
     OAuthModule.forRoot()

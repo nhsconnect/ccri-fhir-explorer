@@ -1,0 +1,82 @@
+<span *ngIf="codeSystem !== undefined">
+    <mat-card>
+        <mat-card-header><h2>CodeSystem - {{codeSystem.name}}</h2></mat-card-header>
+        <mat-card-content>
+
+
+          <div class="mat-card-content"
+               fxLayout
+               fxLayout.xs="column"
+               fxLayoutAlign="center"
+               fxLayoutGap="10px"
+               fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="50%">
+                <b>Name</b> {{codeSystem.name}}
+            </div>
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Url</b> {{codeSystem.url}}
+            </div>
+          </div>
+             <div class="mat-card-content"
+                  fxLayout
+                  fxLayout.xs="column"
+                  fxLayoutAlign="center"
+                  fxLayoutGap="10px"
+                  fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Version</b> {{codeSystem.version}}
+            </div>
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Status</b> {{codeSystem.status}}
+            </div>
+                  <div class="mat-body-1"  fxFlex="25%">
+                    <b>Date</b> {{codeSystem.date | date: 'dd-MMM-yyyy'}}
+            </div>
+            <div class="mat-body-1"  fxFlex="25%">
+              <span *ngIf="codeSystem.experimental"><b>Experimental</b></span>
+            </div>
+          </div>
+          <div class="mat-card-content" ><b>Description</b> {{codeSystem.description}}</div>
+          <div class="mat-card-content mat-body-1" ><b>Publisher</b> {{codeSystem.publisher}}</div>
+          <div class="mat-card-content mat-body-1" ><b>Copyright</b> {{codeSystem.copyright}}</div>
+        </mat-card-content>
+       <mat-card-actions>
+          <button mat-button placement="top" (click)="view(codeSystem)"  color="accent"><mat-icon>code</mat-icon>
+              View FHIR Resource</button>
+       </mat-card-actions>
+    </mat-card>
+  <span *ngIf="codeSystem.concept !== undefined">
+    <mat-card>
+      <mat-card-header><h3>Concepts</h3></mat-card-header>
+<div class="mat-card-content"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="25%">
+
+            </div>
+            <div class="mat-body-1" fxFlex="70%">
+              <table>
+                <thead>
+                <th><b>Code</b></th>
+                <th><b>Display</b></th>
+                </thead>
+                <tr *ngFor="let concept of codeSystem.concept">
+                  <td>
+                    {{concept.code}}
+                  </td>
+                  <td>
+                   {{concept.display}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+           </div>
+    </mat-card>
+  </span>
+</span>
+
+

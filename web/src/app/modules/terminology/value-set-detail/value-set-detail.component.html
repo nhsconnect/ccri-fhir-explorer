@@ -1,0 +1,200 @@
+<span *ngIf="valueSet !== undefined">
+    <mat-card>
+        <mat-card-header><h2>ValueSet - {{valueSet.name}}</h2></mat-card-header>
+        <mat-card-content>
+
+
+          <div class="mat-card-content"
+               fxLayout
+               fxLayout.xs="column"
+               fxLayoutAlign="center"
+               fxLayoutGap="10px"
+               fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="50%">
+                <b>Name</b> {{valueSet.name}}
+            </div>
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Url</b> {{valueSet.url}}
+            </div>
+          </div>
+             <div class="mat-card-content"
+                  fxLayout
+                  fxLayout.xs="column"
+                  fxLayoutAlign="center"
+                  fxLayoutGap="10px"
+                  fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Version</b> {{valueSet.version}}
+            </div>
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Status</b> {{valueSet.status}}
+            </div>
+                  <div class="mat-body-1"  fxFlex="25%">
+                    <b>Date</b> {{valueSet.date | date: 'dd-MMM-yyyy'}}
+            </div>
+            <div class="mat-body-1"  fxFlex="25%">
+              <span *ngIf="valueSet.experimental"><b>Experimental</b></span>
+            </div>
+          </div>
+          <div class="mat-card-content" ><b>Description</b> {{valueSet.description}}</div>
+          <div class="mat-card-content mat-body-1" ><b>Publisher</b> {{valueSet.publisher}}</div>
+          <div class="mat-card-content mat-body-1" ><b>Copyright</b> {{valueSet.copyright}}</div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button placement="top" (click)="view(valueSet)"  color="accent"><mat-icon>code</mat-icon>
+              View FHIR Resource</button>
+       </mat-card-actions>
+
+    </mat-card>
+  <span *ngIf="valueSet.compose !== undefined">
+    <mat-card>
+      <mat-card-header><h3>Composition</h3></mat-card-header>
+      <mat-card-content>
+        <span *ngFor="let include of valueSet.compose.include">
+            <div class="mat-card-content"
+                  fxLayout
+                  fxLayout.xs="column"
+                  fxLayoutAlign="center"
+                  fxLayoutGap="10px"
+                  fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Code System</b> {{include.system}}
+            </div>
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Version</b> {{include.version}}
+            </div>
+          </div>
+
+          <!-- INCLUDE -->
+
+           <div class="mat-card-content"
+                fxLayout
+                fxLayout.xs="column"
+                fxLayoutAlign="center"
+                fxLayoutGap="10px"
+                fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Include</b>
+            </div>
+            <div class="mat-body-1" fxFlex="50%">
+
+            </div>
+           </div>
+
+             <!-- CONCEPTS -->
+        <span *ngIf="include.concept !== undefined">
+           <div class="mat-card-content"
+                fxLayout
+                fxLayout.xs="column"
+                fxLayoutAlign="center"
+                fxLayoutGap="10px"
+                fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Concepts</b>
+            </div>
+            <div class="mat-body-1" fxFlex="70%">
+              <table>
+                <thead>
+                <th><b>Code</b></th>
+                <th><b>Display</b></th>
+                </thead>
+                <tr *ngFor="let concept of include.concept">
+                  <td>
+                    {{concept.code}}
+                  </td>
+                  <td>
+                   {{concept.display}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+           </div>
+        </span>
+
+          <!-- FILTER -->
+          <span *ngIf="include.filter !== undefined">
+             <div class="mat-card-content"
+                  fxLayout
+                  fxLayout.xs="column"
+                  fxLayoutAlign="center"
+                  fxLayoutGap="10px"
+                  fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Filter</b>
+            </div>
+            <div class="mat-body-1" fxFlex="70%">
+              <table>
+                <thead>
+                <th><b>Property</b></th>
+                <th><b>Op</b></th>
+                <th><b>Value</b></th>
+                </thead>
+                <tr *ngFor="let filter of include.filter">
+                  <td>
+                    {{filter.property}}
+                  </td>
+                  <td>
+                   {{filter.op}}
+                  </td>
+                    <td>
+                   {{filter.value}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+             </div>
+          </span>
+        </span>
+        <span *ngIf="valueSet.expansion !== undefined">
+               <div class="mat-card-content"
+                    fxLayout
+                    fxLayout.xs="column"
+                    fxLayoutAlign="center"
+                    fxLayoutGap="10px"
+                    fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Expansion</b>
+            </div>
+            <div class="mat-body-1" fxFlex="50%">
+
+            </div>
+           </div>
+
+           <div class="mat-card-content"
+                fxLayout
+                fxLayout.xs="column"
+                fxLayoutAlign="center"
+                fxLayoutGap="10px"
+                fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Concepts</b>
+            </div>
+            <div class="mat-body-1" fxFlex="70%">
+              <table>
+                <thead>
+                <th><b>Code</b></th>
+                <th><b>Display</b></th>
+                <th><b>System</b></th>
+                </thead>
+                <tr *ngFor="let concept of valueSet.expansion.contains">
+                  <td>
+                    {{concept.code}}
+                  </td>
+                  <td>
+                   {{concept.display}}
+                  </td>
+                  <td>
+                   {{concept.system}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+           </div>
+          </span>
+      </mat-card-content>
+    </mat-card>
+  </span>
+</span>
+

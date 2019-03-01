@@ -1,0 +1,141 @@
+<span *ngIf="graph !== undefined">
+    <mat-card>
+        <mat-card-header><h2>Graph Definition - {{graph.name}}</h2></mat-card-header>
+        <mat-card-content>
+
+
+          <div class="mat-card-content"
+               fxLayout
+               fxLayout.xs="column"
+               fxLayoutAlign="center"
+               fxLayoutGap="10px"
+               fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Name</b> <span *ngIf="graph.name.includes('null')"> {{graph.title}}</span>
+               <span *ngIf="!graph.name.includes('null')"> {{graph.name}}</span>
+            </div>
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Url</b> {{graph.url}}
+            </div>
+          </div>
+
+             <div class="mat-card-content"
+                  fxLayout
+                  fxLayout.xs="column"
+                  fxLayoutAlign="center"
+                  fxLayoutGap="10px"
+                  fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Version</b> {{graph.version}}
+            </div>
+            <div class="mat-body-1" fxFlex="25%">
+              <b>Status</b> {{graph.status}}
+            </div>
+                  <div class="mat-body-1"  fxFlex="25%">
+                    <b>Date</b> {{graph.date | date: 'dd-MMM-yyyy'}}
+            </div>
+            <div class="mat-body-1"  fxFlex="25%">
+              <span *ngIf="graph.experimental"><b>Experimental</b></span>
+            </div>
+          </div>
+          <div class="mat-card-content" ><b>Description</b> {{graph.description}}</div>
+
+       <div class="mat-card-content"
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="10px"
+            fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="50%">
+              <b>Purpose</b> {{graph.purpose}}
+            </div>
+            <div class="mat-body-1" fxFlex="50%">
+              <div class="mat-card-content mat-body-1" ><b>Publisher</b> {{graph.publisher}}</div>
+            </div>
+          </div>
+                 <div class="mat-card-content"
+                      fxLayout
+                      fxLayout.xs="column"
+                      fxLayoutAlign="center"
+                      fxLayoutGap="10px"
+                      fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="15%">
+                <a mat-raised-button target="_blank" [href]="getProfile(graph.profile, graph.start)" [color]="getColour(graph.start)"> {{graph.start}}</a>
+
+            </div>
+            <div class="mat-body-1" fxFlex="85%">
+              <b>Profile</b> {{graph.profile}}
+            </div>
+          </div>
+
+
+          <span *ngIf="graph.link != undefined">
+            <span *ngFor="let link of graph.link">
+
+                   <div class="mat-card-content"
+                        fxLayout
+                        fxLayout.xs="column"
+                        fxLayoutAlign="center"
+                        fxLayoutGap="10px"
+                        fxLayoutGap.xs="0">
+            <div class="mat-body-1" fxFlex="5%">
+
+            </div>
+            <div class="mat-body-1" fxFlex="95%">
+                 <app-graph-definition-link [link]="link" [level]="0"></app-graph-definition-link>
+            </div>
+          </div>
+
+
+
+             </span>
+          </span>
+          <!--
+  <td-chart [style.height.px]="500">
+    <td-chart-tooltip [trigger]="'item'">
+      <ng-template let-params let-i="index" let-ticket="ticket" tdTooltipFormatter>
+        <ng-container *ngIf="params">
+          <div layout="row" layout-align="start center">
+            <ng-container *ngIf="params.dataType === 'node'">
+              <mat-icon [style.color]="params.color">device_hub</mat-icon>
+              <span class="mat-caption pad-left-sm">
+              {{params.data.name}}
+            </span>
+            </ng-container>
+            <ng-container *ngIf="params.dataType === 'edge'">
+            <span class="mat-caption pad-left-sm">
+              {{params.data.source}}
+            </span>
+              <mat-icon>arrow_forward</mat-icon>
+              <span class="mat-caption">
+              {{params.data.target}}
+            </span>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-template>
+    </td-chart-tooltip>
+    <td-chart-series td-graph
+                     [data]="data"
+                     [edges]="edges"
+                     [layout]="'force'"
+                     [force]="force"
+                     [roam]="true"
+                     [focusNodeAdjacency]="true"
+                     [label]="{ emphasis: { position: 'right', show: true }}">
+    </td-chart-series>
+  </td-chart>
+      -->
+        </mat-card-content>
+      
+      
+      
+        <mat-card-actions>
+          <button mat-button placement="top" (click)="view(graph)"  color="accent"><mat-icon>code</mat-icon>
+              View FHIR Resource</button>
+       </mat-card-actions>
+
+    </mat-card>
+ 
+</span>
+

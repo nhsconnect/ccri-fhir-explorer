@@ -1,0 +1,91 @@
+
+      <td-expansion-panel [style]="getStyle(depth)" label="{{item.text}}" sublabel="linkId={{item.linkId}}" [disabled]="disabled">
+
+      <div>
+        <mat-chip-list>
+          <mat-chip *ngIf="item.repeats">repeats
+          </mat-chip>
+          <mat-chip color="accent" *ngIf="item.required">required
+          </mat-chip>
+        </mat-chip-list>
+
+        <div class="container"
+             fxLayout
+             fxLayout.xs="column"
+             fxLayoutAlign="center"
+             fxLayoutGap="10px"
+             fxLayoutGap.xs="0">
+          <div class="item item-1" fxFlex="40%">
+        <mat-list>
+          <mat-list-item>
+            <mat-icon matListAvatar>{{getIcon(item)}}</mat-icon>
+            <h3 matLine>{{item.type}}</h3>
+            <span *ngFor="let ext of item.extension">
+              <span *ngIf="ext.valueCode !== undefined"><a mat-raised-button color="primary" [href]="getProfile(item.extension)" target="_blank" [matTooltip]="getProfile(item.extension)" color="primary"> {{ext.valueCode}}</a></span>
+          </span>
+            <span *ngIf="item.options !== undefined">
+              <a mat-raised-button [href]="item.options.reference" target="_blank" [matTooltip]="item.options.reference" color="primary"> ValueSet</a>
+            </span>
+          </mat-list-item>
+        </mat-list>
+          </div>
+            <div class="item item-1" fxFlex="50%">
+              <span *ngIf="item.definition !== undefined">
+                {{item.definition}}
+              </span>
+            </div>
+          <div fxFlex="10%">
+            <button mat-button (click)="select(item)"  color="accent"><mat-icon>code</mat-icon>
+              Item</button>
+          </div>
+        </div>
+        <span *ngIf="item.option !== undefined">
+          <table>
+            <thead>
+            <th>Code</th>
+            <th>Term</th>
+            <th>System</th>
+            </thead>
+            <tr *ngFor="let option of item.option">
+              <td>
+                <span *ngIf="option.valueCoding !== undefined">
+                  {{option.valueCoding.code}}
+                </span>
+              </td>
+                <td>
+                <span *ngIf="option.valueCoding !== undefined">
+                  {{option.valueCoding.display}}
+                </span>
+              </td>
+               <td>
+                <span *ngIf="option.valueCoding !== undefined">
+                  {{option.valueCoding.system}}
+                </span>
+              </td>
+            </tr>
+          </table>
+        </span>
+          <br>
+        <span *ngIf="item.item !== undefined">
+        <div class="container"
+             fxLayout
+             fxLayout.xs="column"
+             fxLayoutAlign="center"
+             fxLayoutGap="10px"
+             fxLayoutGap.xs="0">
+          <div class="item item-1" fxFlex="5%">
+            <!--<mat-icon>subdirectory_arrow_right</mat-icon>-->
+            </div>
+          <div class="item item-2" fxFlex="95%">
+              <span *ngFor="let subitem of item.item">
+                <td-expansion-panel-group [multi]="multi" #panelGroup>
+                      <app-questionnaire-item [item]="subitem" [depth]="depth+1"></app-questionnaire-item>
+                </td-expansion-panel-group>
+              </span>
+          </div>
+
+        </div>
+          </span>
+      </div>
+      </td-expansion-panel>
+

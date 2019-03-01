@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {FhirService, Formats} from '../../../service/fhir.service';
 import {IAlertConfig, TdDialogService, TdMediaService} from '@covalent/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../../../service/message.service';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -96,7 +96,8 @@ export class ExplorerMainComponent implements OnInit {
               private domSanitizer: DomSanitizer,
               private eprService: EprService,
               public authService: AuthService,
-              private oauth2: Oauth2Service) { }
+              private oauth2: Oauth2Service,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -125,33 +126,21 @@ export class ExplorerMainComponent implements OnInit {
        // this.fhirSrv.getConformance();
     });
 
+      this.route.url.subscribe( url => {
+         // console.log('activated route url ='+url);
+
+          let conformance = this.fhirSrv.getConformance();
+          if (conformance !== undefined) {
+              //console.log(conformance);
+              this.buildOptions(conformance);
+          }
+      });
+
     this.fhirSrv.getConformanceChange().subscribe(capabilityStatement => {
         this.navmenu = [];
         console.log('Explorer Main conformance changed');
         if (capabilityStatement !== undefined) {
-            for (const node of capabilityStatement.rest) {
-                // console.log('mode ' + node.mode);
-                for (const resource of node.resource) {
-                    // console.log(resource.type);
-                    let count = 0;
-                    if (resource.extension !== undefined) {
-
-                        for (const extension of resource.extension) {
-                            if (extension.url.endsWith('resourceCount')) {
-                                count = extension.valueDecimal;
-
-                            }
-                        }
-                    }
-                    this.navmenu.push({
-                        icon: 'looks_one',
-                        route: '/' + resource.type,
-                        title: resource.type,
-                        count: count
-
-                    });
-                }
-            }
+            this.buildOptions(capabilityStatement);
         }
     });
 
@@ -179,6 +168,32 @@ export class ExplorerMainComponent implements OnInit {
 
     this.fhirSrv.getConformance();
 
+  }
+
+  buildOptions(capabilityStatement: fhir.CapabilityStatement) {
+      for (const node of capabilityStatement.rest) {
+          // console.log('mode ' + node.mode);
+          for (const resource of node.resource) {
+              // console.log(resource.type);
+              let count = 0;
+              if (resource.extension !== undefined) {
+
+                  for (const extension of resource.extension) {
+                      if (extension.url.endsWith('resourceCount')) {
+                          count = extension.valueDecimal;
+
+                      }
+                  }
+              }
+              this.navmenu.push({
+                  icon: 'looks_one',
+                  route: '/' + resource.type,
+                  title: resource.type,
+                  count: count
+
+              });
+          }
+      }
   }
 
   format(format: string) {

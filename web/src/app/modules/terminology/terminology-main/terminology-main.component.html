@@ -1,0 +1,78 @@
+
+<mat-menu #personMenu>
+  <button *ngIf="!authService.isLoggedOn()" mat-menu-item (click)="onLogin()">Sign In</button>
+  <button *ngIf="authService.isLoggedOn()" mat-menu-item routerLink="/logout">Sign Out</button>
+</mat-menu>
+
+
+<td-layout [class]="'theme-light'">
+  <td-navigation-drawer flex sidenavTitle="Applications"  name="" email="" >
+    <mat-nav-list>
+      <a *ngFor="let item of routes" mat-list-item (click)="onClick(item.route)"><mat-icon>{{item.icon}}</mat-icon>{{item.title}}</a>
+    </mat-nav-list>
+    <div td-navigation-drawer-menu>
+      <mat-nav-list>
+        <a *ngFor="let item of usermenu" mat-list-item><mat-icon>{{item.icon}}</mat-icon>{{item.title}}</a>
+        <a *ngFor="let item of usermenu" mat-list-item><mat-icon>{{item.icon}}</mat-icon>{{item.title}}</a>
+      </mat-nav-list>
+    </div>
+
+  </td-navigation-drawer>
+  <td-layout-nav-list #navList
+                      color="primary"
+                      [opened]="media.registerQuery('gt-sm') | async"
+                      [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'over'"
+                      [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '250px' : '100%'">
+
+    <!-- Toolbar content -->
+    <div td-toolbar-content layout="row" layout-align="start center" flex>
+      <button mat-icon-button tdLayoutNavListOpen [hideWhenOpened]="true">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span>{{title}}</span>
+      <span flex></span>
+
+      <button mat-icon-button [matMenuTriggerFor]="personMenu"><mat-icon>person</mat-icon></button>
+
+    </div>
+    <div td-sidenav-toolbar-content layout="row" layout-align="start center">
+      <button mat-icon-button tdLayoutToggle>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <!-- <mat-icon [routerLink]="['/']" class="mat-icon-logo cursor-pointer" svgIcon="assets:teradata"></mat-icon> -->
+      <span [routerLink]="['/']" class="cursor-pointer">FHIR Explorer</span>
+    </div>
+
+    <mat-nav-list td-sidenav-content >
+
+      <mat-divider></mat-divider>
+      <mat-nav-list>
+        <a mat-list-item routerLink="codesystem"><mat-icon>description</mat-icon>Code Systems</a>
+        <a mat-list-item routerLink="valuesets"><mat-icon>assignment</mat-icon>Value Sets</a>
+        <a mat-list-item routerLink="conceptmaps"><mat-icon>transform</mat-icon>Concept Maps</a>
+       <a mat-list-item routerLink="namingsystem"><mat-icon>perm_data_setting</mat-icon>Naming System</a>
+       <a mat-list-item routerLink="messaging"><mat-icon>email</mat-icon>Message Definition</a>
+        <a mat-list-item routerLink="graph"><mat-icon>bubble_chart</mat-icon>Graph Definition</a>
+        <a mat-list-item routerLink="questionnaire"><mat-icon>question_answer</mat-icon>Questionnaire</a>
+       <!-- <a mat-list-item routerLink="intro"><mat-icon>question_answer</mat-icon>EOLC Introduction</a> -->
+      </mat-nav-list>
+      <mat-divider></mat-divider>
+      <ng-template let-item let-last="last" ngFor [ngForOf]="navmenu">
+        <a mat-list-item routerLink="/exp/resource/{{item.route}}">
+
+          <h3 matLine > {{item.title}} </h3><mat-chip-list>
+          <span *ngIf="item.count > 0"><mat-chip>{{item.count}}</mat-chip></span>
+        </mat-chip-list>
+
+        </a>
+        <mat-divider [inset]="false" *ngIf="!last"></mat-divider>
+      </ng-template>
+    </mat-nav-list>
+    <router-outlet></router-outlet>
+    <td-layout-footer>
+      <div layout="row" layout-align="start center">
+        <span class="mat-caption">Copyright &copy; 2019 NHS Digital. All rights reserved</span>
+      </div>
+    </td-layout-footer>
+  </td-layout-nav-list>
+</td-layout>

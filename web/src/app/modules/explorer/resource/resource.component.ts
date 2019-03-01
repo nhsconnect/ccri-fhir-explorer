@@ -97,7 +97,9 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     ];
 
 
-    constructor(private router: Router, private fhirSrv: FhirService,  private route: ActivatedRoute) { }
+    constructor(private router: Router,
+                private fhirSrv: FhirService,
+                private route: ActivatedRoute) { }
 
   ngOnInit() {
      // console.log('Resource Init called'+ this.router.url);
