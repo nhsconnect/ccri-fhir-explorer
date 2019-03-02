@@ -29,8 +29,13 @@ export class QuestionnaireComponent implements OnInit {
 
 
     this.questionnaireid = this.route.snapshot.paramMap.get('questionnaireid');
-
     this.getQuestionnaire();
+
+
+    this.route.url.subscribe( url => {
+      this.questionnaireid = this.route.snapshot.paramMap.get('questionnaireid');
+      this.getQuestionnaire();
+    });
 
   }
 

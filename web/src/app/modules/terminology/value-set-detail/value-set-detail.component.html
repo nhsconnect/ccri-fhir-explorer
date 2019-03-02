@@ -48,7 +48,7 @@
     </mat-card>
   <span *ngIf="valueSet.compose !== undefined">
     <mat-card>
-      <mat-card-header><h3>Composition</h3></mat-card-header>
+      <mat-card-header><h2>Composition</h2></mat-card-header>
       <mat-card-content>
         <span *ngFor="let include of valueSet.compose.include">
             <div class="mat-card-content"
@@ -66,135 +66,46 @@
           </div>
 
           <!-- INCLUDE -->
-
-           <div class="mat-card-content"
-                fxLayout
-                fxLayout.xs="column"
-                fxLayoutAlign="center"
-                fxLayoutGap="10px"
-                fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="50%">
-              <b>Include</b>
-            </div>
-            <div class="mat-body-1" fxFlex="50%">
-
-            </div>
-           </div>
-
+<div class="mat-body-1">
+            <h3>Include</h3>
+       </div>
              <!-- CONCEPTS -->
         <span *ngIf="include.concept !== undefined">
-           <div class="mat-card-content"
-                fxLayout
-                fxLayout.xs="column"
-                fxLayoutAlign="center"
-                fxLayoutGap="10px"
-                fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="25%">
-              <b>Concepts</b>
-            </div>
-            <div class="mat-body-1" fxFlex="70%">
-              <table>
-                <thead>
-                <th><b>Code</b></th>
-                <th><b>Display</b></th>
-                </thead>
-                <tr *ngFor="let concept of include.concept">
-                  <td>
-                    {{concept.code}}
-                  </td>
-                  <td>
-                   {{concept.display}}
-                  </td>
-                </tr>
-              </table>
-            </div>
 
-           </div>
+            <div class="mat-body-1" >
+              <h4>Concepts</h4>
+            </div>
+             <app-value-set-include-concept [concepts]="include.concept"></app-value-set-include-concept>
         </span>
 
           <!-- FILTER -->
           <span *ngIf="include.filter !== undefined">
-             <div class="mat-card-content"
-                  fxLayout
-                  fxLayout.xs="column"
-                  fxLayoutAlign="center"
-                  fxLayoutGap="10px"
-                  fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="25%">
-              <b>Filter</b>
+
+            <div class="mat-body-1" >
+              <h4>Filter</h4>
             </div>
-            <div class="mat-body-1" fxFlex="70%">
-              <table>
-                <thead>
-                <th><b>Property</b></th>
-                <th><b>Op</b></th>
-                <th><b>Value</b></th>
-                </thead>
-                <tr *ngFor="let filter of include.filter">
-                  <td>
-                    {{filter.property}}
-                  </td>
-                  <td>
-                   {{filter.op}}
-                  </td>
-                    <td>
-                   {{filter.value}}
-                  </td>
-                </tr>
-              </table>
-            </div>
-             </div>
+
+             <app-value-set-include-filter [filters]="include.filter"></app-value-set-include-filter>
+
           </span>
         </span>
-        <span *ngIf="valueSet.expansion !== undefined">
-               <div class="mat-card-content"
-                    fxLayout
-                    fxLayout.xs="column"
-                    fxLayoutAlign="center"
-                    fxLayoutGap="10px"
-                    fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="50%">
-              <b>Expansion</b>
-            </div>
-            <div class="mat-body-1" fxFlex="50%">
-
-            </div>
-           </div>
-
-           <div class="mat-card-content"
-                fxLayout
-                fxLayout.xs="column"
-                fxLayoutAlign="center"
-                fxLayoutGap="10px"
-                fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="25%">
-              <b>Concepts</b>
-            </div>
-            <div class="mat-body-1" fxFlex="70%">
-              <table>
-                <thead>
-                <th><b>Code</b></th>
-                <th><b>Display</b></th>
-                <th><b>System</b></th>
-                </thead>
-                <tr *ngFor="let concept of valueSet.expansion.contains">
-                  <td>
-                    {{concept.code}}
-                  </td>
-                  <td>
-                   {{concept.display}}
-                  </td>
-                  <td>
-                   {{concept.system}}
-                  </td>
-                </tr>
-              </table>
-            </div>
-
-           </div>
-          </span>
-      </mat-card-content>
+          </mat-card-content>
     </mat-card>
+           <span *ngIf="valueSet.expansion !== undefined">
+      <mat-card>
+          <mat-card-content>
+               <mat-card-header><h2>Expansion</h2></mat-card-header>
+                    <div class="mat-body-1">
+                        <h3>Concepts</h3>
+                    </div>
+
+              <app-value-set-expand-contains [contains]="valueSet.expansion.contains"></app-value-set-expand-contains>
+
+
+          </mat-card-content>
+      </mat-card>
+       </span>
+
   </span>
 </span>
 

@@ -24,11 +24,21 @@ export class ValueSetDetailComponent implements OnInit {
 
     this.valuesetid = this.route.snapshot.paramMap.get('valuesetid');
     if (this.valuesetid !== undefined) {
-    this.fhirService.getResource('/ValueSet/' + this.valuesetid + '/$expand').subscribe( result => {
-       this.valueSet = result;
-    });
+      this.fhirService.getResource('/ValueSet/' + this.valuesetid + '/$expand').subscribe( result => {
+         this.valueSet = result;
+      });
     }
+
+    this.route.url.subscribe( url => {
+      this.valuesetid = this.route.snapshot.paramMap.get('valuesetid');
+      if (this.valuesetid !== undefined) {
+        this.fhirService.getResource('/ValueSet/' + this.valuesetid + '/$expand').subscribe(result => {
+          this.valueSet = result;
+        });
+      }
+    });
   }
+
 
   view(resource) {
     const dialogConfig = new MatDialogConfig();

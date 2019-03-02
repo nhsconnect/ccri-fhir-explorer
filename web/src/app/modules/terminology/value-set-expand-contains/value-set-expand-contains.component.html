@@ -1,0 +1,25 @@
+<table fxFill="100" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+
+  <ng-container matColumnDef="code">
+    <th mat-header-cell *matHeaderCellDef width="20%"> Code </th>
+    <td mat-cell *matCellDef="let contains"> {{contains.code}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="display">
+    <th mat-header-cell *matHeaderCellDef width="30%"> Display </th>
+    <td mat-cell *matCellDef="let contains"> {{contains.display}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="system">
+    <th mat-header-cell *matHeaderCellDef width="50%"> System </th>
+    <td mat-cell *matCellDef="let contains"> {{contains.system}} </td>
+  </ng-container>
+
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

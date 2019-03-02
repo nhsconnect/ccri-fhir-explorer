@@ -89,11 +89,24 @@
          fxLayoutGap.xs="0">
         <div class="mat-body-1" fxFlex="100%">
             <table  border="0" cellpadding="0" cellspacing="0">
+
+
                 <tr *ngFor="let concept of conceptMap.group">
-                    <td><p>
-                        From code system: <b>{{concept.source}}</b><br>
-                        To code system:  <b>{{concept.target}}</b>
-                    </p>
+                    <td>
+                        <div class="mat-card-content"
+                             fxLayout
+                             fxLayout.xs="column"
+                             fxLayoutAlign="center"
+                             fxLayoutGap="10px"
+                             fxLayoutGap.xs="0">
+                            <div class="mat-body-1" fxFlex="40%">
+                                <b>From CodeSystem</b><br>{{concept.source}}</div>
+                            <div class="mat-body-1" fxFlex="60%">
+                                <b>To CodeSystem</b><br>{{concept.target}}</div>
+                        </div>
+
+                        <app-concept-map-element [elements]="concept.element"></app-concept-map-element>
+
                         <table cellpadding="0" cellspacing="0">
                             <tr *ngFor="let element of concept.element; index as i" cellpadding="0" cellspacing="0">
                                 <td cellpadding="0" cellspacing="0">

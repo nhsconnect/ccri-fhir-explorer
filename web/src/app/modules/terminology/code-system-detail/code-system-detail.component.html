@@ -47,34 +47,8 @@
     </mat-card>
   <span *ngIf="codeSystem.concept !== undefined">
     <mat-card>
-      <mat-card-header><h3>Concepts</h3></mat-card-header>
-<div class="mat-card-content"
-     fxLayout
-     fxLayout.xs="column"
-     fxLayoutAlign="center"
-     fxLayoutGap="10px"
-     fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="25%">
-
-            </div>
-            <div class="mat-body-1" fxFlex="70%">
-              <table>
-                <thead>
-                <th><b>Code</b></th>
-                <th><b>Display</b></th>
-                </thead>
-                <tr *ngFor="let concept of codeSystem.concept">
-                  <td>
-                    {{concept.code}}
-                  </td>
-                  <td>
-                   {{concept.display}}
-                  </td>
-                </tr>
-              </table>
-            </div>
-
-           </div>
+      <mat-card-header><h2>Concepts</h2></mat-card-header>
+             <app-code-system-concepts [concepts]="codeSystem.concept"></app-code-system-concepts>
     </mat-card>
   </span>
 </span>

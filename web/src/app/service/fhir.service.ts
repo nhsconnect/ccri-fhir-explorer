@@ -118,6 +118,7 @@ export class FhirService {
           if (location.href.includes('data.developer-test.nhs.uk')) {
               return 'https://data.developer-test.nhs.uk/ccri-fhir/STU3';
           }
+          if (retStr === undefined) return 'http://localhost:8186/ccri-fhir/STU3';
 
       }
       return retStr;

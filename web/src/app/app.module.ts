@@ -88,7 +88,12 @@ import {QuestionnaireComponent} from "./modules/terminology/questionnaire-detail
 import {QuestionnaireItemComponent} from "./modules/terminology/questionnaire-item/questionnaire-item.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ResourceDialogComponent} from "./dialog/resource-dialog/resource-dialog.component";
-
+import {ConceptMapElementComponent} from "./modules/terminology/concept-map-element/concept-map-element.component";
+import { ConceptMapElementTargetComponent } from './modules/terminology/concept-map-element-target/concept-map-element-target.component';
+import { ValueSetExpandContainsComponent } from './modules/terminology/value-set-expand-contains/value-set-expand-contains.component';
+import { ValueSetIncludeConceptComponent } from './modules/terminology/value-set-include-concept/value-set-include-concept.component';
+import { ValueSetIncludeFilterComponent } from './modules/terminology/value-set-include-filter/value-set-include-filter.component';
+import { CodeSystemConceptsComponent } from './modules/terminology/code-system-concepts/code-system-concepts.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -136,7 +141,13 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 
     GraphDefinitionComponent,
     GraphDefinitionDetailComponent,
-    GraphDefinitionLinkComponent
+    GraphDefinitionLinkComponent,
+    ConceptMapElementComponent,
+    ConceptMapElementTargetComponent,
+    ValueSetExpandContainsComponent,
+    ValueSetIncludeConceptComponent,
+    ValueSetIncludeFilterComponent,
+    CodeSystemConceptsComponent
 
 
   ],
