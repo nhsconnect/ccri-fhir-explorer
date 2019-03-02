@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FhirService} from '../../../service/fhir.service';
 import {LinksService} from '../../../service/links.service';
 import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
@@ -18,27 +18,25 @@ export class ValueSetDetailComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
-              private fhirService: FhirService) { }
+    private router: Router,
+    private fhirService: FhirService) { }
 
   ngOnInit() {
 
-    this.valuesetid = this.route.snapshot.paramMap.get('valuesetid');
-    if (this.valuesetid !== undefined) {
-      this.fhirService.getResource('/ValueSet/' + this.valuesetid + '/$expand').subscribe( result => {
-         this.valueSet = result;
-      });
-    }
-
+    this.doSetup();
     this.route.url.subscribe( url => {
-      this.valuesetid = this.route.snapshot.paramMap.get('valuesetid');
-      if (this.valuesetid !== undefined) {
-        this.fhirService.getResource('/ValueSet/' + this.valuesetid + '/$expand').subscribe(result => {
-          this.valueSet = result;
-        });
-      }
+      this.doSetup();
     });
   }
 
+  doSetup() {
+    this.valuesetid = this.route.snapshot.paramMap.get('valuesetid');
+    if (this.valuesetid !== undefined) {
+      this.fhirService.getResource('/ValueSet/' + this.valuesetid + '/$expand').subscribe(result => {
+        this.valueSet = result;
+      });
+    }
+  }
 
   view(resource) {
     const dialogConfig = new MatDialogConfig();
@@ -52,4 +50,17 @@ export class ValueSetDetailComponent implements OnInit {
     this.dialog.open( ResourceDialogComponent, dialogConfig);
   }
 
+
+  codeSystemClick(uri: string) {
+    if (uri.includes('snomed')) return;
+
+    this.fhirService.get('/CodeSystem?url='+uri).
+    subscribe(result => {
+          if (result.entry !== undefined) {
+            console.log('graph id = '+result.entry[0].resource.id);
+            this.router.navigateByUrl('/term/codesystem/'+result.entry[0].resource.id , { relativeTo : this.route });
+          }
+        }
+    )
+  }
 }

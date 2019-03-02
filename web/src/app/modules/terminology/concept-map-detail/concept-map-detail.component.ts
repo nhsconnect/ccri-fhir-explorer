@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FhirService} from '../../../service/fhir.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {ResourceDialogComponent} from '../../../dialog/resource-dialog/resource-dialog.component';
@@ -39,6 +39,7 @@ export class ConceptMapDetailComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private route: ActivatedRoute,
+              private router: Router,
               private fhirService: FhirService) { }
 
   ngOnInit() {
@@ -80,5 +81,29 @@ export class ConceptMapDetailComponent implements OnInit {
       resource: resource
     };
     this.dialog.open( ResourceDialogComponent, dialogConfig);
+  }
+
+  codeSystemClick(uri: string) {
+    if (uri.includes('snomed')) return;
+    this.fhirService.get('/CodeSystem?url='+uri).
+    subscribe(result => {
+          if (result.entry !== undefined) {
+
+            this.router.navigateByUrl('/term/codesystem/'+result.entry[0].resource.id , { relativeTo : this.route });
+          }
+        }
+    )
+  }
+
+  valueSetClick(uri: string) {
+    console.log(uri);
+    this.fhirService.get('/ValueSet?url='+uri).
+    subscribe(result => {
+          if (result.entry !== undefined) {
+
+            this.router.navigateByUrl('/term/valuesets/'+result.entry[0].resource.id , { relativeTo : this.route });
+          }
+        }
+    )
   }
 }

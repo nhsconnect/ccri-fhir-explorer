@@ -14,7 +14,7 @@ export class EprService {
     }
     , {
       icon: 'translate',
-      route: '/term',
+      route: '/term/valuesets',
       title: 'Reference Services',
     }
   ];

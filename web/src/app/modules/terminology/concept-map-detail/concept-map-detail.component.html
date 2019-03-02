@@ -12,8 +12,8 @@
             <div class="mat-body-1" fxFlex="50%">
                 <b>Name</b> {{conceptMap.name}}
             </div>
-            <div class="mat-body-1" fxFlex="50%">
-
+           <div class="mat-body-1" fxFlex="50%">
+                <b>Url</b> <a [href]="conceptMap.url" target="_blank"> {{conceptMap.url}} </a>
             </div>
           </div>
              <div class="mat-card-content"
@@ -37,10 +37,10 @@
           </div>
           <div class="mat-card-content" ><b>Description</b> {{conceptMap.description}}</div>
             <div class="mat-card-content" *ngIf="conceptMap.sourceReference !== null">
-                 <a mat-raised-button [href]="conceptMap.sourceReference.reference" target="_blank" [matTooltip]="conceptMap.sourceReference.reference" color="primary"> Source ValueSet</a> &nbsp; {{conceptMap.sourceReference.reference}}
+                <a mat-raised-button (click)="valueSetClick(conceptMap.sourceReference.reference)" target="_blank" [matTooltip]="conceptMap.sourceReference.reference" color="primary"> Source ValueSet</a> &nbsp; <a [href]="conceptMap.sourceReference.reference" target="_blank">{{conceptMap.sourceReference.reference}}</a>
             </div>
              <div class="mat-card-content" *ngIf="conceptMap.targetReference !== null">
-                 <a mat-raised-button [href]="conceptMap.targetReference.reference" target="_blank" [matTooltip]="conceptMap.targetReference.reference" color="primary"> Target ValueSet</a> &nbsp; {{conceptMap.targetReference.reference}}
+                 <a mat-raised-button (click)="valueSetClick(conceptMap.targetReference.reference)" target="_blank" [matTooltip]="conceptMap.targetReference.reference" color="primary"> Target ValueSet</a> &nbsp; <a [href]="conceptMap.targetReference.reference" target="_blank"> {{conceptMap.targetReference.reference}}</a>
             </div>
 
         </mat-card-content>
@@ -94,10 +94,10 @@
                                  fxLayoutGap="10px"
                                  fxLayoutGap.xs="0">
                                 <div class="mat-body-1" fxFlex="50%">
-                                     <a mat-raised-button [href]="concept.source" target="_blank" [matTooltip]="concept.source" color="primary"> From CodeSystem</a> <br> {{concept.source}}
+                                     <a mat-raised-button (click)="codeSystemClick(concept.source)" target="_blank" [matTooltip]="concept.source" color="primary"> From CodeSystem</a> <br> <a [href]="concept.source" target="_blank">{{concept.source}}</a>
                                 </div>
                                 <div class="mat-body-1" fxFlex="50%">
-                                    <a mat-raised-button [href]="concept.target" target="_blank" [matTooltip]="concept.target" color="primary"> To CodeSystem</a> <br> {{concept.target}}
+                                    <a mat-raised-button (click)="codeSystemClick(concept.target)" target="_blank" [matTooltip]="concept.target" color="primary"> To CodeSystem</a> <br> <a [href]="concept.target" target="_blank">{{concept.target}}</a>
                                 </div>
                             </div>
 

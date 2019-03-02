@@ -14,7 +14,7 @@
                 <b>Name</b> {{valueSet.name}}
             </div>
             <div class="mat-body-1" fxFlex="50%">
-              <b>Url</b> {{valueSet.url}}
+              <b>Url</b> <a [href]="valueSet.url" target="_blank"> {{valueSet.url}} </a>
             </div>
           </div>
              <div class="mat-card-content"
@@ -54,7 +54,7 @@
         <span *ngFor="let include of valueSet.compose.include">
 
             <div class="mat-body-1">
-              <a mat-raised-button [href]="include.system" target="_blank" [matTooltip]="include.system" color="primary"> CodeSystem</a> &nbsp; {{include.system}}
+              <a mat-raised-button (click)="codeSystemClick(include.system)" [matTooltip]="include.system" color="primary"> CodeSystem</a> &nbsp; {{include.system}}
             </div>
             <div class="mat-body-1" >
               <b>Version</b> {{include.version}}

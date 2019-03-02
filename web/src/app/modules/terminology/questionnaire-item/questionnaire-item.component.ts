@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 import {ResourceDialogComponent} from '../../../dialog/resource-dialog/resource-dialog.component';
+import {ActivatedRoute, Router} from "@angular/router";
+import {FhirService} from "../../../service/fhir.service";
 
 @Component({
   selector: 'app-questionnaire-item',
@@ -20,6 +22,9 @@ export class QuestionnaireItemComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute,
+    private fhirService: FhirService,
     private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
@@ -70,6 +75,15 @@ export class QuestionnaireItemComponent implements OnInit {
     const resourceDialog: MatDialogRef<ResourceDialogComponent> = this.dialog.open( ResourceDialogComponent, dialogConfig);
   }
 
+  valueSetClick(uri) {
+    this.fhirService.get('/ValueSet?url='+uri).
+    subscribe(result => {
+          if (result.entry !== undefined) {
 
+            this.router.navigateByUrl('/term/valuesets/'+result.entry[0].resource.id , { relativeTo : this.route });
+          }
+        }
+    )
+  }
 
 }
