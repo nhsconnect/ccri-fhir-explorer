@@ -49,7 +49,7 @@
             View FHIR Resource</button>
         </mat-card-actions>
     </mat-card>
-</span>
+
 <!--
 <mat-card>
   <div class="mat-card-content"
@@ -82,52 +82,53 @@
   </div>
 </mat-card>
 -->
-<span *ngFor="let concept of conceptMap.group">
-<mat-card>
-    <mat-card-content>
+    <span *ngFor="let concept of conceptMap.group">
+    <mat-card>
+        <mat-card-content>
 
 
-                        <div class="mat-card-content"
-                             fxLayout
-                             fxLayout.xs="column"
-                             fxLayoutAlign="center"
-                             fxLayoutGap="10px"
-                             fxLayoutGap.xs="0">
-                            <div class="mat-body-1" fxFlex="50%">
-                                 <a mat-raised-button [href]="concept.source" target="_blank" [matTooltip]="concept.source" color="primary"> From CodeSystem</a> <br> {{concept.source}}
+                            <div class="mat-card-content"
+                                 fxLayout
+                                 fxLayout.xs="column"
+                                 fxLayoutAlign="center"
+                                 fxLayoutGap="10px"
+                                 fxLayoutGap.xs="0">
+                                <div class="mat-body-1" fxFlex="50%">
+                                     <a mat-raised-button [href]="concept.source" target="_blank" [matTooltip]="concept.source" color="primary"> From CodeSystem</a> <br> {{concept.source}}
+                                </div>
+                                <div class="mat-body-1" fxFlex="50%">
+                                    <a mat-raised-button [href]="concept.target" target="_blank" [matTooltip]="concept.target" color="primary"> To CodeSystem</a> <br> {{concept.target}}
+                                </div>
                             </div>
-                            <div class="mat-body-1" fxFlex="50%">
-                                <a mat-raised-button [href]="concept.target" target="_blank" [matTooltip]="concept.target" color="primary"> To CodeSystem</a> <br> {{concept.target}}
-                            </div>
-                        </div>
 
-                        <app-concept-map-element [elements]="concept.element"></app-concept-map-element>
-<!--
-                        <table cellpadding="0" cellspacing="0">
-                            <tr *ngFor="let element of concept.element; index as i" cellpadding="0" cellspacing="0">
-                                <td cellpadding="0" cellspacing="0">
-                                    <table  border="0" cellpadding="0" cellspacing="0">
-                                        <thead *ngIf="i==0">
-                                        <th><b>Code</b></th>
-                                        <th><b>Equivalence</b></th>
-                                        <th><b>Target Code</b></th>
-                                        <th><b>	Comments</b></th>
-                                        </thead>
-                                        <tr *ngFor="let target of element.target" cellpadding="0" cellspacing="0">
-                                            <td> {{element.code}}</td>
-                                            <td>{{target.equivalence}}</td>
-                                            <td>{{target.code}}</td>
-                                            <td>{{target.comment}}</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
+                            <app-concept-map-element [elements]="concept.element"></app-concept-map-element>
+    <!--
+                            <table cellpadding="0" cellspacing="0">
+                                <tr *ngFor="let element of concept.element; index as i" cellpadding="0" cellspacing="0">
+                                    <td cellpadding="0" cellspacing="0">
+                                        <table  border="0" cellpadding="0" cellspacing="0">
+                                            <thead *ngIf="i==0">
+                                            <th><b>Code</b></th>
+                                            <th><b>Equivalence</b></th>
+                                            <th><b>Target Code</b></th>
+                                            <th><b>	Comments</b></th>
+                                            </thead>
+                                            <tr *ngFor="let target of element.target" cellpadding="0" cellspacing="0">
+                                                <td> {{element.code}}</td>
+                                                <td>{{target.equivalence}}</td>
+                                                <td>{{target.code}}</td>
+                                                <td>{{target.comment}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
 
--->
+    -->
 
 
-        </mat-card-content>
+            </mat-card-content>
 
-    </mat-card>
-</span>
+        </mat-card>
+    </span>
+    </span>
