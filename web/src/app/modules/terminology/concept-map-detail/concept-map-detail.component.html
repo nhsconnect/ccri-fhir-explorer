@@ -37,14 +37,17 @@
           </div>
           <div class="mat-card-content" ><b>Description</b> {{conceptMap.description}}</div>
             <div class="mat-card-content" *ngIf="conceptMap.sourceReference !== null">
-                <b>Source ValueSet</b> {{conceptMap.sourceReference.reference}}
+                 <a mat-raised-button [href]="conceptMap.sourceReference.reference" target="_blank" [matTooltip]="conceptMap.sourceReference.reference" color="primary"> Source ValueSet</a> &nbsp; {{conceptMap.sourceReference.reference}}
             </div>
              <div class="mat-card-content" *ngIf="conceptMap.targetReference !== null">
-                <b>Target ValueSet</b> {{conceptMap.targetReference.reference}}
+                 <a mat-raised-button [href]="conceptMap.targetReference.reference" target="_blank" [matTooltip]="conceptMap.targetReference.reference" color="primary"> Target ValueSet</a> &nbsp; {{conceptMap.targetReference.reference}}
             </div>
 
         </mat-card-content>
-
+        <mat-card-actions>
+            <button mat-button placement="top" (click)="view(conceptMap)"  color="accent"><mat-icon>code</mat-icon>
+            View FHIR Resource</button>
+        </mat-card-actions>
     </mat-card>
 </span>
 <!--
@@ -79,34 +82,27 @@
   </div>
 </mat-card>
 -->
+<span *ngFor="let concept of conceptMap.group">
 <mat-card>
     <mat-card-content>
-    <div class="mat-card-content"
-         fxLayout
-         fxLayout.xs="column"
-         fxLayoutAlign="center"
-         fxLayoutGap="10px"
-         fxLayoutGap.xs="0">
-        <div class="mat-body-1" fxFlex="100%">
-            <table  border="0" cellpadding="0" cellspacing="0">
 
 
-                <tr *ngFor="let concept of conceptMap.group">
-                    <td>
                         <div class="mat-card-content"
                              fxLayout
                              fxLayout.xs="column"
                              fxLayoutAlign="center"
                              fxLayoutGap="10px"
                              fxLayoutGap.xs="0">
-                            <div class="mat-body-1" fxFlex="40%">
-                                <b>From CodeSystem</b><br>{{concept.source}}</div>
-                            <div class="mat-body-1" fxFlex="60%">
-                                <b>To CodeSystem</b><br>{{concept.target}}</div>
+                            <div class="mat-body-1" fxFlex="50%">
+                                 <a mat-raised-button [href]="concept.source" target="_blank" [matTooltip]="concept.source" color="primary"> From CodeSystem</a> <br> {{concept.source}}
+                            </div>
+                            <div class="mat-body-1" fxFlex="50%">
+                                <a mat-raised-button [href]="concept.target" target="_blank" [matTooltip]="concept.target" color="primary"> To CodeSystem</a> <br> {{concept.target}}
+                            </div>
                         </div>
 
                         <app-concept-map-element [elements]="concept.element"></app-concept-map-element>
-
+<!--
                         <table cellpadding="0" cellspacing="0">
                             <tr *ngFor="let element of concept.element; index as i" cellpadding="0" cellspacing="0">
                                 <td cellpadding="0" cellspacing="0">
@@ -128,16 +124,10 @@
                             </tr>
                         </table>
 
+-->
 
-                    </td>
-                </tr>
-            </table>
-        </div>
 
-    </div>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button placement="top" (click)="view(conceptMap)"  color="accent"><mat-icon>code</mat-icon>
-            View FHIR Resource</button>
-    </mat-card-actions>
-</mat-card>
+        </mat-card-content>
+
+    </mat-card>
+</span>

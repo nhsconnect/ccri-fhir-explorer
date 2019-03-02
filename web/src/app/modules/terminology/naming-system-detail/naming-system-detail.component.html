@@ -50,38 +50,14 @@
     </mat-card>
   <span *ngIf="namingSystem.uniqueId !== undefined">
     <mat-card>
-      <mat-card-header><h3>Unique Id's</h3></mat-card-header>
-<div class="mat-card-content"
-     fxLayout
-     fxLayout.xs="column"
-     fxLayoutAlign="center"
-     fxLayoutGap="10px"
-     fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="25%">
+      <mat-card-header><h2>Unique Id's</h2></mat-card-header>
+        <mat-card-content>
 
-            </div>
-            <div class="mat-body-1" fxFlex="70%">
-              <table>
-                <thead>
-                <th><b>Type</b></th>
-                <th><b>Value</b></th>
-                 <th><b>Preferred</b></th>
-                </thead>
-                <tr *ngFor="let concept of namingSystem.uniqueId">
-                  <td>
-                    {{concept.type}}
-                  </td>
-                  <td>
-                   {{concept.value}}
-                  </td>
-                   <td>
-                   {{concept.preferred}}
-                  </td>
-                </tr>
-              </table>
-            </div>
+<app-naming-system-unique-id [uniqueids]="namingSystem.uniqueId">
 
-           </div>
+</app-naming-system-unique-id>
+
+            </mat-card-content>
     </mat-card>
   </span>
 </span>

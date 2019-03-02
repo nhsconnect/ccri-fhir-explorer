@@ -94,6 +94,7 @@ import { ValueSetExpandContainsComponent } from './modules/terminology/value-set
 import { ValueSetIncludeConceptComponent } from './modules/terminology/value-set-include-concept/value-set-include-concept.component';
 import { ValueSetIncludeFilterComponent } from './modules/terminology/value-set-include-filter/value-set-include-filter.component';
 import { CodeSystemConceptsComponent } from './modules/terminology/code-system-concepts/code-system-concepts.component';
+import { NamingSystemUniqueIdComponent } from './modules/terminology/naming-system-unique-id/naming-system-unique-id.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -147,7 +148,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     ValueSetExpandContainsComponent,
     ValueSetIncludeConceptComponent,
     ValueSetIncludeFilterComponent,
-    CodeSystemConceptsComponent
+    CodeSystemConceptsComponent,
+    NamingSystemUniqueIdComponent
 
 
   ],

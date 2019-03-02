@@ -48,6 +48,15 @@ export class ConceptMapDetailComponent implements OnInit {
         this.conceptMap = result;
       });
     }
+
+    this.route.url.subscribe( url => {
+      this.conceptmapid = this.route.snapshot.paramMap.get('conceptmapid');
+      if (this.conceptmapid !== undefined) {
+        this.fhirService.getResource('/ConceptMap/' + this.conceptmapid).subscribe( result => {
+          this.conceptMap = result;
+        });
+      }
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {

@@ -23,7 +23,7 @@ export class CodeSystemComponent implements OnInit {
 
   dataSource: CodeSystemDataSource;
 
-  displayedColumns = ['view', 'name', 'description', 'status', 'resource'];
+  displayedColumns = ['view', 'name', 'publisher', 'description', 'status', 'resource'];
 
   constructor(private fhirService: FhirService,
               public dialog: MatDialog,

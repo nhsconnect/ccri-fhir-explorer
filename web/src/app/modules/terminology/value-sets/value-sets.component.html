@@ -39,11 +39,15 @@
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <th mat-header-cell *matHeaderCellDef width="25%"> Name </th>
       <td mat-cell *matCellDef="let valueSet"> <b>{{valueSet.name}}</b>
-        <br>
-        {{valueSet.url}}
+
       </td>
+    </ng-container>
+
+    <ng-container matColumnDef="publisher">
+      <th mat-header-cell *matHeaderCellDef  width="10%"> Publisher </th>
+      <td mat-cell *matCellDef="let valueSet"> {{valueSet.publisher}} </td>
     </ng-container>
 
     <ng-container matColumnDef="url">

@@ -1,0 +1,26 @@
+<table fxFill="100" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef > Type </th>
+    <td mat-cell *matCellDef="let uniqueid"> {{uniqueid.type}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="value">
+    <th mat-header-cell *matHeaderCellDef > Value </th>
+    <td mat-cell *matCellDef="let uniqueid"> {{uniqueid.value}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="preferred">
+    <th mat-header-cell *matHeaderCellDef > Preferred </th>
+    <td mat-cell *matCellDef="let uniqueid"> {{uniqueid.preferred}} </td>
+  </ng-container>
+
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
