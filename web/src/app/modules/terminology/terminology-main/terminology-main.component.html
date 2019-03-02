@@ -44,10 +44,10 @@
       <span [routerLink]="['/']" class="cursor-pointer">FHIR Explorer</span>
     </div>
 
-    <mat-nav-list td-sidenav-content >
 
-      <mat-divider></mat-divider>
-      <mat-nav-list>
+
+
+      <mat-nav-list td-sidenav-content [tdLayoutManageListClose]="!media.query('gt-sm')">
         <a mat-list-item (click)="onClickR('codesystem')"><mat-icon>description</mat-icon>Code Systems</a>
         <a mat-list-item (click)="onClickR('valuesets')"><mat-icon>assignment</mat-icon>Value Sets</a>
         <a mat-list-item (click)="onClickR('conceptmaps')"><mat-icon>transform</mat-icon>Concept Maps</a>
@@ -57,18 +57,8 @@
         <a mat-list-item (click)="onClickR('questionnaire')"><mat-icon>question_answer</mat-icon>Questionnaire</a>
        <!-- <a mat-list-item routerLink="intro"><mat-icon>question_answer</mat-icon>EOLC Introduction</a> -->
       </mat-nav-list>
-      <mat-divider></mat-divider>
-      <ng-template let-item let-last="last" ngFor [ngForOf]="navmenu">
-        <a mat-list-item routerLink="/exp/resource/{{item.route}}">
 
-          <h3 matLine > {{item.title}} </h3><mat-chip-list>
-          <span *ngIf="item.count > 0"><mat-chip>{{item.count}}</mat-chip></span>
-        </mat-chip-list>
 
-        </a>
-        <mat-divider [inset]="false" *ngIf="!last"></mat-divider>
-      </ng-template>
-    </mat-nav-list>
     <router-outlet></router-outlet>
     <td-layout-footer>
       <div layout="row" layout-align="start center">
