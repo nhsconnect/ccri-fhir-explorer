@@ -37,6 +37,8 @@ export class ValueSetsComponent implements OnInit {
 
   search(name, publisher) {
     //console.log(event);
+    this.valueSets = [];
+
     if (name !== undefined) {
       this.searchInputName = name;
     }
@@ -58,7 +60,7 @@ export class ValueSetsComponent implements OnInit {
     }
     url = url + '&_count=20';
 
-    this.valueSets = [];
+
 
     this.fhirService.get(url).subscribe(
       result => {

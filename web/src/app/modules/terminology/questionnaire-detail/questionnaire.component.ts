@@ -28,15 +28,17 @@ export class QuestionnaireComponent implements OnInit {
   ngOnInit() {
 
 
-    this.questionnaireid = this.route.snapshot.paramMap.get('questionnaireid');
-    this.getQuestionnaire();
-
+   this.doSetup();
 
     this.route.url.subscribe( url => {
-      this.questionnaireid = this.route.snapshot.paramMap.get('questionnaireid');
-      this.getQuestionnaire();
+      this.doSetup();
     });
 
+  }
+
+  doSetup() {
+    this.questionnaireid = this.route.snapshot.paramMap.get('questionnaireid');
+    this.getQuestionnaire();
   }
 
   getQuestionnaire() {

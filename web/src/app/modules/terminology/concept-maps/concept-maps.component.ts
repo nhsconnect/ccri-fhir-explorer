@@ -38,7 +38,8 @@ export class ConceptMapsComponent implements OnInit {
 
 
   search(name, uri) {
-    //console.log(event);
+    this.conceptMaps = [];
+
     if (name !== undefined) {
       this.searchInputName = name;
     }
@@ -60,7 +61,7 @@ export class ConceptMapsComponent implements OnInit {
     }
     url = url + '&_count=20';
 
-    this.conceptMaps = [];
+
 
     this.fhirService.get(url).subscribe(
       result => {

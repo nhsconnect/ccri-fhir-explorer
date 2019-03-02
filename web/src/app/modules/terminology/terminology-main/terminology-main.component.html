@@ -48,13 +48,13 @@
 
       <mat-divider></mat-divider>
       <mat-nav-list>
-        <a mat-list-item routerLink="codesystem"><mat-icon>description</mat-icon>Code Systems</a>
-        <a mat-list-item routerLink="valuesets"><mat-icon>assignment</mat-icon>Value Sets</a>
-        <a mat-list-item routerLink="conceptmaps"><mat-icon>transform</mat-icon>Concept Maps</a>
-       <a mat-list-item routerLink="namingsystem"><mat-icon>perm_data_setting</mat-icon>Naming System</a>
-       <a mat-list-item routerLink="messaging"><mat-icon>email</mat-icon>Message Definition</a>
-        <a mat-list-item routerLink="graph"><mat-icon>bubble_chart</mat-icon>Graph Definition</a>
-        <a mat-list-item routerLink="questionnaire"><mat-icon>question_answer</mat-icon>Questionnaire</a>
+        <a mat-list-item (click)="onClickR('codesystem')"><mat-icon>description</mat-icon>Code Systems</a>
+        <a mat-list-item (click)="onClickR('valuesets')"><mat-icon>assignment</mat-icon>Value Sets</a>
+        <a mat-list-item (click)="onClickR('conceptmaps')"><mat-icon>transform</mat-icon>Concept Maps</a>
+       <a mat-list-item (click)="onClickR('namingsystem')"><mat-icon>perm_data_setting</mat-icon>Naming System</a>
+       <a mat-list-item (click)="onClickR('messaging')"><mat-icon>email</mat-icon>Message Definition</a>
+        <a mat-list-item (click)="onClickR('graph')"><mat-icon>bubble_chart</mat-icon>Graph Definition</a>
+        <a mat-list-item (click)="onClickR('questionnaire')"><mat-icon>question_answer</mat-icon>Questionnaire</a>
        <!-- <a mat-list-item routerLink="intro"><mat-icon>question_answer</mat-icon>EOLC Introduction</a> -->
       </mat-nav-list>
       <mat-divider></mat-divider>

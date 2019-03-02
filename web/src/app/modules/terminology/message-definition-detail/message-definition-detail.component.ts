@@ -33,6 +33,13 @@ export class MessageDefinitionDetailComponent implements OnInit {
 
   ngOnInit() {
 
+    this.doSetup();
+    this.route.url.subscribe( url => {
+      this.doSetup();
+    });
+  }
+
+  doSetup() {
     this.messageid = this.route.snapshot.paramMap.get('messageid');
     if (this.messageid !== undefined) {
       this.fhirService.getResource('/MessageDefinition/' + this.messageid ).subscribe( result => {

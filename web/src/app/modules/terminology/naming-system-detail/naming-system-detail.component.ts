@@ -20,21 +20,21 @@ export class NamingSystemDetailComponent implements OnInit {
 
   ngOnInit() {
 
+    this.doSetup();
+    this.route.url.subscribe( url => {
+      this.doSetup();
+    });
+  }
+
+  doSetup() {
     this.namingSystemid = this.route.snapshot.paramMap.get('namingsystemid');
     if (this.namingSystemid !== undefined) {
       this.fhirService.getResource('/NamingSystem/' + this.namingSystemid).subscribe( result => {
         this.namingSystem = result;
       });
     }
-    this.route.url.subscribe( url => {
-      this.namingSystemid = this.route.snapshot.paramMap.get('namingsystemid');
-      if (this.namingSystemid !== undefined) {
-        this.fhirService.getResource('/NamingSystem/' + this.namingSystemid).subscribe( result => {
-          this.namingSystem = result;
-        });
-      }
-    });
   }
+
   view(resource) {
     const dialogConfig = new MatDialogConfig();
 

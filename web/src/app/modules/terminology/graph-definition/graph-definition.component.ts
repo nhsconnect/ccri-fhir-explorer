@@ -32,6 +32,9 @@ export class GraphDefinitionComponent implements OnInit {
   }
 
   search(name, searchUri) {
+
+    this.graphs = [];
+
     if (name !== undefined) {
       this.searchInputName = name;
     }
@@ -53,7 +56,7 @@ export class GraphDefinitionComponent implements OnInit {
     }
     url = url + '&_count=20';
 
-    this.graphs = [];
+
 
     this.fhirService.get(url).subscribe(
       result => {

@@ -43,21 +43,19 @@ export class ConceptMapDetailComponent implements OnInit {
               private fhirService: FhirService) { }
 
   ngOnInit() {
+    this.doSetup();
+    this.route.url.subscribe( url => {
+      this.doSetup();
+    });
+  }
+
+  doSetup() {
     this.conceptmapid = this.route.snapshot.paramMap.get('conceptmapid');
     if (this.conceptmapid !== undefined) {
       this.fhirService.getResource('/ConceptMap/' + this.conceptmapid).subscribe( result => {
         this.conceptMap = result;
       });
     }
-
-    this.route.url.subscribe( url => {
-      this.conceptmapid = this.route.snapshot.paramMap.get('conceptmapid');
-      if (this.conceptmapid !== undefined) {
-        this.fhirService.getResource('/ConceptMap/' + this.conceptmapid).subscribe( result => {
-          this.conceptMap = result;
-        });
-      }
-    });
   }
 
   drop(event: CdkDragDrop<string[]>) {

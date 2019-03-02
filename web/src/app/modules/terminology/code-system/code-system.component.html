@@ -12,14 +12,14 @@
 
     </div>
     <div class="mat-body-1" fxFlex="48%">
-      <td-search-input  placeholder="Name" [(ngModel)]="searchInputName" [showUnderline]="true" [debounce]="500" (searchDebounce)="search($event,undefined)" (search)="search($event,undefined)" (clear)="searchInputName = ''">
+      <td-search-input class="mat-input" placeholder="Name" [(ngModel)]="searchInputName" [showUnderline]="true" [debounce]="500" (searchDebounce)="search($event,undefined)" (search)="search($event,undefined)" (clear)="searchInputName = ''">
       </td-search-input>
     </div>
     <div class="mat-body-1" fxFlex="2%">
 
     </div>
     <div class="mat-body-1" fxFlex="46%">
-      <td-search-input  placeholder="Url" [(ngModel)]="searchInputUrl" [showUnderline]="true" [debounce]="500" (searchDebounce)="search(undefined, $event)" (search)="search(undefined, $event)" (clear)="searchInputUrl = ''">
+      <td-search-input class="mat-input" placeholder="Url" [(ngModel)]="searchInputUrl" [showUnderline]="true" [debounce]="500" (searchDebounce)="search(undefined, $event)" (search)="search(undefined, $event)" (clear)="searchInputUrl = ''">
       </td-search-input>
     </div>
     <div class="mat-body-1" fxFlex="2%">

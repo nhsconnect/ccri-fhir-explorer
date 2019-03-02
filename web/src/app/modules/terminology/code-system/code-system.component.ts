@@ -35,6 +35,9 @@ export class CodeSystemComponent implements OnInit {
 
   search(name, uri) {
     //console.log(event);
+
+    this.codeSystems = [];
+
     if (name !== undefined) {
       this.searchInputName = name;
     }
@@ -56,7 +59,6 @@ export class CodeSystemComponent implements OnInit {
     }
     url = url + '&_count=20';
 
-    this.codeSystems = [];
 
     this.fhirService.get(url).subscribe(
       result => {

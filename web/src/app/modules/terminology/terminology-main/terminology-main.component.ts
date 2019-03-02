@@ -6,7 +6,7 @@ import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {EprService} from '../../../service/epr.service';
 import {AuthService} from '../../../service/auth.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-terminology-main',
@@ -55,6 +55,7 @@ export class TerminologyMainComponent implements OnInit {
               private domSanitizer: DomSanitizer,
               private eprService: EprService,
               public authService: AuthService,
+              private route: ActivatedRoute
              ) { }
 
   ngOnInit() {
@@ -100,6 +101,10 @@ export class TerminologyMainComponent implements OnInit {
   onLogin() {
     this.authService.setBaseUrlOAuth2();
     this.router.navigateByUrl('/login');
+  }
+
+  onClickR(route) {
+    this.router.navigate([ route ],{relativeTo: this.route });
   }
   onClick(route) {
     this.router.navigateByUrl(route);

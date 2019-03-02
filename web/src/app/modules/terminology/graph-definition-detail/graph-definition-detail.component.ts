@@ -35,12 +35,19 @@ export class GraphDefinitionDetailComponent implements OnInit {
 
   ngOnInit() {
 
+    this.doSetup();
+    this.route.url.subscribe( url => {
+      this.doSetup();
+    });
+  }
+
+  doSetup() {
     this.graphid = this.route.snapshot.paramMap.get('graphid');
     if (this.graphid !== undefined) {
       this.fhirService.getResource('/GraphDefinition/' + this.graphid ).subscribe( result => {
         const graph: fhir.GraphDefinition = result;
         this.graph = graph;
-     // TODO   this.processGraph();
+        // TODO   this.processGraph();
       });
     }
   }

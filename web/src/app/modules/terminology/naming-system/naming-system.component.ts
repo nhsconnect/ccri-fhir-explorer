@@ -34,6 +34,8 @@ export class NamingSystemComponent implements OnInit {
 
   search(name, uri) {
     //console.log(event);
+    this.namingSystems = [];
+
     if (name !== undefined) {
       this.searchInputName = name;
     }
@@ -55,7 +57,7 @@ export class NamingSystemComponent implements OnInit {
     }
     url = url + '&_count=20';
 
-    this.namingSystems = [];
+
 
     this.fhirService.get(url).subscribe(
       result => {

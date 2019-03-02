@@ -21,7 +21,7 @@
                                 <td-message label="GET {{base}}/{{'{'}}id{{'}'}}" icon="info"></td-message>
                         </div>
                         <mat-card>
-                            <mat-card-title>FHIR Get Resource</mat-card-title>
+                            <mat-card-header><h4>Read Resource</h4></mat-card-header>
                             <mat-card-content>
                                 <td-dynamic-forms #dynform1 [elements]="elements_id">
                                   <ng-template let-element ngFor [ngForOf]="elements_id">
@@ -113,7 +113,7 @@
                             <!-- also includ reverse includes when HAPI fixed -->
                             </div>
                         <mat-card>
-                            <mat-card-title>FHIR Search Form</mat-card-title>
+                            <mat-card-header><h4>Search Resource</h4></mat-card-header>
                             <mat-card-content>
                                 Use the table above to add search fields (above) to this form.
                                 <td-dynamic-forms #dynform [elements]="elements">

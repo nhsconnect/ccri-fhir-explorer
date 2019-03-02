@@ -20,22 +20,22 @@ export class CodeSystemDetailComponent implements OnInit {
 
   ngOnInit() {
 
+    this.doSetup();
+
+    this.route.url.subscribe( url => {
+     this.doSetup();
+    });
+  }
+
+  doSetup() {
     this.codesystemid = this.route.snapshot.paramMap.get('codesystemid');
     if (this.codesystemid !== undefined) {
       this.fhirService.getResource('/CodeSystem/' + this.codesystemid).subscribe( result => {
         this.codeSystem = result;
       });
     }
-
-    this.route.url.subscribe( url => {
-      this.codesystemid = this.route.snapshot.paramMap.get('codesystemid');
-      if (this.codesystemid !== undefined) {
-        this.fhirService.getResource('/CodeSystem/' + this.codesystemid).subscribe( result => {
-          this.codeSystem = result;
-        });
-      }
-    });
   }
+
   view(resource) {
     const dialogConfig = new MatDialogConfig();
 
