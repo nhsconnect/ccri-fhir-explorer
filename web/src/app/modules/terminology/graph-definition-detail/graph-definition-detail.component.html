@@ -59,12 +59,15 @@
                       fxLayoutAlign="center"
                       fxLayoutGap="10px"
                       fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="15%">
-                <a mat-raised-button target="_blank" [href]="getProfile(graph.profile, graph.start)" [color]="getColour(graph.start)"> {{graph.start}}</a>
+            <div class="mat-body-1" fxFlex="25%">
+                Start At &nbsp;
+                <a mat-raised-button target="_blank" [href]="getProfile(graph.profile, graph.start)" [color]="info"> {{graph.start}}</a>
 
             </div>
             <div class="mat-body-1" fxFlex="85%">
+                <span *ngIf="graph.profile !== undefined">
               <b>Profile</b> {{graph.profile}}
+                    </span>
             </div>
           </div>
 
@@ -72,21 +75,9 @@
           <span *ngIf="graph.link != undefined">
             <span *ngFor="let link of graph.link">
 
-                   <div class="mat-card-content"
-                        fxLayout
-                        fxLayout.xs="column"
-                        fxLayoutAlign="center"
-                        fxLayoutGap="10px"
-                        fxLayoutGap.xs="0">
-            <div class="mat-body-1" fxFlex="5%">
-
-            </div>
-            <div class="mat-body-1" fxFlex="95%">
+            <div class="mat-body-1">
                  <app-graph-definition-link [link]="link" [level]="0"></app-graph-definition-link>
             </div>
-          </div>
-
-
 
              </span>
           </span>

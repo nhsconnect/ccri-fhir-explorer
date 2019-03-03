@@ -121,10 +121,13 @@
 
 
           <span *ngIf="messageDefinition.extension !== undefined">
+              <h2>Rules</h2>
             <span *ngFor="let extension of messageDefinition.extension">
               <span *ngIf="extension.url === 'http://hl7.org/fhir/4.0/StructureDefinition/extension-MessageDefinition.graph' && extension.valueReference !== undefined">
-
+                <div class="mat-body-1">
                   <button class="mat-raised-button" (click)="graphClick(extension.valueReference.reference)"  color="accent"><mat-icon>bubble_chart</mat-icon>Graph Definition</button>
+               &nbsp; {{extension.valueReference.reference}}
+                </div>
               </span>
             </span>
           </span>
