@@ -2,13 +2,13 @@
       <td-expansion-panel [style]="getStyle(depth)" label="{{item.text}}" sublabel="linkId={{item.linkId}}" [disabled]="disabled">
 
       <div class="mat-card-content">
-        <mat-chip-list>
-          <mat-chip *ngIf="item.repeats">repeats
+        <mat-chip-list class="mat-chip">
+          <mat-chip color="accent" selected="true" *ngIf="item.repeats">repeats
           </mat-chip>
-          <mat-chip color="accent" *ngIf="item.required">required
+          <mat-chip color="accent" selected="true" *ngIf="item.required">required
           </mat-chip>
         </mat-chip-list>
-
+      </div>
         <div class="mat-card-content"
              fxLayout
              fxLayout.xs="column"
@@ -18,13 +18,13 @@
           <div class="mat-body-1" fxFlex="40%">
             <mat-list>
               <mat-list-item>
-                <mat-icon matListAvatar>{{getIcon(item)}}</mat-icon>
+                <mat-icon matListAvatar color="accent">{{getIcon(item)}}</mat-icon>
                 <h3 matLine>{{item.type}}</h3>
                 <span *ngFor="let ext of item.extension">
                   <span *ngIf="ext.valueCode !== undefined"><a mat-raised-button color="primary" [href]="getProfile(item.extension)" target="_blank" [matTooltip]="getProfile(item.extension)" color="primary"> {{ext.valueCode}}</a></span>
               </span>
                 <span *ngIf="item.options !== undefined">
-                  <a mat-raised-button (click)="valueSetClick(item.options.reference)" [matTooltip]="item.options.reference" color="primary"> ValueSet</a>
+                  <a mat-stroked-button (click)="valueSetClick(item.options.reference)" [matTooltip]="item.options.reference" color="primary"> ValueSet</a>
 
                 </span>
               </mat-list-item>
@@ -44,30 +44,7 @@
           </div>
         </div>
         <span *ngIf="item.option !== undefined">
-          <table>
-            <thead>
-            <th>Code</th>
-            <th>Term</th>
-            <th>System</th>
-            </thead>
-            <tr *ngFor="let option of item.option">
-              <td>
-                <span *ngIf="option.valueCoding !== undefined">
-                  {{option.valueCoding.code}}
-                </span>
-              </td>
-                <td>
-                <span *ngIf="option.valueCoding !== undefined">
-                  {{option.valueCoding.display}}
-                </span>
-              </td>
-               <td>
-                <span *ngIf="option.valueCoding !== undefined">
-                  {{option.valueCoding.system}}
-                </span>
-              </td>
-            </tr>
-          </table>
+          <app-questionnaire-item-option [options]="item.option"> </app-questionnaire-item-option>
         </span>
           <br>
         <span *ngIf="item.item !== undefined">
@@ -90,6 +67,6 @@
 
         </div>
           </span>
-      </div>
+
       </td-expansion-panel>
 

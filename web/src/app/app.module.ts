@@ -95,6 +95,7 @@ import { ValueSetIncludeConceptComponent } from './modules/terminology/value-set
 import { ValueSetIncludeFilterComponent } from './modules/terminology/value-set-include-filter/value-set-include-filter.component';
 import { CodeSystemConceptsComponent } from './modules/terminology/code-system-concepts/code-system-concepts.component';
 import { NamingSystemUniqueIdComponent } from './modules/terminology/naming-system-unique-id/naming-system-unique-id.component';
+import { QuestionnaireItemOptionComponent } from './modules/terminology/questionnaire-item-option/questionnaire-item-option.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -149,7 +150,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     ValueSetIncludeConceptComponent,
     ValueSetIncludeFilterComponent,
     CodeSystemConceptsComponent,
-    NamingSystemUniqueIdComponent
+    NamingSystemUniqueIdComponent,
+    QuestionnaireItemOptionComponent
 
 
   ],
