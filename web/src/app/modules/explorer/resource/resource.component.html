@@ -48,6 +48,49 @@
                                 </span>
                             </mat-card-actions>
                         </mat-card>
+                        <span *ngIf="resource !== undefined || resourceString !== undefined">
+
+                              <mat-card>
+                                  <mat-card-title>Results</mat-card-title>
+                                  <mat-card-subtitle>
+                                      <span flex-auto fxLayoutAlign="space-between center">
+                                          <span>
+                                            <span>Results: </span>
+                                            <b *ngIf="resource.entry !== undefined"> {{resource.entry.length}} / {{resource.total}}</b>
+                                          </span>
+                                          <span>
+                                           <span *ngIf="resource.link !== undefined">
+                                              <span *ngFor="let link of resource.link.slice().reverse()">
+                                                <span *ngIf="link.relation ==='previous'">
+                                                    <button mat-icon-button color="accent" (click)="onMore(link.url)"><mat-icon>skip_previous</mat-icon></button>
+                                                </span>
+                                                <span *ngIf="link.relation ==='next'">
+                                                    <button mat-icon-button color="accent" (click)="onMore(link.url)"><mat-icon>skip_next</mat-icon></button>
+                                                </span>
+                                              </span>
+                                              </span>
+                                             </span>
+                                          </span>
+                                  </mat-card-subtitle>
+                                  <mat-divider></mat-divider>
+                                  <mat-card-content>
+                                      <span *ngIf="format === 'jsonf'">
+                                          <td-json-formatter [data]="resource" key="response" [levelsOpen]="8">
+                                          </td-json-formatter>
+                                      </span>
+                                       <span *ngIf="format === 'json'">
+                                          <td-highlight lang="json" [content]="resourceString">
+                                          </td-highlight>
+                                      </span>
+                                     <span *ngIf="format === 'xml'">
+                                          <td-highlight lang="xml" [content]="resourceString">
+                                          </td-highlight>
+                                      </span>
+
+
+                                  </mat-card-content>
+                              </mat-card>
+                    </span>
                     </td-expansion-panel>
                 </span>
                 <span *ngIf="interaction.code === 'create'">
