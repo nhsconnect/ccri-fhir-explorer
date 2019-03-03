@@ -30,7 +30,7 @@
       <button mat-icon-button tdLayoutNavListOpen [hideWhenOpened]="true">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <span>{{title}}</span>
+      <span></span>
       <span flex></span>
 
       <button mat-icon-button [matMenuTriggerFor]="personMenu"><mat-icon>person</mat-icon></button>
@@ -41,7 +41,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <!-- <mat-icon [routerLink]="['/']" class="mat-icon-logo cursor-pointer" svgIcon="assets:teradata"></mat-icon> -->
-      <span [routerLink]="['/']" class="cursor-pointer">FHIR Explorer</span>
+      <span [routerLink]="['/']" class="cursor-pointer">{{title}}</span>
     </div>
 
 

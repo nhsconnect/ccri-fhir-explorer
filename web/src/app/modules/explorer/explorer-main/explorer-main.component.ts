@@ -84,7 +84,7 @@ export class ExplorerMainComponent implements OnInit {
     ];
     navmenu: Object[] = [];
 
-    title = 'Care Connect Reference Implementation';
+    title = 'FHIR Explorer';
 
   constructor(public media: TdMediaService,
               public fhirSrv: FhirService,

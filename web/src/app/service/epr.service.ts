@@ -8,7 +8,7 @@ export class EprService {
 
   public routes: Object[] = [
     {
-      icon: 'home',
+      icon: 'explore',
       route: '/exp',
       title: 'FHIR Explorer',
     }
