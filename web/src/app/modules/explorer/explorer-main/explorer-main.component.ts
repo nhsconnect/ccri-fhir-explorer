@@ -171,6 +171,7 @@ export class ExplorerMainComponent implements OnInit {
   }
 
   buildOptions(capabilityStatement: fhir.CapabilityStatement) {
+      this.navmenu = [];
       for (const node of capabilityStatement.rest) {
           // console.log('mode ' + node.mode);
           for (const resource of node.resource) {
