@@ -72,7 +72,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     dataSource : OperationOutcomeIssueDataSource;
 
-    displayedColumns = ['severity', 'code', 'diagnostic'];
+    displayedColumns = ['icon', 'severity', 'code', 'diagnostic'];
 
     overlayStarSyntax: boolean = false;
 

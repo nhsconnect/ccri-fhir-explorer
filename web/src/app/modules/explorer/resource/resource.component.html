@@ -7,7 +7,7 @@
                 <span *ngIf="!rest.profile.reference.includes('hl7.org/fhir/Profile')">
                  <!-- <h3>FHIR Profile</h3> -->
                     <td-message label="{{rest.profile.reference}}" color="blue" icon="info">
-                        <a td-message-actions mat-raised-button href="{{rest.profile.reference}}" target="_blank">VIEW PROFILE</a>
+                        <a td-message-actions mat-stroked-button href="{{rest.profile.reference}}" target="_blank">VIEW PROFILE</a>
                     </td-message>
                 </span>
             </span>
@@ -40,7 +40,7 @@
                                 <td-message *ngIf="query!==undefined" [label]="'GET '+query" color="blue" icon="info"></td-message>
                                 </mat-card-content>
                             <mat-card-actions>
-                                <a mat-raised-button [disabled]="!(dynform1.valid && (elements_id.length >0))" color="accent" class="text-upper" (click)="onSearch_id()">
+                                <a mat-stroked-button [disabled]="!(dynform1.valid && (elements_id.length >0))" color="accent" class="text-upper" (click)="onSearch_id()">
                                   <span>Search</span></a>
                                 <a mat-button [disabled]="(elements.length === 0)" color="accent" class="text-upper" (click)="onClear()">
                                   <span>Clear</span></a>
@@ -116,24 +116,7 @@
                         <div class="md-padding">
                                 	Search the resource type based on some filter criteria<br><br>
                       <!--  <td-message label="GET {{base}}?{{'{'}}search parameters{{'}'}}"  icon="info"></td-message> -->
-                        <table>
-                            <thead>
-                            <tr>
-                                <th width="20%">Parameter Name</th>
-                                <th width="60%">Details</th>
-                                <th width="15%">Parameter Type</th>
-                                <th width="5%"></th>
-                            </tr>
-                            </thead>
-                            <tr *ngFor="let param of rest.searchParam">
-                                <td>{{param.name}}</td>
-                                <td>{{param.documentation}}</td>
-                                <td>{{param.type}}</td>
-                                <td>
-                                    <button mat-icon-button color="accent" (click)="onAdd(param)"><mat-icon>add_circle</mat-icon></button>
-                                </td>
-                            </tr>
-                        </table>
+                        <app-capability-statement-search-param-option [params]="rest.searchParam" (addOption)="onAdd($event)"></app-capability-statement-search-param-option>
                                 <span *ngIf="rest.searchInclude !== undefined">
                                    <td-expansion-panel (expanded)="onExpand()" (collapsed)="onCollapse()" label="Include Resources (and reverse includes)">
                                         <div class="md-padding">
@@ -177,7 +160,7 @@
                                 </mat-card-content>
                             <mat-card-actions>
 
-                                <a mat-raised-button [disabled]="!(dynform.valid && (elements.length >0))" color="accent" class="text-upper" (click)="onSearch()">
+                                <a mat-stroked-button [disabled]="!(dynform.valid && (elements.length >0))" color="accent" class="text-upper" (click)="onSearch()">
                                   <span>Search</span></a>
                                 <a mat-button [disabled]="(elements.length === 0)" color="accent" class="text-upper" (click)="onClear()">
                                   <span>Clear</span></a>
@@ -261,7 +244,7 @@
                                                   </mat-card-content>
                                                         <mat-card-actions>
 
-                                                                <button mat-raised-button color="accent" class="text-upper" (click)="validate()">Validate</button>
+                                                                <button mat-stroked-button color="accent" class="text-upper" (click)="validate()">Validate</button>
 
                                                         </mat-card-actions>
                                                         <span *ngIf="operationOutcome !== undefined">
@@ -274,22 +257,31 @@
                                                             <span *ngIf="operationOutcome.issue !== undefined">
                                                             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-
+                                                                <ng-container matColumnDef="icon">
+                                                                  <th mat-header-cell *matHeaderCellDef width="8%">  </th>
+                                                                  <td mat-cell *matCellDef="let issue">
+                                                                    <span *ngIf="issue.severity === 'error' || issue.severity === 'fatal'">
+                                                                        <mat-icon>error</mat-icon>
+                                                                    </span>
+                                                                    <span *ngIf="issue.severity === 'warning'">
+                                                                        <mat-icon>warning</mat-icon>
+                                                                    </span>
+                                                                </ng-container>
 
                                                                 <ng-container matColumnDef="severity">
-                                                                  <th mat-header-cell *matHeaderCellDef> Severity </th>
+                                                                  <th mat-header-cell *matHeaderCellDef width="15%"> Severity </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                        {{issue.severity}}</td>
                                                                 </ng-container>
 
                                                                 <ng-container matColumnDef="code">
-                                                                  <th mat-header-cell *matHeaderCellDef> Code </th>
+                                                                  <th mat-header-cell *matHeaderCellDef width="15%"> Code </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                       {{issue.code}} </td>
                                                                 </ng-container>
 
                                                                 <ng-container matColumnDef="diagnostic">
-                                                                  <th mat-header-cell *matHeaderCellDef width="80%"> Diagnositics </th>
+                                                                  <th mat-header-cell *matHeaderCellDef width="62%"> Diagnositics </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                         {{issue.diagnostics}}
                                                                   </td>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FhirService} from "../../../service/fhir.service";
 import {ConceptMapGroupElementTargetDataSource} from "../../../data-source/concept-map-target-data-source";
 
@@ -11,6 +11,8 @@ export class ConceptMapElementTargetComponent implements OnInit {
 
   @Input()
   targets: fhir.ConceptMapGroupElementTarget[];
+
+
 
   dataSource: ConceptMapGroupElementTargetDataSource;
 
