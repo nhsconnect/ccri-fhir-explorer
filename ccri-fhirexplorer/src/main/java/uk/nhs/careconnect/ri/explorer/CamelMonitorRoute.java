@@ -30,6 +30,9 @@ public class CamelMonitorRoute extends RouteBuilder {
 	@Value("${jolokia.jmxendpoint.ccrimessaging}")
 	private String jmxCCRIMessaging;
 
+	@Value("${jolokia.jmxendpoint.tkw}")
+	private String jmxTKW;
+
 	@Value("${fhir.resource.serverBase}")
 	private String serverBase;
 
@@ -93,6 +96,9 @@ public class CamelMonitorRoute extends RouteBuilder {
 				.routeId("ccri-document-jokolia")
 				.to(jmxCCRIDocument);
 
+		from("servlet:twk?matchOnUriPrefix=true")
+				.routeId("tkw-validator")
+				.to(jmxTKW);
 
     }
 
