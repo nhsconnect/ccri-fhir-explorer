@@ -29,7 +29,7 @@ public class ExplorerApp {
             @Override
             public void beforeApplicationStart(CamelContext camelContext) {
 
-                camelContext.setNameStrategy(new DefaultCamelContextNameStrategy("CcriMonitor"));
+                camelContext.setNameStrategy(new DefaultCamelContextNameStrategy("FHIRExplorer"));
 
             }
 
