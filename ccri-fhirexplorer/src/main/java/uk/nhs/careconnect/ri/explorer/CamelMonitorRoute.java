@@ -96,7 +96,7 @@ public class CamelMonitorRoute extends RouteBuilder {
 				.routeId("ccri-document-jokolia")
 				.to(jmxCCRIDocument);
 
-		from("servlet:twk?matchOnUriPrefix=true")
+		from("servlet:tkw?matchOnUriPrefix=true")
 				.routeId("tkw-validator")
 				.to(jmxTKW);
 
