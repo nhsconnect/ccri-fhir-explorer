@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FhirService, Formats} from '../../../service/fhir.service';
-import {MatSelect} from '@angular/material';
+import {MatSelect, MatSort} from '@angular/material';
 import {ITdDynamicElementConfig, TdDynamicElement, TdDynamicFormsComponent} from '@covalent/dynamic-forms';
 import {
 
@@ -37,6 +37,7 @@ documentation:
 })
 export class ResourceComponent implements OnInit, AfterViewInit {
 
+    @ViewChild(MatSort) sort: MatSort;
 
     public resource: fhir.Bundle = undefined;
 

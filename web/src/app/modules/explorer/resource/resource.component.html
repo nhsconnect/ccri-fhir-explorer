@@ -255,10 +255,10 @@
                                                                 <td-message label="Error!" [sublabel]="error.message" color="warn" icon="error"></td-message>
                                                              </span>
                                                             <span *ngIf="operationOutcome.issue !== undefined">
-                                                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                                                            <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
 
                                                                 <ng-container matColumnDef="icon">
-                                                                  <th mat-header-cell *matHeaderCellDef width="8%">  </th>
+                                                                  <th mat-header-cell mat-sort-header *matHeaderCellDef width="8%" >  </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                     <span *ngIf="issue.severity === 'error' || issue.severity === 'fatal'">
                                                                         <mat-icon>error</mat-icon>
@@ -269,7 +269,7 @@
                                                                 </ng-container>
 
                                                                 <ng-container matColumnDef="severity">
-                                                                  <th mat-header-cell *matHeaderCellDef width="15%"> Severity </th>
+                                                                  <th mat-header-cell mat-sort-header *matHeaderCellDef width="15%"> Severity </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                        {{issue.severity}}</td>
                                                                 </ng-container>
