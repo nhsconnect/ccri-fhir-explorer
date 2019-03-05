@@ -9,6 +9,7 @@ export class OperationOutcomeIssueDataSource extends DataSource<any> {
     outcomes: fhir.OperationOutcomeIssue[]
   };
 
+  public sort;
 
   constructor(public fhirService : FhirService, public patientId : string, public outcomes: fhir.OperationOutcomeIssue[]
   ) {

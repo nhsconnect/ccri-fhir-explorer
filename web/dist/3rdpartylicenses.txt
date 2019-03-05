@@ -806,6 +806,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @angular/material/table
 
+@angular/material/sort
+
 @angular/material/radio
 
 @covalent/http

@@ -73,7 +73,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     dataSource : OperationOutcomeIssueDataSource;
 
-    displayedColumns = ['icon', 'severity', 'code', 'diagnostic'];
+    displayedColumns: string[] = ['icon', 'severity', 'code', 'diagnostic'];
 
     overlayStarSyntax: boolean = false;
 
@@ -111,8 +111,6 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
      // console.log('Resource Init called'+ this.router.url);
-
-
 
 
       this.resourceType = this.route.snapshot.paramMap.get('resourceType');
@@ -583,6 +581,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
             this.operationOutcome = <fhir.OperationOutcome> result;
         }
         this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
+        this.dataSource.sort = this.sort;
     }, error => {
         this._loadingService.resolve('overlayStarSyntax');
 
@@ -592,6 +591,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
                 this.operationOutcome = <fhir.OperationOutcome>error.error;
                 this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
+                this.dataSource.sort = this.sort;
             }
         }
     });
