@@ -1,13 +1,8 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FhirService, Formats} from '../../../service/fhir.service';
-import {MatSelect, MatSort} from '@angular/material';
+import {MatSelect, MatSort, MatTableDataSource} from '@angular/material';
 import {ITdDynamicElementConfig, TdDynamicElement, TdDynamicFormsComponent} from '@covalent/dynamic-forms';
-import {
-
-    OperationOutcomeIssueDataSource
-} from "../../../data-source/operation-outcome-issue-source";
-import {Observable} from "rxjs";
 import {TdLoadingService} from "@covalent/core";
 
 
@@ -71,9 +66,9 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     files: any;
 
-    dataSource : OperationOutcomeIssueDataSource;
+    public dataSource = new MatTableDataSource<fhir.OperationOutcomeIssue>();
 
-    displayedColumns: string[] = ['icon', 'severity', 'code', 'diagnostic'];
+    displayedColumns = ['icon', 'severity', 'code', 'diagnostic'];
 
     overlayStarSyntax: boolean = false;
 
@@ -111,6 +106,8 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
      // console.log('Resource Init called'+ this.router.url);
+
+
 
 
       this.resourceType = this.route.snapshot.paramMap.get('resourceType');
@@ -382,7 +379,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
      // console.log('after init');
-
+        this.dataSource.sort = this.sort;
         if (this.form !== undefined) {
             this.form.form.valueChanges.subscribe((val) => {
                 this.buildQuery();
@@ -580,8 +577,8 @@ export class ResourceComponent implements OnInit, AfterViewInit {
             console.log('single outcome');
             this.operationOutcome = <fhir.OperationOutcome> result;
         }
-        this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
-        this.dataSource.sort = this.sort;
+        this.dataSource.data = this.operationOutcome.issue;
+      //  this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, );
     }, error => {
         this._loadingService.resolve('overlayStarSyntax');
 
@@ -590,8 +587,8 @@ export class ResourceComponent implements OnInit, AfterViewInit {
             if (error.error.resourceType === 'OperationOutcome') {
 
                 this.operationOutcome = <fhir.OperationOutcome>error.error;
-                this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
-                this.dataSource.sort = this.sort;
+                this.dataSource.data = this.operationOutcome.issue;
+               // this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
             }
         }
     });
