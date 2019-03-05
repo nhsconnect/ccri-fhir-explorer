@@ -68,7 +68,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     public dataSource = new MatTableDataSource<fhir.OperationOutcomeIssue>();
 
-    displayedColumns = ['icon', 'severity', 'code', 'diagnostic'];
+    displayedColumns = ['icon', 'severity', 'code', 'diagnostics'];
 
     overlayStarSyntax: boolean = false;
 
@@ -377,6 +377,9 @@ export class ResourceComponent implements OnInit, AfterViewInit {
         }
     }
 
+    applyFilter(filterValue: string) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
     ngAfterViewInit() {
      // console.log('after init');
         this.dataSource.sort = this.sort;
