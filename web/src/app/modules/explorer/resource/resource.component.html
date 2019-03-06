@@ -261,35 +261,47 @@
                                                             <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
 
                                                                 <ng-container matColumnDef="icon">
-                                                                  <th mat-header-cell *matHeaderCellDef width="8%" >  </th>
+                                                                  <th mat-header-cell *matHeaderCellDef width="5%" >  </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                     <span *ngIf="issue.severity === 'error' || issue.severity === 'fatal'">
-                                                                        <mat-icon>error</mat-icon>
+                                                                        <mat-icon color="warn">error</mat-icon>
                                                                     </span>
                                                                     <span *ngIf="issue.severity === 'warning'">
-                                                                        <mat-icon>warning</mat-icon>
+                                                                        <mat-icon color="accent">warning</mat-icon>
                                                                     </span>
+                                                                      <!--
+                                                                     <span *ngIf="issue.severity === 'information'">
+                                                                        <mat-icon>info</mat-icon>
+                                                                    </span> -->
                                                                 </ng-container>
 
                                                                 <ng-container matColumnDef="severity">
-                                                                  <th mat-header-cell mat-sort-header *matHeaderCellDef width="15%"> Severity </th>
+                                                                  <th mat-header-cell mat-sort-header *matHeaderCellDef width="10%"> Severity </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                        {{issue.severity}}</td>
                                                                 </ng-container>
 
                                                                 <ng-container matColumnDef="code">
-                                                                  <th mat-header-cell mat-sort-header *matHeaderCellDef width="15%"> Code </th>
+                                                                  <th mat-header-cell mat-sort-header *matHeaderCellDef width="12%"> Code </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                       {{issue.code}} </td>
                                                                 </ng-container>
 
                                                                 <ng-container matColumnDef="diagnostics">
-                                                                  <th mat-header-cell *matHeaderCellDef width="62%"> Diagnositics </th>
+                                                                  <th mat-header-cell *matHeaderCellDef > Diagnositics </th>
                                                                   <td mat-cell *matCellDef="let issue">
                                                                         {{issue.diagnostics}}
                                                                   </td>
                                                                 </ng-container>
 
+                                                                <ng-container matColumnDef="location">
+                                                                  <th mat-header-cell *matHeaderCellDef width="15%"> Location </th>
+                                                                  <td mat-cell *matCellDef="let issue">
+                                                                        <span *ngIf="issue.location !== undefined">
+                                                                            <span *ngFor="let location of issue.location">{{location}}</span>
+                                                                        </span>
+                                                                  </td>
+                                                                </ng-container>
 
 
                                                                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

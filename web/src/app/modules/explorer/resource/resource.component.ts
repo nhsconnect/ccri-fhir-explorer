@@ -68,7 +68,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     public dataSource = new MatTableDataSource<fhir.OperationOutcomeIssue>();
 
-    displayedColumns = ['icon', 'severity', 'code', 'diagnostics'];
+    displayedColumns = ['icon', 'severity', 'code', 'diagnostics', 'location'];
 
     overlayStarSyntax: boolean = false;
 
