@@ -15,6 +15,7 @@ import {MessageDefinitionComponent} from './terminology/message-definition/messa
 import {MessageDefinitionDetailComponent} from './terminology/message-definition-detail/message-definition-detail.component';
 import {GraphDefinitionComponent} from './terminology/graph-definition/graph-definition.component';
 import {GraphDefinitionDetailComponent} from './terminology/graph-definition-detail/graph-definition-detail.component';
+import {ValidateComponent} from './terminology/validate/validate.component';
 
 const dosRoutes: Routes = [
   {
@@ -34,7 +35,9 @@ const dosRoutes: Routes = [
       { path: 'conceptmaps', component: ConceptMapsComponent},
       { path: 'conceptmaps/:conceptmapid', component: ConceptMapDetailComponent},
       { path: 'questionnaire', component: QuestionnaireSummaryComponent},
-      { path: 'questionnaire/:questionnaireid', component: QuestionnaireComponent}
+      { path: 'questionnaire/:questionnaireid', component: QuestionnaireComponent},
+      { path: 'validate', component: ValidateComponent},
+      { path: 'validate/:resourcetype', component: ValidateComponent}
     ]
   }
 ];

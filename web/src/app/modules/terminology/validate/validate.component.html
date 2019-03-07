@@ -1,0 +1,105 @@
+<div *tdLoading="'overlayStarSyntax'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+  <mat-card>
+    <mat-card-header>
+      <h3>Validate</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-select placeholder="Resource" [(value)]="currentResource">
+          <mat-option *ngFor="let resource of resources" [value]="resource">
+            {{resource}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="mat-body-1">
+      <mat-radio-group>
+        <mat-radio-button value="1" [checked]="json" (click)="swapFormat(true)">JSON</mat-radio-button>
+        <mat-radio-button value="2" [checked]="!json" (click)="swapFormat(false)">XML</mat-radio-button>
+      </mat-radio-group>
+      </div>
+      <div class="mat-body-1">
+        <td-file-input class="push-left-sm push-right-sm" #fileInput (select)="selectEvent($event)" color="accent"
+          [(ngModel)]="files">
+          <mat-icon>folder</mat-icon>
+          <span class="text-upper"> Browse...</span>
+        </td-file-input>
+      </div>
+
+
+
+
+
+      <td-code-editor [value]="input" [(ngModel)]="model" style="height: 400px" theme="vs" flex
+        [language]="json ? 'json' : 'xml'"></td-code-editor>
+    </mat-card-content>
+    <mat-card-actions>
+
+      <button mat-stroked-button color="accent" class="text-upper" (click)="validate()">Validate</button>
+
+    </mat-card-actions>
+    <span *ngIf="operationOutcome !== undefined">
+      <span *ngIf="operationOutcome.issue === undefined ">
+        <td-message label="Info" sublabel="No validation issues returned" color="accent" icon="info"></td-message>
+      </span>
+      <span *ngIf="error !== undefined ">
+        <td-message label="Error!" [sublabel]="error.message" color="warn" icon="error"></td-message>
+      </span>
+      <span *ngIf="operationOutcome.issue !== undefined">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="icon">
+            <th mat-header-cell *matHeaderCellDef width="5%"> </th>
+            <td mat-cell *matCellDef="let issue">
+              <span *ngIf="issue.severity === 'error' || issue.severity === 'fatal'">
+                <mat-icon color="warn">error</mat-icon>
+              </span>
+              <span *ngIf="issue.severity === 'warning'">
+                <mat-icon color="accent">warning</mat-icon>
+              </span>
+              <!--
+                                                                   <span *ngIf="issue.severity === 'information'">
+                                                                      <mat-icon>info</mat-icon>
+                                                                  </span> -->
+          </ng-container>
+
+          <ng-container matColumnDef="severity">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef width="10%"> Severity </th>
+            <td mat-cell *matCellDef="let issue">
+              {{issue.severity}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="code">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef width="12%"> Code </th>
+            <td mat-cell *matCellDef="let issue">
+              {{issue.code}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="diagnostics">
+            <th mat-header-cell *matHeaderCellDef> Diagnositics </th>
+            <td mat-cell *matCellDef="let issue">
+              {{issue.diagnostics}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef width="25%"> Location </th>
+            <td mat-cell *matCellDef="let issue">
+              <span *ngIf="issue.location !== undefined">
+                <span *ngFor="let location of issue.location">{{location}}</span>
+              </span>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </span>
+
+
+    </span>
+  </mat-card>
+</div>

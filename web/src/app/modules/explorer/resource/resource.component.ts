@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component,  OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FhirService, Formats} from '../../../service/fhir.service';
-import {MatSelect, MatSort, MatTableDataSource} from '@angular/material';
+import {MatSelect} from '@angular/material';
 import {ITdDynamicElementConfig, TdDynamicElement, TdDynamicFormsComponent} from '@covalent/dynamic-forms';
-import {TdLoadingService} from "@covalent/core";
 
 
 
@@ -32,7 +31,7 @@ documentation:
 })
 export class ResourceComponent implements OnInit, AfterViewInit {
 
-    @ViewChild(MatSort) sort: MatSort;
+
 
     public resource: fhir.Bundle = undefined;
 
@@ -41,10 +40,6 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     public query = undefined;
     
     public id_query = undefined;
-
-    public operationOutcome: fhir.OperationOutcome;
-    
-    public json = true;
 
     public rest: any;
 
@@ -58,21 +53,8 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     expanded = false;
 
-    input: string;
-
-    model: any;
-
     resourceType: string;
 
-    files: any;
-
-    public dataSource = new MatTableDataSource<fhir.OperationOutcomeIssue>();
-
-    displayedColumns = ['icon', 'severity', 'code', 'diagnostics', 'location'];
-
-    overlayStarSyntax: boolean = false;
-
-    error: any;
 
   public currentResource = '';
 
@@ -101,8 +83,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
     constructor(private router: Router,
                 private fhirSrv: FhirService,
-                private route: ActivatedRoute,
-                private _loadingService: TdLoadingService) { }
+                private route: ActivatedRoute) { }
 
   ngOnInit() {
      // console.log('Resource Init called'+ this.router.url);
@@ -171,12 +152,20 @@ export class ResourceComponent implements OnInit, AfterViewInit {
           }) */
   }
 
+    ngAfterViewInit() {
+        // console.log('after init');
+
+        if (this.form !== undefined) {
+            this.form.form.valueChanges.subscribe((val) => {
+                this.buildQuery();
+            });
+        }
+    }
+
     onClear() {
         this.elements = [];
-        this.json = true;
-        this.model = undefined;
-        this.input = undefined;
-        this.operationOutcome = undefined;
+
+       // this.operationOutcome = undefined;
 
         if (this.form !== undefined) {
             this.form.refresh();
@@ -191,15 +180,21 @@ export class ResourceComponent implements OnInit, AfterViewInit {
       this.expanded = false;
   }
 
-  swapFormat(json: boolean) {
-        this.json = json;
-  }
 
-    public loadComplete: EventEmitter<any> = new EventEmitter();
+
+
 
   onAdd(param) {
     const seq: string = (this.elements.length + 1).toString(10);
    if (param !== undefined) {
+
+       // Check it hasn't already been added
+
+       for( let node of this.elements) {
+           if (node.name.includes(param.name) && (node.name.includes(param.type))) {
+               return;
+           }
+       }
      switch (param.type) {
        case 'date' :
          const nodeDSQ: ITdDynamicElementConfig = {
@@ -344,51 +339,8 @@ export class ResourceComponent implements OnInit, AfterViewInit {
           });
   }
 
-    selectEvent(file: FileList | File): void {
-        if (file instanceof File) {
-            let reader = new FileReader();
-            reader.readAsText(file);
-            this.loadComplete.subscribe( (data) => {
-                    //this.buildBundle(data);
-                    this.input = data;
-                    if (file.name.toLowerCase().includes('.xml')) {
-                        this.json = false;
-                    }
-                    if (file.name.toLowerCase().includes('.json')) {
-                        this.json = true;
-                    }
-                }
-            );
-            const me = this;
-            reader.onload = (event: Event) => {
-                if (reader.result instanceof ArrayBuffer) {
-                    // console.log('array buffer');
 
-                    me.loadComplete.emit(reader.result);
-                } else {
-                    // console.log('not a buffer');
-                    me.loadComplete.emit(reader.result);
-                }
-            };
-            reader.onerror = function (error) {
-                console.log('Error: ', error);
-            };
 
-        }
-    }
-
-    applyFilter(filterValue: string) {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-    }
-    ngAfterViewInit() {
-     // console.log('after init');
-        this.dataSource.sort = this.sort;
-        if (this.form !== undefined) {
-            this.form.form.valueChanges.subscribe((val) => {
-                this.buildQuery();
-            });
-        }
-    }
 
   buildQuery() {
       let i: number;
@@ -548,54 +500,14 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
   }
 
-
+validate() {
+        this.router.navigateByUrl('/term/validate/'+this.currentResource);
+}
 
     onResoureSelected(event) {
 
   }
 
-  validate() {
-      let content='application/fhir+json';
-      if (!this.json) {
-          content='application/fhir+xml';
-      }
-      this.operationOutcome = undefined;
-      this.error=undefined;
 
-      //console.log(this.model);
-      this._loadingService.register('overlayStarSyntax');
-    this.fhirSrv.postContentType('/' + this.currentResource + '/$validate', this.model, content).subscribe( result => {
-        this._loadingService.resolve('overlayStarSyntax');
-        console.log(result);
-        if (result.entry !== undefined) {
-            const bundle = <fhir.Bundle> result;
-            for (let entry of bundle.entry) {
-                if (entry.resource.resourceType === 'OperationOutcome') {
-                    console.log('Add to bundle');
-                    this.operationOutcome = <fhir.OperationOutcome> entry.resource;
-                }
-            }
-        }
-        if (result.resourceType === 'OperationOutcome') {
-            console.log('single outcome');
-            this.operationOutcome = <fhir.OperationOutcome> result;
-        }
-        this.dataSource.data = this.operationOutcome.issue;
-      //  this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, );
-    }, error => {
-        this._loadingService.resolve('overlayStarSyntax');
-
-        this.error=error;
-        if (error.error !== undefined) {
-            if (error.error.resourceType === 'OperationOutcome') {
-
-                this.operationOutcome = <fhir.OperationOutcome>error.error;
-                this.dataSource.data = this.operationOutcome.issue;
-               // this.dataSource = new OperationOutcomeIssueDataSource(this.fhirSrv, undefined, this.operationOutcome.issue);
-            }
-        }
-    });
-
-  }
 
 }

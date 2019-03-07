@@ -34,7 +34,7 @@ export class FhirService {
 
   public conformance: fhir.CapabilityStatement;
 
-  conformanceChange: EventEmitter<any> = new EventEmitter();
+  conformanceChange: EventEmitter<fhir.CapabilityStatement> = new EventEmitter();
 
   rootUrlChange: EventEmitter<any> = new EventEmitter();
 
