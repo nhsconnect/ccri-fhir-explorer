@@ -53,18 +53,24 @@ export class ValidateComponent implements OnInit, AfterViewInit {
 
   doSetup() {
     this.currentResource = this.route.snapshot.paramMap.get('resourcetype');
+    if (this.fhirSrv.conformance !== undefined) {
+      this.buildOptions(this.fhirSrv.conformance);
+    }
     this.fhirSrv.getConformanceChange().subscribe( res => {
-        const conf = <fhir.CapabilityStatement> res;
-        this.resources=[];
-        for ( const rest of conf.rest) {
-          for (const resource of rest.resource) {
-            this.resources.push(resource.type);
-          }
-      }
+        this.buildOptions(res);
     });
     this.fhirSrv.getConformance();
   }
 
+  buildOptions(conf: fhir.CapabilityStatement) {
+
+    this.resources = [];
+    for (const rest of conf.rest) {
+      for (const resource of rest.resource) {
+        this.resources.push(resource.type);
+      }
+    }
+  }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
