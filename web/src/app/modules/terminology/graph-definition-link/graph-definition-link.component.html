@@ -22,7 +22,8 @@
     </div>
   </div>
   <div class="mat-card-content">
-  <b>Description</b> {{link.description}}
+  <b>Description</b> <td-markdown [content]="getMarkdown(link.description)">
+  </td-markdown>
   </div>
  <span *ngIf="link.target !== undefined">
     <span *ngFor="let target of link.target">

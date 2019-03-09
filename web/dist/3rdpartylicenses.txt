@@ -806,13 +806,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @angular/material/table
 
-@angular/material/sort
-
-@angular/material/radio
-
-@covalent/http
-MIT
-
 @covalent/markdown
 MIT
 
@@ -853,6 +846,13 @@ liability, whether in contract, strict liability, or tort (including
 negligence or otherwise) arising in any way out of the use of this
 software, even if advised of the possibility of such damage.
 
+
+@angular/material/sort
+
+@angular/material/radio
+
+@covalent/http
+MIT
 
 @auth0/angular-jwt
 MIT

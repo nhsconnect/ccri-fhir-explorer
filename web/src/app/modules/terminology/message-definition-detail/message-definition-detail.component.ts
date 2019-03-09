@@ -87,4 +87,11 @@ export class MessageDefinitionDetailComponent implements OnInit {
       }
     )
   }
+  getMarkdown(markdown: string): string {
+    //console.log(markdown);
+    if (markdown === undefined) return undefined;
+    markdown = markdown.replace(new RegExp('\\\\n','g'),'\n');
+    //console.log(markdown);
+    return markdown ;
+  }
 }

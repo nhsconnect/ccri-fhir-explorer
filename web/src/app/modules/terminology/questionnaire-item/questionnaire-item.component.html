@@ -38,7 +38,7 @@
               <span *ngFor="let ext of item.extension">
                  <span *ngIf="ext.url === 'http://hl7.org/fhir/StructureDefinition/designNote'">
                    <!-- this should be a markdown compontent -->
-                   <td-markdown [content]="ext.valueMarkdown"></td-markdown>
+                   <td-markdown [content]="getMarkdown(ext.valueMarkdown)"></td-markdown>
                  </span>
               </span>
               </span>
