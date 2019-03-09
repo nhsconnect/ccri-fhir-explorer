@@ -34,6 +34,14 @@
               <span *ngIf="item.options !== undefined">
                 <a [href]="item.options.reference" target="_blank">{{item.options.reference}}</a>
               </span>
+              <span *ngIf="item.extension !== undefined">
+              <span *ngFor="let ext of item.extension">
+                 <span *ngIf="ext.url === 'http://hl7.org/fhir/StructureDefinition/designNote'">
+                   <!-- this should be a markdown compontent -->
+                   {{ext.valueMarkdown}}
+                 </span>
+              </span>
+              </span>
               <span *ngIf="item.definition !== undefined">
                 {{item.definition}}
               </span>
