@@ -50,7 +50,7 @@
               <span *ngIf="messageDefinition.experimental"><b>Experimental</b></span>
             </div>
           </div>
-          <div class="mat-card-content" ><b>Description</b> {{messageDefinition.description}}</div>
+          <div class="mat-card-content" ><b>Description</b> <td-markdown [content]="messageDefinition.description"> </td-markdown></div>
           <div class="mat-card-content mat-body-1" ><b>Publisher</b> {{messageDefinition.publisher}}</div>
           <div class="mat-card-content mat-body-1" ><b>Copyright</b> {{messageDefinition.copyright}}</div>
 

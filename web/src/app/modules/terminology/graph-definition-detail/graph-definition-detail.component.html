@@ -38,7 +38,7 @@
               <span *ngIf="graph.experimental"><b>Experimental</b></span>
             </div>
           </div>
-          <div class="mat-card-content" ><b>Description</b> {{graph.description}}</div>
+          <div class="mat-card-content" ><b>Description</b> <td-markdown [content]="graph.description"></td-markdown></div>
 
        <div class="mat-card-content"
             fxLayout
@@ -47,7 +47,7 @@
             fxLayoutGap="10px"
             fxLayoutGap.xs="0">
             <div class="mat-body-1" fxFlex="50%">
-              <b>Purpose</b> {{graph.purpose}}
+                <b>Purpose</b> <td-markdown [content]="graph.purpose"> </td-markdown>
             </div>
             <div class="mat-body-1" fxFlex="50%">
               <div class="mat-card-content mat-body-1" ><b>Publisher</b> {{graph.publisher}}</div>
