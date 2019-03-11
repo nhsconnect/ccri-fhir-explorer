@@ -3,6 +3,7 @@ import {MatSort, MatTableDataSource} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FhirService} from "../../../service/fhir.service";
 import {TdLoadingService} from "@covalent/core";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-validate',
@@ -36,6 +37,10 @@ export class ValidateComponent implements OnInit, AfterViewInit {
   public operationOutcome: fhir.OperationOutcome;
 
   public loadComplete: EventEmitter<any> = new EventEmitter();
+
+  resourceControl = new FormControl('', [
+    Validators.required
+  ]);
 
   constructor(private router: Router,
               private fhirSrv: FhirService,

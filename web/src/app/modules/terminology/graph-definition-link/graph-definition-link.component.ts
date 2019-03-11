@@ -19,7 +19,7 @@ export class GraphDefinitionLinkComponent implements OnInit {
   }
 
   getLeft() {
-    console.log('level '+ this.level);
+   // console.log('level '+ this.level);
     if (this.level > 0) {
       return '5%';
     }

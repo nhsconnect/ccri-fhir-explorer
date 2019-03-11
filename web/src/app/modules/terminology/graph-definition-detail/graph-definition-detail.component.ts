@@ -47,7 +47,7 @@ export class GraphDefinitionDetailComponent implements OnInit {
       this.fhirService.getResource('/GraphDefinition/' + this.graphid ).subscribe( result => {
         const graph: fhir.GraphDefinition = result;
         this.graph = graph;
-        // TODO   this.processGraph();
+        this.processGraph();
       });
     }
   }
@@ -85,14 +85,14 @@ export class GraphDefinitionDetailComponent implements OnInit {
         for (const target of link.target) {
 
           this.data.push({
-            id: f.toString(3),
+            id: f.toString(),
             name: target.type,
             symbolSize: 50,
             itemStyle: {normal: {color: '#4f19c7'}}
           });
           this.edges.push({
-            source: base.toString(3),
-            target: f.toString(3),
+            source: base.toString(),
+            target: f.toString(),
             label: 'saz'
           });
 
@@ -101,14 +101,14 @@ export class GraphDefinitionDetailComponent implements OnInit {
           if (target.compartment !== undefined) {
             for (const compartment of target.compartment) {
               this.data.push({
-                id: f.toString(3),
+                id: f.toString(),
                 name: compartment.code,
                 symbolSize: 50,
                 itemStyle: {normal: {color: '#c76919'}}
               });
               this.edges.push({
-                source: base.toString(3),
-                target: f.toString(3),
+                source: base.toString(),
+                target: f.toString(),
                 label: 'bob'
               });
               f++;

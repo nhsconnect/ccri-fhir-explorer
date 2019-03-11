@@ -98,6 +98,9 @@ import { NamingSystemUniqueIdComponent } from './modules/terminology/naming-syst
 import { QuestionnaireItemOptionComponent } from './modules/terminology/questionnaire-item-option/questionnaire-item-option.component';
 import { CapabilityStatementSearchParamOptionComponent } from './modules/explorer/capability-statement-search-param-option/capability-statement-search-param-option.component';
 import {ValidateComponent} from "./modules/terminology/validate/validate.component";
+import { CovalentBaseEchartsModule } from '@covalent/echarts/base';
+import { CovalentGraphEchartsModule } from '@covalent/echarts/graph';
+import {CovalentTooltipEchartsModule} from "@covalent/echarts";
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -225,6 +228,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CovalentCodeEditorModule,
     CovalentFileModule,
     CovalentSearchModule,
+    CovalentBaseEchartsModule,
+    CovalentGraphEchartsModule,
+    CovalentTooltipEchartsModule,
 
       // Routing
 

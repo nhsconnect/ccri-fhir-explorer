@@ -3,6 +3,7 @@ package uk.nhs.careconnect.ri.explorer;
 import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.http4.HttpComponent;
+import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.util.jsse.KeyManagersParameters;
 import org.apache.camel.util.jsse.KeyStoreParameters;
 import org.apache.camel.util.jsse.SSLContextParameters;
@@ -33,6 +34,9 @@ public class CamelMonitorRoute extends RouteBuilder {
 	@Value("${jolokia.jmxendpoint.tkw}")
 	private String jmxTKW;
 
+	@Value("${jolokia.jmxendpoint.ccsmart}")
+	private String jmxCCRSmart;
+
 	@Value("${fhir.resource.serverBase}")
 	private String serverBase;
 
@@ -58,6 +62,8 @@ public class CamelMonitorRoute extends RouteBuilder {
 				.dataFormatProperty("prettyPrint", "true")
 				.enableCORS(true);
 
+
+		BrexitUrlRewrite brexit = new BrexitUrlRewrite();
 
 		log.info("Starting Camel Route MAIN FHIR Server = " + serverBase);
 
@@ -85,16 +91,22 @@ public class CamelMonitorRoute extends RouteBuilder {
 
 
 		from("servlet:cc-portal?matchOnUriPrefix=true")
-				.routeId("cc-portal-jokolia")
+				.routeId("cc-portal")
 			.to(jmxCCPortal);
 
 		from("servlet:ccri-messaging?matchOnUriPrefix=true")
-				.routeId("ccri-messaging-jokolia")
+				.routeId("ccri-messaging")
 				.to(jmxCCRIMessaging);
 
 		from("servlet:ccri-document?matchOnUriPrefix=true")
-				.routeId("ccri-document-jokolia")
+				.routeId("ccri-document")
 				.to(jmxCCRIDocument);
+
+		from("servlet:cc-smart?matchOnUriPrefix=true")
+				.routeId("ccri-smart")
+				//.setHeader("fixpath",constant("ccri-smart"))
+				//.process(brexit)
+				.to(jmxCCRSmart);
 
 		from("servlet:tkw?matchOnUriPrefix=true")
 				.routeId("tkw-validator")

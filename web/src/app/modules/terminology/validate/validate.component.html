@@ -5,11 +5,14 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
-        <mat-select placeholder="Resource" [(value)]="currentResource">
+        <mat-select [formControl]="resourceControl" placeholder="Resource" [(value)]="currentResource">
           <mat-option *ngFor="let resource of resources" [value]="resource">
             {{resource}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="resourceControl.hasError('required')">
+          Resource Type is <strong>required</strong>
+        </mat-error>
       </mat-form-field>
       <div class="mat-body-1">
       <mat-radio-group>
@@ -25,16 +28,12 @@
         </td-file-input>
       </div>
 
-
-
-
-
       <td-code-editor [value]="input" [(ngModel)]="model" style="height: 400px" theme="vs" flex
         [language]="json ? 'json' : 'xml'"></td-code-editor>
     </mat-card-content>
     <mat-card-actions>
 
-      <button mat-stroked-button color="accent" class="text-upper" (click)="validate()">Validate</button>
+      <button [disabled]="currentResource === undefined || model === undefined" mat-stroked-button color="accent" class="text-upper" (click)="validate()">Validate</button>
 
     </mat-card-actions>
     <span *ngIf="operationOutcome !== undefined">

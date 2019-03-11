@@ -3,6 +3,7 @@ package uk.nhs.careconnect.ri.explorer;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.impl.DefaultCamelContextNameStrategy;
+import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ public class ExplorerApp {
         System.setProperty("hawtio.authenticationEnabled", "false");
         System.setProperty("management.security.enabled","false");
         System.setProperty("management.contextPath","");
+
 
         SpringApplication.run(ExplorerApp.class, args);
     }
