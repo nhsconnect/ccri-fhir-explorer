@@ -101,6 +101,8 @@ import {ValidateComponent} from "./modules/terminology/validate/validate.compone
 import { CovalentBaseEchartsModule } from '@covalent/echarts/base';
 import { CovalentGraphEchartsModule } from '@covalent/echarts/graph';
 import {CovalentTooltipEchartsModule} from "@covalent/echarts";
+import { StructureDefinitionComponent } from './modules/terminology/structure-definition/structure-definition.component';
+import { StructureDefinitionDetailComponent } from './modules/terminology/structure-definition-detail/structure-definition-detail.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -158,7 +160,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     NamingSystemUniqueIdComponent,
     QuestionnaireItemOptionComponent,
     CapabilityStatementSearchParamOptionComponent,
-    ValidateComponent
+    ValidateComponent,
+    StructureDefinitionComponent,
+    StructureDefinitionDetailComponent
 
 
   ],
