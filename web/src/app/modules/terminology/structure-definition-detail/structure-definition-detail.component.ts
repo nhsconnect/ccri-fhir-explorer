@@ -31,6 +31,7 @@ export class StructureDefinitionDetailComponent implements OnInit {
 
   displayedColumns = ['path', 'type','cardinality', 'comment', 'resource'];
 
+  element: fhir.ElementDefinition = undefined;
 
   nestedTreeControl: NestedTreeControl<ElementNode>;
   nestedDataSource: MatTreeNestedDataSource<ElementNode>;
@@ -82,7 +83,8 @@ export class StructureDefinitionDetailComponent implements OnInit {
 
       if (lastNode === undefined
           || (element.base !== undefined && element.base.path === element.path)
-          ) {
+          || (this.inDifferential(element))
+          || (element.type !== undefined && element.type[0].code === 'Extension' && element.sliceName !== undefined)) {
 
           const node = new ElementNode();
           node.name = element.path;
@@ -93,10 +95,16 @@ export class StructureDefinitionDetailComponent implements OnInit {
             data.push(node);
 
           } else {
-            while (!node.element.path.includes(lastNode.element.path) && (node.element.path !== lastNode.element.path)) {
+            if (node.element.sliceName !== undefined) {
+              console.log(node.element.path);
+              console.log(lastNode.element.path);
+              console.log(node.element.path.includes(lastNode.element.path));
+            }
+            while (!node.element.path.includes(lastNode.element.path) || (node.element.path === lastNode.element.path)) {
               lastNode = lastNode.parent;
             }
             node.name = node.element.path.replace(lastNode.element.path + '.', '');
+
             node.parent = lastNode;
             lastNode.children.push(node);
           }
@@ -106,6 +114,15 @@ export class StructureDefinitionDetailComponent implements OnInit {
       }
     data = this.removeEmptyNodes(data);
     this.nestedDataSource.data = data
+  }
+
+  inDifferential(element: fhir.ElementDefinition): Boolean {
+    for (let diffelement of this.structureDefinition.differential.element) {
+      if (element.id === diffelement.id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   removeEmptyNodes(data:ElementNode[]) :ElementNode[] {
@@ -144,7 +161,9 @@ export class StructureDefinitionDetailComponent implements OnInit {
     //console.log(markdown);
     return markdown ;
   }
-
+  selectNode(node: ElementNode) {
+    this.element = node.element;
+  }
   select(resource) {
     const dialogConfig = new MatDialogConfig();
 

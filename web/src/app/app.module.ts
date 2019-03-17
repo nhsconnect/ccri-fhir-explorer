@@ -105,6 +105,8 @@ import { StructureDefinitionComponent } from './modules/terminology/structure-de
 import {
   StructureDefinitionDetailComponent
 } from './modules/terminology/structure-definition-detail/structure-definition-detail.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
+
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -213,7 +215,11 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     MatSortModule,
     MatTreeModule,
 
+
+      // CDK
+
     DragDropModule,
+    ScrollingModule,
 
     CovalentLayoutModule,
     CovalentStepsModule,
