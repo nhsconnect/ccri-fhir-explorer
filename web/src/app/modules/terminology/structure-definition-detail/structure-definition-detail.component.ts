@@ -1,8 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef, MatTableDataSource} from "@angular/material";
+import {Component, Injectable, OnInit} from '@angular/core';
+import {MatDialog, MatDialogConfig, MatDialogRef, MatTableDataSource, MatTreeNestedDataSource} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
 import {FhirService} from "../../../service/fhir.service";
 import {ResourceDialogComponent} from "../../../dialog/resource-dialog/resource-dialog.component";
+import {BehaviorSubject} from "rxjs";
+import {NestedTreeControl} from "@angular/cdk/tree";
+
+export class ElementNode {
+  children: ElementNode[];
+  parent: ElementNode;
+  name: string;
+  type: string;
+  element: fhir.ElementDefinition;
+}
+
+
+
 
 @Component({
   selector: 'app-structure-definition-detail',
@@ -18,9 +31,28 @@ export class StructureDefinitionDetailComponent implements OnInit {
 
   displayedColumns = ['path', 'type','cardinality', 'comment', 'resource'];
 
+
+  nestedTreeControl: NestedTreeControl<ElementNode>;
+  nestedDataSource: MatTreeNestedDataSource<ElementNode>;
+
+  dataChange = new BehaviorSubject<ElementNode[]>([]);
+
+  get data(): ElementNode[] { return this.dataChange.value; }
+
+
+  hasNestedChild = (_: number, nodeData: ElementNode) => nodeData.children.length>0;
+
+  private _getChildren = (node: ElementNode) => node.children;
+
+
   constructor(public dialog: MatDialog,
               private route: ActivatedRoute,
-              private fhirService: FhirService) { }
+              private fhirService: FhirService) {
+    this.nestedTreeControl = new NestedTreeControl<ElementNode>(this._getChildren);
+    this.nestedDataSource = new MatTreeNestedDataSource();
+
+    //database.dataChange.subscribe(data => this.nestedDataSource.data = data);
+  }
 
   ngOnInit() {
 
@@ -37,8 +69,60 @@ export class StructureDefinitionDetailComponent implements OnInit {
       this.fhirService.getResource('/StructureDefinition/' + this.definitionid).subscribe( result => {
         this.structureDefinition = result;
         this.dataSource.data = this.structureDefinition.snapshot.element;
+        this.buildTree();
       });
     }
+  }
+
+
+  buildTree() {
+    let lastNode: ElementNode = undefined;
+    let data:ElementNode[] = [];
+    for (let element of this.structureDefinition.snapshot.element) {
+
+      if (lastNode === undefined
+          || (element.base !== undefined && element.base.path === element.path)
+          ) {
+
+          const node = new ElementNode();
+          node.name = element.path;
+          node.element = element;
+          node.children = [];
+          if (lastNode === undefined) {
+            //node.type = element.path;
+            data.push(node);
+
+          } else {
+            while (!node.element.path.includes(lastNode.element.path) && (node.element.path !== lastNode.element.path)) {
+              lastNode = lastNode.parent;
+            }
+            node.name = node.element.path.replace(lastNode.element.path + '.', '');
+            node.parent = lastNode;
+            lastNode.children.push(node);
+          }
+
+          lastNode = node;
+        }
+      }
+    data = this.removeEmptyNodes(data);
+    this.nestedDataSource.data = data
+  }
+
+  removeEmptyNodes(data:ElementNode[]) :ElementNode[] {
+
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].element.max === '0') {
+
+       data.splice(i,1);
+
+      } else {
+        if (data[i].children.length > 0) {
+          data[i].children = this.removeEmptyNodes(data[i].children);
+        }
+      }
+    }
+
+    return data;
   }
 
   view(resource) {

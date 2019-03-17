@@ -39,7 +39,35 @@
           <div class="mat-card-content" ><b>Description</b> {{structureDefinition.description}}</div>
           <div class="mat-card-content mat-body-1" ><b>Publisher</b> {{structureDefinition.publisher}}</div>
           <div class="mat-card-content mat-body-1" ><b>Copyright</b> {{structureDefinition.copyright}}</div>
-       
+
+
+            <mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl" class="example-tree">
+              <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+                <li class="mat-tree-node">
+                  <button mat-icon-button disabled></button>
+                    {{node.name}} <button mat-icon-button color="accent"  matTooltip="View Element" (click)="select(node.element)"><mat-icon>code</mat-icon></button>
+                </li>
+              </mat-tree-node>
+
+              <mat-nested-tree-node *matTreeNodeDef="let node; when: hasNestedChild">
+                <li>
+                  <div class="mat-tree-node">
+                        <button mat-icon-button matTreeNodeToggle
+                                [attr.aria-label]="'toggle ' + node.filename">
+                          <mat-icon class="mat-icon-rtl-mirror">
+                            {{nestedTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                          </mat-icon>
+                        </button>
+                      {{node.name}}  <button mat-icon-button color="accent"  matTooltip="View Element" (click)="select(node.element)"><mat-icon>code</mat-icon></button>
+                    </div>
+                  <ul [class.example-tree-invisible]="!nestedTreeControl.isExpanded(node)">
+                    <ng-container matTreeNodeOutlet></ng-container>
+                  </ul>
+                </li>
+              </mat-nested-tree-node>
+            </mat-tree>
+
+            <!--
        <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
 
 
@@ -91,7 +119,7 @@
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+        </table> -->
         </mat-card-content>
        <mat-card-actions>
           <button mat-button placement="top" (click)="view(structureDefinition)"  color="accent"><mat-icon>code</mat-icon>
