@@ -27,9 +27,16 @@ export class StructureDefinitionDetailComponent implements OnInit {
   definitionid = undefined;
   structureDefinition: fhir.StructureDefinition;
 
-  public dataSource = new MatTableDataSource<fhir.ElementDefinition>();
+  //public dataSource = new MatTableDataSource<fhir.ElementDefinition>();
 
-  displayedColumns = ['path', 'type','cardinality', 'comment', 'resource'];
+
+  public constraintdataSource = new MatTableDataSource<fhir.ElementDefinitionConstraint>();
+  public bindingdataSource = new MatTableDataSource<fhir.ElementDefinitionBinding>();
+
+  //displayedColumns = ['path', 'type','cardinality', 'comment', 'resource'];
+
+  displayedConstraintColumns = ['key', 'severity','human', 'expression', 'xpath'];
+  displayedBindingColumns = [ 'strength', 'description', 'valueset'];
 
   element: fhir.ElementDefinition = undefined;
 
@@ -69,12 +76,22 @@ export class StructureDefinitionDetailComponent implements OnInit {
     if (this.definitionid !== undefined) {
       this.fhirService.getResource('/StructureDefinition/' + this.definitionid).subscribe( result => {
         this.structureDefinition = result;
-        this.dataSource.data = this.structureDefinition.snapshot.element;
+        //this.dataSource.data = this.structureDefinition.snapshot.element;
+
         this.buildTree();
       });
     }
   }
 
+  getLink(type: fhir.ElementDefinitionType) {
+    if (type.targetProfile !== undefined) {
+      return type.targetProfile;
+    }
+    if (type.profile !== undefined) {
+      return type.profile;
+    }
+    return 'https://www.hl7.org/fhir/stu3/datatypes.html#'+type.code;
+  }
 
   buildTree() {
     let lastNode: ElementNode = undefined;
@@ -96,9 +113,9 @@ export class StructureDefinitionDetailComponent implements OnInit {
 
           } else {
             if (node.element.sliceName !== undefined) {
-              console.log(node.element.path);
-              console.log(lastNode.element.path);
-              console.log(node.element.path.includes(lastNode.element.path));
+              //console.log(node.element.path);
+              //console.log(lastNode.element.path);
+              //console.log(node.element.path.includes(lastNode.element.path));
             }
             while (!node.element.path.includes(lastNode.element.path) || (node.element.path === lastNode.element.path)) {
               lastNode = lastNode.parent;
@@ -162,7 +179,13 @@ export class StructureDefinitionDetailComponent implements OnInit {
     return markdown ;
   }
   selectNode(node: ElementNode) {
+    console.log('selectNode');
     this.element = node.element;
+    this.constraintdataSource.data = node.element.constraint;
+    this.bindingdataSource.data = [];
+    if (node.element.binding != undefined) {
+      this.bindingdataSource.data.push(node.element.binding);
+    }
   }
   select(resource) {
     const dialogConfig = new MatDialogConfig();
