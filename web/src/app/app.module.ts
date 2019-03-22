@@ -41,7 +41,6 @@ import {
 
 
 } from '@angular/material';
-import {MAT_MOMENT_DATE_FORMATS, MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {MainComponent} from './modules/explorer/main/main.component';
 import { ConformanceComponent } from './modules/explorer/conformance/conformance.component';
 import { ResourceComponent } from './modules/explorer/resource/resource.component';
@@ -187,8 +186,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       CookieModule
           .forRoot(),
 
-
-    MatMomentDateModule,
     MatDatepickerModule,
     MatSidenavModule,
     MatInputModule,
@@ -273,9 +270,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 
 
 
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    /*  { provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+      {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS}, */
     {
           provide: ErrorHandler,
           useClass: ErrorsHandler,
