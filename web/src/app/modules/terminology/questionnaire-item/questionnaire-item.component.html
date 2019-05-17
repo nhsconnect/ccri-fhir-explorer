@@ -1,6 +1,10 @@
 
-      <td-expansion-panel [style]="getStyle(depth)" label="{{item.text}}" sublabel="linkId={{item.linkId}}" [disabled]="disabled">
-
+      <td-expansion-panel>
+        <ng-template td-expansion-panel-header>
+          <mat-toolbar color="accent">
+            <span><small><i>{{item.linkId}}</i></small> - {{item.text}}</span>
+          </mat-toolbar>
+        </ng-template>
       <div class="mat-card-content">
         <mat-chip-list class="mat-chip">
           <mat-chip color="accent" selected="true" *ngIf="item.repeats">repeats
