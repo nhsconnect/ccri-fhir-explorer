@@ -96,7 +96,7 @@
             </div>
           <div class="item item-2" fxFlex="95%">
               <span *ngFor="let subitem of item.item">
-                <td-expansion-panel-group [multi]="multi" #panelGroup>
+                <td-expansion-panel-group multi="true" #panelGroup>
                       <app-questionnaire-item [item]="subitem" [depth]="depth+1"></app-questionnaire-item>
                 </td-expansion-panel-group>
               </span>
