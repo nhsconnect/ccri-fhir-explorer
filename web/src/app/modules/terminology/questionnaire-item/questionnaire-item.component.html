@@ -5,7 +5,12 @@
             <span><small><i>{{item.linkId}}</i></small> - {{item.text}}</span>
           </mat-toolbar>
         </ng-template>
-      <div class="mat-card-content">
+      <div class="mat-card-content"
+           fxLayout
+           fxLayout.xs="column"
+           fxLayoutAlign="left"
+           fxLayoutGap="10px"
+           fxLayoutGap.xs="0">
         <mat-chip-list class="mat-chip">
           <mat-chip color="accent" selected="true" *ngIf="item.repeats">repeats
           </mat-chip>
@@ -13,6 +18,21 @@
           </mat-chip>
         </mat-chip-list>
       </div>
+        <div class="mat-card-content"
+             fxLayout
+             fxLayout.xs="column"
+             fxLayoutAlign="left"
+             fxLayoutGap="10px"
+             fxLayoutGap.xs="0">
+          <div *ngIf="item.enableWhen !== undefined" class="mat-body-1" fxFlex="100%">
+            <mat-chip color="accent" selected="true">enableWhen
+            </mat-chip>
+            <span *ngFor="let enable of item.enableWhen">
+                 Question {{enable.question}} has answer of
+                  <span *ngIf="enable.answerCoding !== undefined"> <i>{{enable.answerCoding.display}} ({{enable.answerCoding.code}})</i> </span>
+                </span>
+          </div>
+        </div>
         <div class="mat-card-content"
              fxLayout
              fxLayout.xs="column"
@@ -34,6 +54,7 @@
               </mat-list-item>
             </mat-list>
           </div>
+
             <div class="mat-body-1" fxFlex="50%">
               <span *ngIf="item.options !== undefined">
                 <a [href]="item.options.reference" target="_blank">{{item.options.reference}}</a>
@@ -49,7 +70,11 @@
               <span *ngIf="item.definition !== undefined">
                 {{item.definition}}
               </span>
+
+
             </div>
+
+
           <div class="mat-body-1" fxFlex="10%">
             <button mat-button (click)="select(item)"  color="accent"><mat-icon>code</mat-icon>
               Item</button>

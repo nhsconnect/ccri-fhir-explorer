@@ -5,7 +5,7 @@
 
     <groupId>uk.nhs.careconnect.ri</groupId>
     <artifactId>ccri-fhir-explorer</artifactId>
-    <version>3.7.1</version>
+    <version>3.8.0</version>
     <packaging>jar</packaging>
 
     <name>ccri-fhir-explorer</name>
