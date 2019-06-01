@@ -105,6 +105,8 @@ import {
   StructureDefinitionDetailComponent
 } from './modules/terminology/structure-definition-detail/structure-definition-detail.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import { ObservationDefinitionComponent } from './modules/terminology/observation-definition/observation-definition.component';
+import { ObservationDefinitionSummaryComponent } from './modules/terminology/observation-definition-summary/observation-definition-summary.component';
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -165,7 +167,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CapabilityStatementSearchParamOptionComponent,
     ValidateComponent,
     StructureDefinitionComponent,
-    StructureDefinitionDetailComponent
+    StructureDefinitionDetailComponent,
+    ObservationDefinitionComponent,
+    ObservationDefinitionSummaryComponent
 
 
   ],

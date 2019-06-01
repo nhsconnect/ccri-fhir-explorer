@@ -18,6 +18,8 @@ import {GraphDefinitionDetailComponent} from './terminology/graph-definition-det
 import {ValidateComponent} from './terminology/validate/validate.component';
 import {StructureDefinitionComponent} from "./terminology/structure-definition/structure-definition.component";
 import {StructureDefinitionDetailComponent} from "./terminology/structure-definition-detail/structure-definition-detail.component";
+import {ObservationDefinitionSummaryComponent} from "./terminology/observation-definition-summary/observation-definition-summary.component";
+import {ObservationDefinitionComponent} from "./terminology/observation-definition/observation-definition.component";
 
 const dosRoutes: Routes = [
   {
@@ -36,6 +38,8 @@ const dosRoutes: Routes = [
       { path: 'valuesets/:valuesetid', component: ValueSetDetailComponent},
       { path: 'conceptmaps', component: ConceptMapsComponent},
       { path: 'conceptmaps/:conceptmapid', component: ConceptMapDetailComponent},
+      { path: 'observation', component: ObservationDefinitionSummaryComponent},
+      { path: 'observation/:observationid', component: ObservationDefinitionComponent},
       { path: 'questionnaire', component: QuestionnaireSummaryComponent},
       { path: 'questionnaire/:questionnaireid', component: QuestionnaireComponent},
       { path: 'structure', component: StructureDefinitionComponent},
