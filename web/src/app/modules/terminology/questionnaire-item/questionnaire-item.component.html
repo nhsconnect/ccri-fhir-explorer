@@ -21,13 +21,15 @@
           </mat-chip-list>
 
         <span *ngIf="item.code !== undefined" >
-
-            <span *ngFor="let code of item.code">
+ <mat-list>
+            <mat-list-item *ngFor="let code of item.code">
                <mat-icon matListAvatar color="accent">explore</mat-icon>
-              Display: <b>{{code.display}}</b>
-              Code: <i>{{code.code}} (System: {{code.system}})</i>
-                </span>
+              &nbsp; Code: &nbsp;<b>{{code.display}}</b>
+              (Concept:&nbsp; <i>{{code.code}}&nbsp; System:&nbsp; {{code.system}})</i>
+                </mat-list-item>
+ </mat-list>
             </span>
+
         </div>
       </div>
         <div class="mat-card-content"
