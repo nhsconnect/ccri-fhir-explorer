@@ -63,7 +63,7 @@ public class CamelMonitorRoute extends RouteBuilder {
 				.enableCORS(true);
 
 
-		BrexitUrlRewrite brexit = new BrexitUrlRewrite();
+		//BrexitUrlRewrite brexit = new BrexitUrlRewrite();
 
 		log.info("Starting Camel Route MAIN FHIR Server = " + serverBase);
 
