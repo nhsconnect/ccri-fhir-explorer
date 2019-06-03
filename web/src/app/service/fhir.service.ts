@@ -118,6 +118,13 @@ export class FhirService {
           if (location.href.includes('data.developer-test.nhs.uk')) {
               return 'https://data.developer-test.nhs.uk/ccri-fhir/STU3';
           }
+          // Changes to guesstimate baseUrl
+          if (location.href.includes('35.176.40.215.xip.io')) {
+              return 'https://35.176.40.215.xip.io/ccri-fhir/STU3';
+          }
+          if (!location.origin.includes('localhost') && !location.origin.includes('127.0.0.1')) {
+              return location.origin+'/ccri-fhir/STU3';
+          }
           if (retStr === undefined) return 'http://localhost:8186/ccri-fhir/STU3';
 
       }
