@@ -16,6 +16,7 @@ export class GraphDefinitionLinkComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
   getLeft() {

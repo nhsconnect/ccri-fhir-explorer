@@ -79,7 +79,7 @@ public class CamelMonitorRoute extends RouteBuilder {
 				+"\"oauth2client_secret\": \""+oauth2client_secret+"\", "
 				+"\"oauth2cookie_domain\": \""+oauth2cookie_domain+"\""
 				+ " }");
-
+/*
 		rest("/fhir")
 				.get("/ods/{path}").to("direct:ods")
 				.get("/nrls/{path}").to("direct:nrls")
@@ -111,6 +111,9 @@ public class CamelMonitorRoute extends RouteBuilder {
 		from("servlet:tkw?matchOnUriPrefix=true")
 				.routeId("tkw-validator")
 				.to(jmxTKW);
+
+				*/
+
 
     }
 

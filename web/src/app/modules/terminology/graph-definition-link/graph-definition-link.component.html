@@ -21,6 +21,9 @@
         </span>
     </div>
   </div>
+      <div *ngIf="link.sliceName !== undefined" class="mat-card-content">
+          <b>Slice</b> {{link.sliceName}}
+      </div>
   <div class="mat-card-content">
   <b>Description</b> <td-markdown [content]="getMarkdown(link.description)">
   </td-markdown>
