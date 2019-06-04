@@ -30,8 +30,11 @@ export class ValueSetDetailComponent implements OnInit {
   }
 
   doSetup() {
-    this.valuesetid = this.route.snapshot.paramMap.get('valuesetid');
-    if (this.valuesetid !== undefined) {
+
+    const tempid = this.route.snapshot.paramMap.get('valuesetid');
+    if (tempid !== undefined && tempid !== this.valuesetid) {
+      this.valuesetid = tempid;
+
       this.fhirService.getResource('/ValueSet/' + this.valuesetid + '/$expand').subscribe(result => {
         this.valueSet = result;
       });

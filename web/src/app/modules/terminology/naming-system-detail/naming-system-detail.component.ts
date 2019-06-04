@@ -27,8 +27,11 @@ export class NamingSystemDetailComponent implements OnInit {
   }
 
   doSetup() {
-    this.namingSystemid = this.route.snapshot.paramMap.get('namingsystemid');
-    if (this.namingSystemid !== undefined) {
+
+    const tempid = this.route.snapshot.paramMap.get('namingsystemid');
+    if (tempid !== undefined && tempid !== this.namingSystemid) {
+      this.namingSystemid = tempid;
+
       this.fhirService.getResource('/NamingSystem/' + this.namingSystemid).subscribe( result => {
         this.namingSystem = result;
       });

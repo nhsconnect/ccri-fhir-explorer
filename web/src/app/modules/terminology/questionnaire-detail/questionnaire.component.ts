@@ -28,7 +28,7 @@ export class QuestionnaireComponent implements OnInit {
   ngOnInit() {
 
 
-   this.doSetup();
+    this.doSetup();
 
     this.route.url.subscribe( url => {
       this.doSetup();
@@ -37,8 +37,12 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   doSetup() {
-    this.questionnaireid = this.route.snapshot.paramMap.get('questionnaireid');
-    this.getQuestionnaire();
+
+    const tempid = this.route.snapshot.paramMap.get('questionnaireid');
+    if (this.questionnaireid !== tempid) {
+      this.questionnaireid = tempid;
+      this.getQuestionnaire();
+    }
   }
 
   getQuestionnaire() {

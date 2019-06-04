@@ -72,8 +72,11 @@ export class StructureDefinitionDetailComponent implements OnInit {
   }
 
   doSetup() {
-    this.definitionid = this.route.snapshot.paramMap.get('definitionid');
-    if (this.definitionid !== undefined) {
+
+    const tempid = this.route.snapshot.paramMap.get('definitionid');
+    if (tempid !== undefined && tempid !== this.definitionid) {
+      this.definitionid = tempid;
+
       this.fhirService.getResource('/StructureDefinition/' + this.definitionid).subscribe( result => {
         this.structureDefinition = result;
         //this.dataSource.data = this.structureDefinition.snapshot.element;

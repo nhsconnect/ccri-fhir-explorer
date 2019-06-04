@@ -50,8 +50,9 @@ export class ConceptMapDetailComponent implements OnInit {
   }
 
   doSetup() {
-    this.conceptmapid = this.route.snapshot.paramMap.get('conceptmapid');
-    if (this.conceptmapid !== undefined) {
+    const tempid = this.route.snapshot.paramMap.get('conceptmapid');
+    if (tempid !== undefined && tempid !== this.conceptmapid) {
+      this.conceptmapid = tempid;
       this.fhirService.getResource('/ConceptMap/' + this.conceptmapid).subscribe( result => {
         this.conceptMap = result;
       });

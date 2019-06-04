@@ -40,8 +40,11 @@ export class MessageDefinitionDetailComponent implements OnInit {
   }
 
   doSetup() {
-    this.messageid = this.route.snapshot.paramMap.get('messageid');
-    if (this.messageid !== undefined) {
+
+    const tempid = this.route.snapshot.paramMap.get('messageid');
+    if (tempid !== undefined && tempid !== this.messageid) {
+      this.messageid = tempid;
+
       this.fhirService.getResource('/MessageDefinition/' + this.messageid ).subscribe( result => {
         const message: fhir.MessageDefinition = result;
         this.messageDefinition = message;

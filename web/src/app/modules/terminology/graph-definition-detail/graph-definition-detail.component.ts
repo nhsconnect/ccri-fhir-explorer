@@ -42,8 +42,11 @@ export class GraphDefinitionDetailComponent implements OnInit {
   }
 
   doSetup() {
-    this.graphid = this.route.snapshot.paramMap.get('graphid');
-    if (this.graphid !== undefined) {
+
+    const tempid = this.route.snapshot.paramMap.get('graphid');
+    if (tempid !== undefined && tempid !== this.graphid) {
+      this.graphid = tempid;
+
       this.fhirService.getResource('/GraphDefinition/' + this.graphid ).subscribe( result => {
         const graph: fhir.GraphDefinition = result;
         this.graph = graph;

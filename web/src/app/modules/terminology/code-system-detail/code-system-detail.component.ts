@@ -28,8 +28,9 @@ export class CodeSystemDetailComponent implements OnInit {
   }
 
   doSetup() {
-    this.codesystemid = this.route.snapshot.paramMap.get('codesystemid');
-    if (this.codesystemid !== undefined) {
+    const tempid = this.route.snapshot.paramMap.get('codesystemid');
+    if (tempid!== undefined && this.codesystemid !== tempid ) {
+      this.codesystemid = tempid;
       this.fhirService.getResource('/CodeSystem/' + this.codesystemid).subscribe( result => {
         this.codeSystem = result;
       });
