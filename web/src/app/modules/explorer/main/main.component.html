@@ -1,20 +1,17 @@
 <mat-card>
-  <mat-card-title>Care Connect Reference Implementation</mat-card-title>
- <!-- <mat-card-subtitle>About</mat-card-subtitle> -->
-  <mat-divider></mat-divider>
-  <mat-card-content>
-    <div>
-      You are accessing the INTEROpen/NHS Digital Care Connect Reference Implementations. <br>
-      <br>
+    <mat-card-title>
+        <span *ngIf="conformance !== undefined && conformance.implementation !== undefined">
 
-      <td-message label="Note" sublabel="All information provided is subject to on-going review." color="info" icon="info">
+            <span *ngIf="conformance.implementation !== undefined">
+                  {{conformance.implementation.description}}
 
-      </td-message>
+             </span>
+            ({{conformance.software.name}})
+        </span>
+    </mat-card-title>
+    <mat-card-content>
+        <td-message label="Info" sublabel="This is not a production server.  Do not store any information here that contains personal health information or any other confidential information. This server will be regularly purged and reloaded with fixed test data." color="accent" icon="info"></td-message>
 
-    </div>
-    <br>
-    This is not a production server.  Do not store any information here that contains personal health information or any other confidential information. This server will be regularly purged and reloaded with fixed test data.
-    purged and reloaded with fixed test data.
   </mat-card-content>
   <mat-divider></mat-divider>
  <!-- <mat-card-actions>
@@ -32,9 +29,17 @@
 
               <mat-list-item>
                   <span flex-auto fxLayoutAlign="space-between center">
-                  Server
+                  Implementation
                   <b><span *ngIf="conformance.implementation !== undefined">
                   {{conformance.implementation.description}}
+                  </span></b>
+                    </span>
+              </mat-list-item>
+                <mat-list-item>
+                  <span flex-auto fxLayoutAlign="space-between center">
+                  Software
+                  <b><span *ngIf="conformance.software !== undefined">
+                  {{conformance.software.name}}
                   </span></b>
                     </span>
               </mat-list-item>
