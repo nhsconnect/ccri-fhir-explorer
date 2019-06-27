@@ -29,10 +29,11 @@ public class CorsFilter implements Filter {
             if (response.getHeader("Access-Control-Allow-Headers") == null || response.getHeader("Access-Control-Allow-Header").isEmpty()) {
                 response.setHeader("Access-Control-Allow-Headers", "X-FHIR-Starter,authorization,Prefer,Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers");
             }
+        }
             if (!"OPTIONS".equals(request.getMethod())) {
                 chain.doFilter(req, res);
             }
-        }
+
     }
 
     @Override
