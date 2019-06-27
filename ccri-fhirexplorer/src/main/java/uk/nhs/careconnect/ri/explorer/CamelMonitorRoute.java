@@ -60,7 +60,10 @@ public class CamelMonitorRoute extends RouteBuilder {
 				.component("servlet")
 				.contextPath("api")
 				.dataFormatProperty("prettyPrint", "true")
-				.enableCORS(true);
+				.enableCORS(true)
+				.corsAllowCredentials(true) // <-- Important
+				.corsHeaderProperty("Access-Control-Allow-Origin","*")
+				.corsHeaderProperty("Access-Control-Allow-Headers","Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");;
 
 
 		BrexitUrlRewrite brexit = new BrexitUrlRewrite();
