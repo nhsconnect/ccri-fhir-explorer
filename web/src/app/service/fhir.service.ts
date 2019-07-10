@@ -174,7 +174,7 @@ export class FhirService {
     }
 
     public getR4ServerBase() {
-        return this.getR4ServerBase();
+        return this.R4baseUrl;
     }
 
     public getFHIRNRLSServerBase() {

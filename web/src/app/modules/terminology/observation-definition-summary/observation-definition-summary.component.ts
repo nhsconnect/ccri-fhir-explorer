@@ -4,6 +4,7 @@ import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResourceDialogComponent} from "../../../dialog/resource-dialog/resource-dialog.component";
 import {ObservationDefinitionDataSource} from "../../../data-source/observation-definition-system-data-source";
+import {R4} from "@ahryman40k/ts-fhir-types";
 
 @Component({
   selector: 'app-observation-definition-summary',
@@ -12,17 +13,17 @@ import {ObservationDefinitionDataSource} from "../../../data-source/observation-
 })
 export class ObservationDefinitionSummaryComponent implements OnInit {
 
-  observationDefinitions: any[];
+  observationDefinitions: R4.IObservationDefinition[];
 
   searchInputName;
 
   // searchInputPublisher;
 
-  searchInputUrl;
+  searchInputCode;
 
   dataSource: ObservationDefinitionDataSource;
 
-  displayedColumns = ['view', 'name', 'kind', 'publisher', 'type', 'status', 'resource'];
+  displayedColumns = ['name', 'category', 'datatype', 'valueset', 'units', 'resource'];
 
   constructor(private fhirService: FhirService,
               public dialog: MatDialog,
@@ -32,15 +33,15 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
   ngOnInit() {
   }
 
-  search(name, uri) {
+  search(name, code) {
     //console.log(event);
     this.observationDefinitions = [];
 
     if (name !== undefined) {
       this.searchInputName = name;
     }
-    if (uri !== undefined) {
-      this.searchInputUrl = uri;
+    if (code !== undefined) {
+      this.searchInputCode = code;
     }
 
     let url = '/ObservationDefinition';
@@ -48,11 +49,11 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
     if (this.searchInputName !== undefined) {
       url = url + '?name='+ this.searchInputName;
     }
-    if (this.searchInputUrl !== undefined) {
+    if (this.searchInputCode !== undefined && this.searchInputCode !== '') {
       if (this.searchInputName === undefined) {
-        url = url + '?value='+ this.searchInputUrl;
+        url = url + '?code='+ this.searchInputCode;
       } else {
-        url = url + '&value='+ this.searchInputUrl;
+        url = url + '&code='+ this.searchInputCode;
       }
     }
     url = url + '&_count=20';
@@ -65,7 +66,7 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
           if (bundle.entry !== undefined) {
             for (const entry of bundle.entry) {
               if (entry.resource.resourceType === 'ObservationDefinition') {
-                this.observationDefinitions.push(entry.resource);
+                this.observationDefinitions.push(<R4.IObservationDefinition> entry.resource);
               }
             }
           }
@@ -86,7 +87,18 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
     const resourceDialog: MatDialogRef<ResourceDialogComponent> = this.dialog.open( ResourceDialogComponent, dialogConfig);
   }
 
-  view(observationDefinition: any) {
+  selectValueSet(observationDefinition: R4.IObservationDefinition) {
+      if (observationDefinition.validCodedValueSet !== undefined && observationDefinition.validCodedValueSet.reference !== null ) {
+         this.fhirService.get('/ValueSet?url='+observationDefinition.validCodedValueSet.reference).subscribe(
+             bundle => {
+               if (bundle !== undefined && bundle.entry.length > 0) {
+                 this.router.navigateByUrl('term/valuesets/'+bundle.entry[0].resource.id);
+               }
+             }
+         )
+      }
+  }
+  view(observationDefinition: R4.IObservationDefinition) {
     this.router.navigate([observationDefinition.id], {relativeTo: this.route });
   }
 
