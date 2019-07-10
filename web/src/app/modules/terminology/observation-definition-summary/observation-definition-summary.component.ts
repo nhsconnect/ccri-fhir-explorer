@@ -3,7 +3,7 @@ import {FhirService} from "../../../service/fhir.service";
 import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResourceDialogComponent} from "../../../dialog/resource-dialog/resource-dialog.component";
-import {NamingSystemDataSource} from "../../../data-source/naming-system-data-source";
+import {ObservationDefinitionDataSource} from "../../../data-source/observation-definition-system-data-source";
 
 @Component({
   selector: 'app-observation-definition-summary',
@@ -20,7 +20,7 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
 
   searchInputUrl;
 
-  dataSource: NamingSystemDataSource;
+  dataSource: ObservationDefinitionDataSource;
 
   displayedColumns = ['view', 'name', 'kind', 'publisher', 'type', 'status', 'resource'];
 
@@ -43,7 +43,7 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
       this.searchInputUrl = uri;
     }
 
-    let url = '/NamingSystem';
+    let url = '/ObservationDefinition';
 
     if (this.searchInputName !== undefined) {
       url = url + '?name='+ this.searchInputName;
@@ -69,7 +69,7 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
               }
             }
           }
-          this.dataSource = new NamingSystemDataSource(this.fhirService,  this.observationDefinitions);
+          this.dataSource = new ObservationDefinitionDataSource(this.fhirService,  this.observationDefinitions);
         }
     );
   }
