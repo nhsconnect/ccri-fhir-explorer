@@ -87,7 +87,7 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
   }
 
   view(observationDefinition: any) {
-    this.router.navigate([namingSystem.id], {relativeTo: this.route });
+    this.router.navigate([observationDefinition.id], {relativeTo: this.route });
   }
 
 }
