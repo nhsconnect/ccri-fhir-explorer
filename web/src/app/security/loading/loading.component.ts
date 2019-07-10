@@ -58,7 +58,7 @@ export class LoadingComponent implements OnInit {
 
   redirectToEDMS() {
     console.log('Navigate to EDMS');
-    this.router.navigate(['exp']).then( () => {
+    this.router.navigate(['term']).then( () => {
       // console.log('Navigate by Url');
     });
   }

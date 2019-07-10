@@ -12,7 +12,7 @@ import {NamingSystemDataSource} from "../../../data-source/naming-system-data-so
 })
 export class ObservationDefinitionSummaryComponent implements OnInit {
 
-  namingSystems: fhir.NamingSystem[];
+  observationDefinitions: any[];
 
   searchInputName;
 
@@ -34,7 +34,7 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
 
   search(name, uri) {
     //console.log(event);
-    this.namingSystems = [];
+    this.observationDefinitions = [];
 
     if (name !== undefined) {
       this.searchInputName = name;
@@ -59,17 +59,17 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
 
 
 
-    this.fhirService.get(url).subscribe(
+    this.fhirService.getR4(url).subscribe(
         result => {
           const bundle = <fhir.Bundle> result;
           if (bundle.entry !== undefined) {
             for (const entry of bundle.entry) {
-              if (entry.resource.resourceType === 'NamingSystem') {
-                this.namingSystems.push(<fhir.NamingSystem>entry.resource);
+              if (entry.resource.resourceType === 'ObservationDefinition') {
+                this.observationDefinitions.push(entry.resource);
               }
             }
           }
-          this.dataSource = new NamingSystemDataSource(this.fhirService,  this.namingSystems);
+          this.dataSource = new NamingSystemDataSource(this.fhirService,  this.observationDefinitions);
         }
     );
   }
@@ -86,7 +86,7 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
     const resourceDialog: MatDialogRef<ResourceDialogComponent> = this.dialog.open( ResourceDialogComponent, dialogConfig);
   }
 
-  view(namingSystem: fhir.NamingSystem) {
+  view(observationDefinition: any) {
     this.router.navigate([namingSystem.id], {relativeTo: this.route });
   }
 
