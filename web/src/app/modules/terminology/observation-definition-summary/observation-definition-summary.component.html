@@ -77,10 +77,12 @@
       <th mat-header-cell *matHeaderCellDef> ValueSet </th>
       <td mat-cell *matCellDef="let observationDefinition">
         <span *ngIf="observationDefinition.validCodedValueSet != undefined">
-          <a (click)="selectValueSet(observationDefinition)">{{observationDefinition.validCodedValueSet.display}}
-          <br>
-          <i>{{observationDefinition.validCodedValueSet.reference}}</i>
-          </a>
+
+           <button mat-icon-button color="accent"  matTooltip="{{observationDefinition.validCodedValueSet.reference}}" (click)="selectValueSet(observationDefinition)">
+             <mat-icon>assignment</mat-icon>
+          {{observationDefinition.validCodedValueSet.display}}
+
+           </button>
         </span>
       </td>
 
