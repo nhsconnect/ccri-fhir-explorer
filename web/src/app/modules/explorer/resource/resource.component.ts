@@ -58,10 +58,10 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
   public currentResource = '';
 
-  @ViewChild('field') field: MatSelect;
+  @ViewChild('field' , { "static": true}) field: MatSelect;
 
-  @ViewChild('dynform') form: TdDynamicFormsComponent;
-  @ViewChild('dynform1') form1 : TdDynamicFormsComponent;
+  @ViewChild('dynform', { "static": true}) form: TdDynamicFormsComponent;
+  @ViewChild('dynform1', { "static": true}) form1 : TdDynamicFormsComponent;
   public elements :ITdDynamicElementConfig[] = [
  ];
 

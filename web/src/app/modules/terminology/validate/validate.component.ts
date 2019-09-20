@@ -12,7 +12,7 @@ import {FormControl, Validators} from "@angular/forms";
 })
 export class ValidateComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { "static": true}) sort: MatSort;
 
   files: any;
 
