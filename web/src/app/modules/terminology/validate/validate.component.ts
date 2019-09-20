@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {MatSort, MatTableDataSource} from "@angular/material";
-import {ActivatedRoute, Router} from "@angular/router";
 import {FhirService} from "../../../service/fhir.service";
 import {TdLoadingService} from "@covalent/core";
+import {AfterViewInit, Component, EventEmitter, OnInit, ViewChild} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-validate',
@@ -12,7 +13,7 @@ import {FormControl, Validators} from "@angular/forms";
 })
 export class ValidateComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {  "static": true}) sort: MatSort;
 
   files: any;
 

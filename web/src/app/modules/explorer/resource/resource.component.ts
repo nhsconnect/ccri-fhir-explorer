@@ -58,10 +58,10 @@ export class ResourceComponent implements OnInit, AfterViewInit {
 
   public currentResource = '';
 
-  @ViewChild('field') field: MatSelect;
+  @ViewChild('field',{"static": true}) field: MatSelect;
 
-  @ViewChild('dynform') form: TdDynamicFormsComponent;
-  @ViewChild('dynform1') form1 : TdDynamicFormsComponent;
+  @ViewChild('dynform',{"static": true}) form: TdDynamicFormsComponent;
+  @ViewChild('dynform1',{"static": true}) form1 : TdDynamicFormsComponent;
   public elements :ITdDynamicElementConfig[] = [
  ];
 
@@ -74,7 +74,6 @@ export class ResourceComponent implements OnInit, AfterViewInit {
     }
 
     ];
-   public selectedValue: string;
 
    public options: QueryOptions[] = [
 
@@ -86,9 +85,6 @@ export class ResourceComponent implements OnInit, AfterViewInit {
                 private route: ActivatedRoute) { }
 
   ngOnInit() {
-     // console.log('Resource Init called'+ this.router.url);
-
-
 
 
       this.resourceType = this.route.snapshot.paramMap.get('resourceType');
@@ -108,8 +104,7 @@ export class ResourceComponent implements OnInit, AfterViewInit {
       }
 
       this.route.url.subscribe( url => {
-          // console.log('activated route url ='+url);
-          // console.log('activated route segment ='+url[0]);
+
           if (url[0].path === 'resource') {
               const resourceType = this.route.snapshot.paramMap.get('resourceType');
               this.resource = undefined;
