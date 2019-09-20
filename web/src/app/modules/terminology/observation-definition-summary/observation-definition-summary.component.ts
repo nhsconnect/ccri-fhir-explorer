@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ResourceDialogComponent} from "../../../dialog/resource-dialog/resource-dialog.component";
 import {ObservationDefinitionDataSource} from "../../../data-source/observation-definition-system-data-source";
 import {R4} from "@ahryman40k/ts-fhir-types";
+import {LinksService} from "../../../service/links.service";
 
 @Component({
   selector: 'app-observation-definition-summary',
@@ -26,6 +27,7 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
   displayedColumns = ['name', 'category', 'datatype', 'valueset', 'units', 'resource'];
 
   constructor(private fhirService: FhirService,
+              private linksService: LinksService,
               public dialog: MatDialog,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -100,6 +102,12 @@ export class ObservationDefinitionSummaryComponent implements OnInit {
   }
   view(observationDefinition: R4.IObservationDefinition) {
     this.router.navigate([observationDefinition.id], {relativeTo: this.route });
+  }
+
+  selectCode(code: any) {
+    if (this.linksService.isSNOMED(code.system)) {
+      window.open(this.linksService.getSNOMEDLink(code), '_blank');
+    }
   }
 
 }

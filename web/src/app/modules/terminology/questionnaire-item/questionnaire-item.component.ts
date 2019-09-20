@@ -4,6 +4,7 @@ import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 import {ResourceDialogComponent} from '../../../dialog/resource-dialog/resource-dialog.component';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FhirService} from "../../../service/fhir.service";
+import {LinksService} from "../../../service/links.service";
 
 @Component({
   selector: 'app-questionnaire-item',
@@ -25,6 +26,7 @@ export class QuestionnaireItemComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fhirService: FhirService,
+    private linksService: LinksService,
     private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
@@ -73,6 +75,12 @@ export class QuestionnaireItemComponent implements OnInit {
       resource: resource
     };
     const resourceDialog: MatDialogRef<ResourceDialogComponent> = this.dialog.open( ResourceDialogComponent, dialogConfig);
+  }
+
+  selectCode(code: any) {
+      if (this.linksService.isSNOMED(code.system)) {
+        window.open(this.linksService.getSNOMEDLink(code), '_blank');
+      }
   }
 
   valueSetClick(uri) {

@@ -4,6 +4,7 @@ import {FhirService} from "../../../service/fhir.service";
 import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResourceDialogComponent} from "../../../dialog/resource-dialog/resource-dialog.component";
+import {LinksService} from "../../../service/links.service";
 
 @Component({
   selector: 'app-observation-definition',
@@ -20,6 +21,7 @@ export class ObservationDefinitionComponent implements OnInit {
 
 
   constructor(private fhirService: FhirService,
+
               public dialog: MatDialog,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -50,9 +52,6 @@ export class ObservationDefinitionComponent implements OnInit {
     const resourceDialog: MatDialogRef<ResourceDialogComponent> = this.dialog.open( ResourceDialogComponent, dialogConfig);
   }
 
-  selectQuestionnaire(questionnaire: fhir.Questionnaire) {
 
-    this.router.navigate([ questionnaire.id ], {relativeTo: this.route});
-  }
 
 }

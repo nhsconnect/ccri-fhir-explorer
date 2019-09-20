@@ -39,10 +39,10 @@
       <th mat-header-cell *matHeaderCellDef width="20%"> Name </th>
       <td mat-cell *matCellDef="let observationDefinition">
         <span *ngIf="observationDefinition.code !== undefined && observationDefinition.code.coding !== undefined && observationDefinition.code.coding.length>0">
-          <b>{{observationDefinition.code.coding[0].display}}</b>
-          <br>
-          {{observationDefinition.code.coding[0].code}}
-          </span>
+           <button mat-button (click)="selectCode(observationDefinition.code.coding[0])" matTooltip="{{observationDefinition.code.coding[0].system}} {{observationDefinition.code.coding[0].code}}" color="accent"><mat-icon>explore</mat-icon>
+              &nbsp; {{observationDefinition.code.coding[0].display}}
+           </button>
+        </span>
 
       </td>
     </ng-container>
@@ -53,9 +53,9 @@
         <span *ngIf="observationDefinition.category !== undefined">
           <span *ngFor="let category of observationDefinition.category">
           <span *ngIf="category.coding !== undefined && category.coding.length>0">
-          <b>{{category.coding[0].display}}</b>
-          <br>
-          {{category.coding[0].code}}
+            <button mat-button (click)="selectCode(category.coding[0])" matTooltip="{{category.coding[0].system}} {{category.coding[0].code}}" color="accent"><mat-icon>explore</mat-icon>
+              &nbsp; {{category.coding[0].display}}
+           </button>
           </span>
           </span>
         </span>

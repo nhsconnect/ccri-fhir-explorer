@@ -23,9 +23,10 @@
         <span *ngIf="item.code !== undefined" >
  <mat-list>
             <mat-list-item *ngFor="let code of item.code">
-               <mat-icon matListAvatar color="accent">explore</mat-icon>
-              &nbsp; Code: &nbsp;<b>{{code.display}}</b>
-              &nbsp; (Concept:&nbsp; <i>{{code.code}}&nbsp; System:&nbsp; {{code.system}})</i>
+
+                <button mat-button (click)="selectCode(code)" matTooltip="{{code.system}} {{code.code}}" color="accent"><mat-icon>explore</mat-icon>
+              &nbsp; Code: &nbsp;{{code.display}}
+                    </button>
                 </mat-list-item>
  </mat-list>
             </span>
