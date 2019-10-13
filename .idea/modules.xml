@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ccri-fhirexplorer/ccri-fhir-explorer.iml" filepath="$PROJECT_DIR$/ccri-fhirexplorer/ccri-fhir-explorer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ccri-fhirexplorer/src/main/main.iml" filepath="$PROJECT_DIR$/ccri-fhirexplorer/src/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
     </modules>
   </component>
