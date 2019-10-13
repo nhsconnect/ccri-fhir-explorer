@@ -39,7 +39,7 @@ export class LoadingComponent implements OnInit {
         console.log('app config present');
         this.redirectToEDMS();
       }
-      // this.appConfig.loadConfig();
+
 
   }
 
@@ -58,8 +58,7 @@ export class LoadingComponent implements OnInit {
 
   redirectToEDMS() {
     console.log('Navigate to EDMS');
-    this.router.navigate(['term']).then( () => {
-      // console.log('Navigate by Url');
+    this.router.navigate(['exp']).then( () => {
     });
   }
 

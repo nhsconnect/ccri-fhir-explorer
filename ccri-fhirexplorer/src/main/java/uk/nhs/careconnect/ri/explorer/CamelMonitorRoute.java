@@ -1,13 +1,6 @@
 package uk.nhs.careconnect.ri.explorer;
 
-import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.http4.HttpComponent;
-import org.apache.camel.impl.JndiRegistry;
-import org.apache.camel.util.jsse.KeyManagersParameters;
-import org.apache.camel.util.jsse.KeyStoreParameters;
-import org.apache.camel.util.jsse.SSLContextParameters;
-import org.apache.camel.util.jsse.TrustManagersParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -66,8 +59,6 @@ public class CamelMonitorRoute extends RouteBuilder {
 			//	.corsHeaderProperty("Access-Control-Allow-Headers","Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");;
 
 
-		//BrexitUrlRewrite brexit = new BrexitUrlRewrite();
-
 		log.info("Starting Camel Route MAIN FHIR Server = " + serverBase);
 
 
@@ -82,13 +73,6 @@ public class CamelMonitorRoute extends RouteBuilder {
 				+"\"oauth2client_secret\": \""+oauth2client_secret+"\", "
 				+"\"oauth2cookie_domain\": \""+oauth2cookie_domain+"\""
 				+ " }");
-/*
-		rest("/fhir")
-				.get("/ods/{path}").to("direct:ods")
-				.get("/nrls/{path}").to("direct:nrls")
-				.get("/gpc/{path}").to("direct:gpc")
-				.get("/gpc/{path}/{id}").to("direct:gpc")
-				.post("/gpc/{path}/{id}").to("direct:gpc");
 
 
 
@@ -107,15 +91,11 @@ public class CamelMonitorRoute extends RouteBuilder {
 
 		from("servlet:cc-smart?matchOnUriPrefix=true")
 				.routeId("ccri-smart")
-				//.setHeader("fixpath",constant("ccri-smart"))
-				//.process(brexit)
 				.to(jmxCCRSmart);
 
 		from("servlet:tkw?matchOnUriPrefix=true")
 				.routeId("tkw-validator")
 				.to(jmxTKW);
-
-				*/
 
 
     }
